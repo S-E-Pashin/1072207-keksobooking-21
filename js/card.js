@@ -36,23 +36,6 @@
 
       // #################
 
-      // console.log(item.author.id);
-
-      // author: {avatar: "img/avatars/user05.png"}
-      // location: {x: 361, y: 517}
-      // offer:
-      // address: "102-0094 Tōkyō-to, Chiyoda-ku, Kioichō, 3"
-      // checkin: "11:00"
-      // checkout: "10:00"
-      // description: "Маленькая квартирка на чердаке. Для самых не требовательных."
-      // features: (3) ["wifi", "washer", "elevator"]
-      // guests: 2
-      // photos: (4) ["https://cdn.ostrovok.ru/t/x500/mec/hotels/5000000/4500000/4493700/4493658/4493658_17_b.jpg", "https://cdn.ostrovok.ru/t/x500/mec/b4/c6/b4c674087f12b74bc71fe073923ec744dfe1ed8f.jpeg", "https://cdn.ostrovok.ru/t/x500/mec/1e/e8/1ee854db105a1f6bcd19ea62e1aa294724af7885.jpeg", "https://cdn.ostrovok.ru/t/x500/mec/ca/9a/ca9ad256650553cdce9d8ff8baad93d4f17b9484.jpeg"]
-      // price: 10000
-      // rooms: 1
-      // title: "Милейший чердачок"
-      // type: "bungalo"
-
       /* 4. Хочу внести данныe из полученного в результате нажатия элемента evt в клон шаблона попапа. */
 
       // var imgPopup = templatePopupClone.querySelector('img');
@@ -102,32 +85,64 @@
     //     return answer;
     // }
 
+    /* Выведите количество гостей и комнат offer.rooms и offer.guests в блок .popup__text--capacity строкой вида {{offer.rooms}} комнаты для {{offer.guests}} гостей. Например, 2 комнаты для 3 гостей. */
+
+    var textCapacityPopup = templatePopupClone.querySelector('.popup__text--capacity');
+    textCapacityPopup.textContent = targetCard.offer.rooms + ' комнаты для ' + targetCard.offer.guests + ' гостей.';/* TODOF в будущем, можно улучшить условием если больше какого то числа то окончание камнат/ы изменяется */
+
+
+      /* Время заезда и выезда offer.checkin и offer.checkout в блок .popup__text--time строкой вида Заезд после {{offer.checkin}}, выезд до {{offer.checkout}}. Например, заезд после 14:00, выезд до 12:00. */
+
+      var textTimePopup = templatePopupClone.querySelector('.popup__text--time');
+      textTimePopup.textContent = 'Заезд после ' +  targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout;
 
 
 
+      /* В список .popup__features выведите все доступные удобства в объявлении. */
+
+      var featuresPopup = templatePopupClone.querySelector('.popup__features');
+      featuresPopup.textContent = targetCard.offer.features;
+
+
+      /* В блок .popup__description выведите описание объекта недвижимости offer.description. */
+
+      var descriptionPopup = templatePopupClone.querySelector('.popup__description');
+      descriptionPopup.textContent = targetCard.offer.description;
+
+
+      /* В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как src соответствующего изображения. */
+      /* <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья"> */
+      // var getPhotosPopup = function (photoMassive) {
+      //   photoMassive.map(function (wizard) {
+      //     '<img src="' + wizard + '" class="popup__photo" width="45" height="40" alt="Фотография жилья">';
+      //   })
+      // };
+
+      var photosPopup = templatePopupClone.querySelector('.popup__photos');
+      var photoPopup = templatePopup.querySelector('.popup__photo');
+      var getPhotosPopup = function (photoMassive) {
+        photoMassive.forEach(function (value) {
+          var photoPopupClone = photoPopup.cloneNode(true);
+          photoPopupClone.src = value;
+          photosPopup.appendChild(photoPopupClone);
+        })
+      };
+      getPhotosPopup(targetCard.offer.photos);
+
+
+      /* Замените src у аватарки пользователя — изображения, которое записано в .popup__avatar — на значения поля author.avatar отрисовываемого объекта. */
+      var avatarPopup = templatePopupClone.querySelector('.popup__avatar');
+      avatarPopup.src = targetCard.author.avatar;
+
+      /* // Другой вариант записи
+      templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar;
+
+      console.log(templatePopupClone.querySelector('.popup__avatar').src); */
+
+      console.log(templatePopupClone);
 
 
 
-
-
-
-
-
-
-
-
-
-      // var textCapacityPopup = templatePopupClone.querySelector('.popup__text--capacity');
-      // textCapacityPopup.textContent = targetCard.offer.address;/* Здесь не все так просто требуется прорабатывать. */
-
-      // var textTimePopup = templatePopupClone.querySelector('.popup__text--time');
-      // textTimePopup.textContent = targetCard.offer.address;
-
-      // var featuresPopup = templatePopupClone.querySelector('.popup__features');
-      // featuresPopup.textContent = targetCard.offer.address;
-
-      // var photosPopup = templatePopupClone.querySelector('.popup__photos');
-      // photosPopup.textContent = targetCard.offer.address;
 
       // var photoPopup = templatePopupClone.querySelector('.popup__photo');
       // photoPopup.textContent = targetCard.offer.address;
@@ -135,17 +150,28 @@
       // console.log('Мгновенный id');
       // console.log(evt.target.id);
       // console.log('Объект выбранной карты');
-      // console.log(targetCard);
+      console.log(targetCard);
       // console.log('заголовок объявления');
       // console.log(titlePopup.textContent);
       // console.log('адрес');
       // console.log(textAddressPopup.textContent);
       // console.log('Цена за ночь');
       // console.log(textPricePopup.textContent);
+      // console.log('Тип');
+      // console.log(typePopup.textContent);
+      // console.log('количество гостей и комнат');
+      // console.log(textCapacityPopup.textContent);
+      // console.log('Время заезда и выезда.');
+      // console.log(textTimePopup.textContent);
+      // console.log('Доступные удобства');
+      // console.log(featuresPopup.textContent);
+      // console.log('Описание');
+      // console.log(descriptionPopup.textContent);
+      // console.log('Фотографии');
+      // console.log(photosPopup);
 
-      console.log('Тип');
-      console.log(typePopup.textContent);
-
+      // console.log('Аватар');
+      // console.log(targetCard.offer.photos);
 
 
       // console.log('');
