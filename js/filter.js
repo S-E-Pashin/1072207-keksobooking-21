@@ -21,7 +21,7 @@
       // console.log('new');
       // console.log(newData);
       // console.log('old');
-      // console.log(data);
+      console.log(data);
     });
   };
   // console.log(selectHousingType.value);

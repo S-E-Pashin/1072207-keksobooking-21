@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  /* TODO Новая идея:
+  что если присваивать каждому элементу картинке не просто id как данные data  а своего рода все данные из данных с сервера. */
+  // id в начале
+  // пин равный ид.
   /* Мысль следующая - 1. не пытаться получить все данные из мгновенного evt т.к. не могу найти где найти по этому поводу информацию.
   2. Получить данные data которые формируются при отрисовке элементов на отрисовку(да их больше чем отрисовывается но это не существенно.).
   3. При нажатии на объявление сравнить данные evt.target.alt с перебираемыми объектами из массива data.offer.title (console.log(data[2].offer.title);) а именно текстовым содержимым popup__title
@@ -22,9 +26,17 @@
 
       // var result = data.find(item =>item.offer.guests === 2);
       // var result = data.find(item =>item.offer.title === "Уютное гнездышко для молодоженов");
-      var targetCard = data.find(item => item.offer.title === evt.target.alt); /* Поиск элемента поле offer.title которого совпадает с alt-ом  */
-      // console.log(targetCard);
-      // console.log(templatePopupClone);
+      // ##################
+      // TODO Модифицировать, вместо альта использовать data-id
+      // var targetCard = data.find(item => item.author.id === evt.target.id); /* Поиск элемента поле offer.title которого совпадает с alt-ом  */
+      var targetCard = data.find(function (card) { /* Функция вызывается на массиве, переберает его элементы на предмет соответствия указанного нами значения(В частности evt.target.id-мгновенное значение из обекта с которым было выполнено взаимодействие), при совпадении с данным элементом вернет объект в котором он находится в переменную targetCard */
+        return card.author.id == evt.target.id;
+      });
+
+
+      // #################
+
+      // console.log(item.author.id);
 
       // author: {avatar: "img/avatars/user05.png"}
       // location: {x: 361, y: 517}
@@ -50,17 +62,63 @@
       var titlePopup = templatePopupClone.querySelector('.popup__title');
       titlePopup.textContent = targetCard.offer.title;
 
+
       var textAddressPopup = templatePopupClone.querySelector('.popup__text--address');
       textAddressPopup.textContent = targetCard.offer.address;
+
 
       var textPricePopup = templatePopupClone.querySelector('.popup__text--price');
       textPricePopup.textContent = targetCard.offer.price + ' ₽/ночь';
 
-      var typePopup = templatePopupClone.querySelector('.popup__type');
-      typePopup.textContent = targetCard.offer.address;
 
-      var textCapacityPopup = templatePopupClone.querySelector('.popup__text--capacity');
-      textCapacityPopup.textContent = targetCard.offer.address;/* Здесь не все так просто требуется прорабатывать. */
+      var typePopup = templatePopupClone.querySelector('.popup__type');
+
+      var apparmentType = {
+          flat: 'Квартира',
+          bungalo: 'Бунгало',
+          house: 'Дом',
+          palace: 'Дворец'
+      }
+
+      typePopup.textContent = apparmentType[targetCard.offer.type];
+
+    //   var getType = function(type) {
+    //     switch (type) {
+    //       case 'flat':
+    //         answer = 'Квартира';
+    //         break;
+    //       case 'bungalo':
+    //         answer = 'Бунгало';
+    //         break;
+    //       case 'house':
+    //         answer = 'Дом';
+    //         break;
+    //       case 'palace':
+    //         answer = 'Дворец';
+    //         break;
+    //       default:
+    //         answer = 'Непонятно =(';
+    //     }
+    //     return answer;
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // var textCapacityPopup = templatePopupClone.querySelector('.popup__text--capacity');
+      // textCapacityPopup.textContent = targetCard.offer.address;/* Здесь не все так просто требуется прорабатывать. */
 
       // var textTimePopup = templatePopupClone.querySelector('.popup__text--time');
       // textTimePopup.textContent = targetCard.offer.address;
@@ -74,8 +132,26 @@
       // var photoPopup = templatePopupClone.querySelector('.popup__photo');
       // photoPopup.textContent = targetCard.offer.address;
 
+      // console.log('Мгновенный id');
+      // console.log(evt.target.id);
+      // console.log('Объект выбранной карты');
+      // console.log(targetCard);
+      // console.log('заголовок объявления');
+      // console.log(titlePopup.textContent);
+      // console.log('адрес');
+      // console.log(textAddressPopup.textContent);
+      // console.log('Цена за ночь');
+      // console.log(textPricePopup.textContent);
+
+      console.log('Тип');
       console.log(typePopup.textContent);
 
+
+
+      // console.log('');
+      // console.log('');
+      // console.log('');
+      // console.log(data);
 
 
 
