@@ -1,56 +1,21 @@
 'use strict';
 
 (function () {
-  /* TODO Новая идея:
-  что если присваивать каждому элементу картинке не просто id как данные data  а своего рода все данные из данных с сервера. */
-  // id в начале
-  // пин равный ид.
-  /* Мысль следующая - 1. не пытаться получить все данные из мгновенного evt т.к. не могу найти где найти по этому поводу информацию.
-  2. Получить данные data которые формируются при отрисовке элементов на отрисовку(да их больше чем отрисовывается но это не существенно.).
-  3. При нажатии на объявление сравнить данные evt.target.alt с перебираемыми объектами из массива data.offer.title (console.log(data[2].offer.title);) а именно текстовым содержимым popup__title
-  4. Выполнить формирование всплывающего попапа
-  5. Отобразить всплывающий попап.
-  6. Добавить проверку что если каких то данных нет то условие не выполняется.*/
-
   var addOpeningProperty = function (data) { /* Добавлено в pin renderPinCards */
 
     // Необходимо наполнить действиями с карточкой объявлений.
     var onCardVisible = function (evt) { /* evt мгновенный снимок того с чем только что произошло событие именно в этот момент! */
       var popup = document.querySelector('.popup');
-      // console.log(popup);
-      // popup.remove();
-
       (popup !== null) ? popup.remove(): ''; /* Условие для удаления старого попапа.  */
-
-
-      /* 1. хочу получить шаблон который смогу заполнить данными полученными от метки на которую было выполнено нажатие. */
-      var templatePopup = document.querySelector('#card').content.querySelector('.popup');
-      /* 2. Хочу сделать клон указанного шаблона */
-      var templatePopupClone = templatePopup.cloneNode(true);
-
-      /* 3. При нажатии на объявление сравнить данные evt.target.alt с перебираемыми объектами из массива data.offer.title (console.log(data[2].offer.title);) */
-
-      // ##################
-      // TODO Модифицировать, вместо альта использовать data-id
-      // var targetCard = data.find(item => item.author.id === evt.target.id); /* Поиск элемента поле offer.title которого совпадает с alt-ом  */
-      var targetCard = data.find(function (card) { /* Функция вызывается на массиве, переберает его элементы на предмет соответствия указанного нами значения(В частности evt.target.id-мгновенное значение из обекта с которым было выполнено взаимодействие), при совпадении с данным элементом вернет объект в котором он находится в переменную targetCard */
+      var templatePopup = document.querySelector('#card').content.querySelector('.popup'); /* 1. хочу получить шаблон который смогу заполнить данными полученными от метки на которую было выполнено нажатие. */
+      var templatePopupClone = templatePopup.cloneNode(true); /* 2. Хочу сделать клон указанного шаблона */
+      var targetCard = data.find(function (card) { /* Поиск элемента поле offer.id которого совпадает с id-ом  */ /* Функция вызывается на массиве, переберает его элементы на предмет соответствия указанного нами значения(В частности evt.target.id-мгновенное значение из обекта с которым было выполнено взаимодействие), при совпадении с данным элементом вернет объект в котором он находится в переменную targetCard */
         return card.author.id == evt.target.id;
       });
-      // #################
 
-      /* 4. Хочу внести данныe из полученного в результате нажатия элемента evt в клон шаблона попапа. */
-
-      // var titlePopup = templatePopupClone.querySelector('.popup__title');
-      // titlePopup.textContent = targetCard.offer.title;
       if(targetCard.offer.title) {templatePopupClone.querySelector('.popup__title').textContent = targetCard.offer.title}; /* Протестировано*/
-
-      // var textAddressPopup = templatePopupClone.querySelector('.popup__text--address');
-      // textAddressPopup.textContent = targetCard.offer.address;
-      if(targetCard.offer.address) {templatePopupClone.querySelector('.popup__text--address').textContent = targetCard.offer.address}; /* Протестировано*/
-
-      // var textPricePopup = templatePopupClone.querySelector('.popup__text--price');
-      // textPricePopup.textContent = targetCard.offer.price + ' ₽/ночь';
-      if(targetCard.offer.price) {templatePopupClone.querySelector('.popup__text--price').textContent = targetCard.offer.price + ' ₽/ночь'}; /* Протестировано*/
+      if(targetCard.offer.address) {templatePopupClone.querySelector('.popup__text--address').textContent = targetCard.offer.address}; /* Адрес Протестировано*/
+      if(targetCard.offer.price) {templatePopupClone.querySelector('.popup__text--price').textContent = targetCard.offer.price + ' ₽/ночь'}; /* Цена Протестировано*/
 
       var apparmentType = {
           flat: 'Квартира',
@@ -58,42 +23,11 @@
           house: 'Дом',
           palace: 'Дворец'
       }
-      // var typePopup = templatePopupClone.querySelector('.popup__type');
-      // typePopup.textContent = apparmentType[targetCard.offer.type];
-      if(targetCard.offer.type) {templatePopupClone.querySelector('.popup__type').textContent = apparmentType[targetCard.offer.type]}; /* Протестировано*/
-
-    /* Выведите количество гостей и комнат offer.rooms и offer.guests в блок .popup__text--capacity строкой вида {{offer.rooms}} комнаты для {{offer.guests}} гостей. Например, 2 комнаты для 3 гостей. */
-
-    // var textCapacityPopup = templatePopupClone.querySelector('.popup__text--capacity');
-    // textCapacityPopup.textContent = targetCard.offer.rooms + ' комнаты для ' + targetCard.offer.guests + ' гостей.';/* TODOF в будущем, можно улучшить условием если больше какого то числа то окончание камнат/ы изменяется */
-      if(targetCard.offer.rooms && targetCard.offer.guests) {templatePopupClone.querySelector('.popup__text--capacity').textContent = targetCard.offer.rooms + ' комнаты для ' + targetCard.offer.guests + ' гостей.'}; /* Протестировано*//* TODOF в будущем, можно улучшить условием если больше какого то числа то окончание камнат/ы изменяется */
-
-      /* Время заезда и выезда offer.checkin и offer.checkout в блок .popup__text--time строкой вида Заезд после {{offer.checkin}}, выезд до {{offer.checkout}}. Например, заезд после 14:00, выезд до 12:00. */
-
-      // var textTimePopup = templatePopupClone.querySelector('.popup__text--time');
-      // textTimePopup.textContent = 'Заезд после ' +  targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout;
-      if(targetCard.offer.checkin && targetCard.offer.checkout) {templatePopupClone.querySelector('.popup__text--time').textContent = 'Заезд после ' +  targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout}; /* Протестировано*/
-
-
-      /* В список .popup__features выведите все доступные удобства в объявлении. */
-
-      // var featuresPopup = templatePopupClone.querySelector('.popup__features');
-      // featuresPopup.textContent = targetCard.offer.features;
-      if(targetCard.offer.features) {templatePopupClone.querySelector('.popup__features').textContent = targetCard.offer.features}; /* Протестировано*/
-
-      /* В блок .popup__description выведите описание объекта недвижимости offer.description. */
-
-      // var descriptionPopup = templatePopupClone.querySelector('.popup__description');
-      // descriptionPopup.textContent = targetCard.offer.description;
-      if(targetCard.offer.description) {templatePopupClone.querySelector('.popup__description').textContent = targetCard.offer.description}; /* Протестировано*/
-
-      /* В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как src соответствующего изображения. */
-      /* <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья"> */
-      // var getPhotosPopup = function (photoMassive) {
-      //   photoMassive.map(function (wizard) {
-      //     '<img src="' + wizard + '" class="popup__photo" width="45" height="40" alt="Фотография жилья">';
-      //   })
-      // };
+      if(targetCard.offer.type) {templatePopupClone.querySelector('.popup__type').textContent = apparmentType[targetCard.offer.type]}; /* Тип апартаментов Протестировано*/
+      if(targetCard.offer.rooms && targetCard.offer.guests) {templatePopupClone.querySelector('.popup__text--capacity').textContent = targetCard.offer.rooms + ' комнаты для ' + targetCard.offer.guests + ' гостей.'}; /* количество гостей и комнат Протестировано*//* TODOF в будущем, можно улучшить условием если больше какого то числа то окончание камнат/ы изменяется */
+      if(targetCard.offer.checkin && targetCard.offer.checkout) {templatePopupClone.querySelector('.popup__text--time').textContent = 'Заезд после ' +  targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout}; /* Время заезда и выезда Протестировано*/
+      if(targetCard.offer.features) {templatePopupClone.querySelector('.popup__features').textContent = targetCard.offer.features}; /* все доступные удобства в объявлении. Протестировано*/
+      if(targetCard.offer.description) {templatePopupClone.querySelector('.popup__description').textContent = targetCard.offer.description}; /* описание объекта недвижимости Протестировано*/
 
       var photosPopup = templatePopupClone.querySelector('.popup__photos');
       var photoPopup = templatePopup.querySelector('.popup__photo');
@@ -105,73 +39,21 @@
           photosPopup.appendChild(photoPopupClone);
         })
       };
-      if(targetCard.offer.photos) {getPhotosPopup(targetCard.offer.photos)};  /* Протестировано*/
+      if(targetCard.offer.photos) {getPhotosPopup(targetCard.offer.photos)};  /* Протестировано /* В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как src соответствующего изображения. */
 
-
-      /* Замените src у аватарки пользователя — изображения, которое записано в .popup__avatar — на значения поля author.avatar отрисовываемого объекта. */
-      // var avatarPopup = templatePopupClone.querySelector('.popup__avatar');
-      // avatarPopup.src = targetCard.author.avatar;
-      if(targetCard.author.avatar) {templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar};  /* Протестировано*/
-      /* // Другой вариант записи
-      templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar;
-
-      console.log(templatePopupClone.querySelector('.popup__avatar').src); */
-
-      // console.log(photosPopup);
-
+      if(targetCard.author.avatar) {templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar};  /* src у аватарки Протестировано*/
 
       var mapPins = document.querySelector('.map__pins');
-      mapPins.after(templatePopupClone);
-      // var photoPopup = templatePopupClone.querySelector('.popup__photo');
-      // photoPopup.textContent = targetCard.offer.address;
+      mapPins.after(templatePopupClone); /* 5. Хочу  Отобразить полученный шаблон с внесенными в него данными на странице в виде попапа*/
 
-      // console.log('Мгновенный id');
-      // console.log(evt.target.id);
-      // console.log('Объект выбранной карты');
-      // console.log(targetCard);
-      // console.log('заголовок объявления');
-      // console.log(titlePopup.textContent);
-      // console.log('адрес');
-      // console.log(textAddressPopup.textContent);
-      // console.log('Цена за ночь');
-      // console.log(textPricePopup.textContent);
-      // console.log('Тип');
-      // console.log(typePopup.textContent);
-      // console.log('количество гостей и комнат');
-      // console.log(textCapacityPopup.textContent);
-      // console.log('Время заезда и выезда.');
-      // console.log(templatePopupClone.querySelector('.popup__text--time').textContent);
-      // console.log('Доступные удобства');
-      // console.log(featuresPopup.textContent);
-      // console.log('Описание');
-      // console.log(descriptionPopup.textContent);
-      // console.log('Фотографии');
-      // console.log(photosPopup);
-
-      // console.log('Аватар');
-      // console.log(targetCard.offer.photos);
-
-      // console.log(evt.target);
-      // console.log(evt.target.alt);
-      // console.log(data);
-
-      /* 5. Хочу  Отобразить полученный шаблон с внесенными в него данными на странице в виде попапа*/
-      /* 6. Хочу Удалить данный шаблон если происходит какой либо клик вне поля данного объявления */
-      // console.log(templatePopupClone);
-      // console.log(evt);
-      // console.log(pinCard);
-
-      // console.log('Активирована страница объявления');
+      /* TODO 6. Хочу Удалить данный шаблон если происходит какой либо клик вне поля данного объявления */
     };
 
     var mapPinNoMainNew = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPinNoMainNew.forEach(function (pinCard) { /* Добавляю слушателей для пинов без главного перебирая их на каждом элементе полученного массива. */
       pinCard.addEventListener('mousedown', onCardVisible);
     });
-    // console.log(mapPinNoMainNew);
   };
-
-  //   console.log('СОБЫТИЕ');
 
   window.card = {
     addOpeningProperty: addOpeningProperty
