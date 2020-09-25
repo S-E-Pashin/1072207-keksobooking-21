@@ -50,7 +50,7 @@
 
       // var textPricePopup = templatePopupClone.querySelector('.popup__text--price');
       // textPricePopup.textContent = targetCard.offer.price + ' ₽/ночь';
-      if(targetCard.offer.price) {templatePopupClone.querySelector('.popup__text--price').textContent = targetCard.offer.price + ' ₽/ночь'};
+      if(targetCard.offer.price) {templatePopupClone.querySelector('.popup__text--price').textContent = targetCard.offer.price + ' ₽/ночь'}; /* Протестировано*/
 
       var apparmentType = {
           flat: 'Квартира',
@@ -60,32 +60,32 @@
       }
       // var typePopup = templatePopupClone.querySelector('.popup__type');
       // typePopup.textContent = apparmentType[targetCard.offer.type];
-      if(targetCard.offer.type) {templatePopupClone.querySelector('.popup__type').textContent = apparmentType[targetCard.offer.type]};
+      if(targetCard.offer.type) {templatePopupClone.querySelector('.popup__type').textContent = apparmentType[targetCard.offer.type]}; /* Протестировано*/
 
     /* Выведите количество гостей и комнат offer.rooms и offer.guests в блок .popup__text--capacity строкой вида {{offer.rooms}} комнаты для {{offer.guests}} гостей. Например, 2 комнаты для 3 гостей. */
 
     // var textCapacityPopup = templatePopupClone.querySelector('.popup__text--capacity');
     // textCapacityPopup.textContent = targetCard.offer.rooms + ' комнаты для ' + targetCard.offer.guests + ' гостей.';/* TODOF в будущем, можно улучшить условием если больше какого то числа то окончание камнат/ы изменяется */
-      if(targetCard.offer.rooms && targetCard.offer.guests) {templatePopupClone.querySelector('.popup__text--capacity').textContent = targetCard.offer.rooms + ' комнаты для ' + targetCard.offer.guests + ' гостей.'};/* TODOF в будущем, можно улучшить условием если больше какого то числа то окончание камнат/ы изменяется */
+      if(targetCard.offer.rooms && targetCard.offer.guests) {templatePopupClone.querySelector('.popup__text--capacity').textContent = targetCard.offer.rooms + ' комнаты для ' + targetCard.offer.guests + ' гостей.'}; /* Протестировано*//* TODOF в будущем, можно улучшить условием если больше какого то числа то окончание камнат/ы изменяется */
 
       /* Время заезда и выезда offer.checkin и offer.checkout в блок .popup__text--time строкой вида Заезд после {{offer.checkin}}, выезд до {{offer.checkout}}. Например, заезд после 14:00, выезд до 12:00. */
 
       // var textTimePopup = templatePopupClone.querySelector('.popup__text--time');
       // textTimePopup.textContent = 'Заезд после ' +  targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout;
-      if(targetCard.offer.checkin && targetCard.offer.checkout) {templatePopupClone.querySelector('.popup__text--time').textContent = 'Заезд после ' +  targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout};
+      if(targetCard.offer.checkin && targetCard.offer.checkout) {templatePopupClone.querySelector('.popup__text--time').textContent = 'Заезд после ' +  targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout}; /* Протестировано*/
 
 
       /* В список .popup__features выведите все доступные удобства в объявлении. */
 
       // var featuresPopup = templatePopupClone.querySelector('.popup__features');
       // featuresPopup.textContent = targetCard.offer.features;
-      if(targetCard.offer.features) {templatePopupClone.querySelector('.popup__features').textContent = targetCard.offer.features};
+      if(targetCard.offer.features) {templatePopupClone.querySelector('.popup__features').textContent = targetCard.offer.features}; /* Протестировано*/
 
       /* В блок .popup__description выведите описание объекта недвижимости offer.description. */
 
       // var descriptionPopup = templatePopupClone.querySelector('.popup__description');
       // descriptionPopup.textContent = targetCard.offer.description;
-      if(targetCard.offer.description) {templatePopupClone.querySelector('.popup__description').textContent = targetCard.offer.description};
+      if(targetCard.offer.description) {templatePopupClone.querySelector('.popup__description').textContent = targetCard.offer.description}; /* Протестировано*/
 
       /* В блок .popup__photos выведите все фотографии из списка offer.photos. Каждая из строк массива photos должна записываться как src соответствующего изображения. */
       /* <img src="" class="popup__photo" width="45" height="40" alt="Фотография жилья"> */
@@ -105,20 +105,19 @@
           photosPopup.appendChild(photoPopupClone);
         })
       };
-      if(targetCard.offer.photos) {getPhotosPopup(targetCard.offer.photos)};
+      if(targetCard.offer.photos) {getPhotosPopup(targetCard.offer.photos)};  /* Протестировано*/
 
 
       /* Замените src у аватарки пользователя — изображения, которое записано в .popup__avatar — на значения поля author.avatar отрисовываемого объекта. */
       // var avatarPopup = templatePopupClone.querySelector('.popup__avatar');
       // avatarPopup.src = targetCard.author.avatar;
-      if(targetCard.author.avatar) {templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar};
+      if(targetCard.author.avatar) {templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar};  /* Протестировано*/
       /* // Другой вариант записи
       templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar;
 
       console.log(templatePopupClone.querySelector('.popup__avatar').src); */
 
       // console.log(photosPopup);
-
 
 
       var mapPins = document.querySelector('.map__pins');
