@@ -33,7 +33,7 @@
       }
 
       if (targetCard.offer.features.length !== 0) {
-        console.log(targetCard.offer.features);
+        // console.log(targetCard.offer.features);
         targetCard.offer.features.forEach(function (el) {
           var cloneFeature = templatePopup.querySelector('.popup__feature').cloneNode(true);
           cloneFeature.classList.add(featuresClass[el]);

@@ -121,7 +121,7 @@
   };
 
   mapPinMain.addEventListener('mousedown', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие mousedown + клик левой клавишей мыши*/
-
+  mapPinMain.addEventListener('keydown', onMainPinMouseOrKeyDown);
   window.pin = {
     renderPinCards: renderPinCards
   };
