@@ -17,9 +17,9 @@
       var targetCard = data.find(function (card) { /* Поиск элемента поле offer.id которого совпадает с id-ом  */ /* Функция вызывается на массиве, переберает его элементы на предмет соответствия указанного нами значения(В частности evt.target.id-мгновенное значение из обекта с которым было выполнено взаимодействие), при совпадении с данным элементом вернет объект в котором он находится в переменную targetCard */
         if (evt.target.type === 'button') {
           var searchImgId = evt.target.querySelector('img');
-          return card.author.id == searchImgId.id;
+          return card.author.id.toString() === searchImgId.id;
         } else {
-          return card.author.id == evt.target.id;
+          return card.author.id.toString() === evt.target.id;
         }
       });
       if (targetCard.offer.title) {
