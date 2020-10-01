@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 'use strict';
 (function () {
   var adForm = document.querySelector('.ad-form'); /* Находится форма для отправки из разметки */

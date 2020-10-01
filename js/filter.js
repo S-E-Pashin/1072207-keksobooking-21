@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 'use strict';
 (function () {
   var selectHousingType = document.getElementById('housing-type');
@@ -21,7 +22,7 @@
       // console.log('new');
       // console.log(newData);
       // console.log('old');
-      console.log(data);
+      // console.log(data);
     });
   };
   // console.log(selectHousingType.value);

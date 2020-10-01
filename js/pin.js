@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 'use strict';
 (function () {
   var adForm = document.querySelector('.ad-form'); /* Находится форма для отправки из разметки */
@@ -14,7 +15,7 @@
   mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);
 
   // ############# РЕНДЕР --- ВОЗМОЖНО ЭТОТ КОД БУДЕТ ПЕРЕНЕСЕН ##########################
-  var renderPinCloneTemplateElements = function (item, i) { /* Относится к Рендеру *//* Отрисовщик ( А отрисовщик ли это? больше он похож на сборочную машину формирующую элементы.) данных на карте/может стоит отделить? */
+  var renderPinCloneTemplateElements = function (item) { /* Относится к Рендеру *//* Отрисовщик ( А отрисовщик ли это? больше он похож на сборочную машину формирующую элементы.) данных на карте/может стоит отделить? */
     var pinCloneTemplate = templatePin.cloneNode(true);/* Создаем переменную в которую записываем/копируем/клонируем элемент/переменную/Шаблон(вернее шаблон, просто задан переменной.) template со всем ее содержимым(Т.е. всю ее разметку вместе с детьми/если бы были.(true), если дети узла должны быть клонированы или false для того, чтобы был клонирован только указанный узел.) */
     var pinCloneTemplateImage = pinCloneTemplate.querySelector('img');
 
@@ -24,7 +25,7 @@
     // TODO Добавить ID до элемента. Присвоить данные(id). Работа с дата атрибутом.########
     // var startNumber = 0;
 
-    pinCloneTemplateImage.id = item.author.id; /*? Счетчик для id */
+    pinCloneTemplateImage.id = item.author.id; /*  Счетчик для id */
 
     // ####################################################################################
 
@@ -81,7 +82,7 @@
         value.author.id = index + START_NUMBER_ID;
         // console.log(value.author);
         // console.log(index);
-      })
+      });
       // ###################№№№№№№№№№№№№№№№№№№№№№№№№№№№№№№
 
       // console.log('Pin^Данные из onSuccess - data');
@@ -121,7 +122,7 @@
   };
 
   mapPinMain.addEventListener('mousedown', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие mousedown + клик левой клавишей мыши*/
-
+  mapPinMain.addEventListener('keydown', onMainPinMouseOrKeyDown);
   window.pin = {
     renderPinCards: renderPinCards
   };
