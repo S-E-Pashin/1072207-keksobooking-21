@@ -1,3 +1,4 @@
+/* eslint-disable no-var */
 'use strict';
 (function () {
   var selectHousingType = document.getElementById('housing-type');
