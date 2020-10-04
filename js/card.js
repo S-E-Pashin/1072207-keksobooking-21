@@ -5,7 +5,7 @@
 (function () {
   var addOpeningProperty = function (data) { /* Добавление слушателя на каждое объявление Добавлено в pin renderPinCards */
 
-    // Необходимо наполнить действиями с карточкой объявлений.
+
     var onCardVisible = function (evt) { /* evt мгновенный снимок того с чем только что произошло событие именно в этот момент! */
       /* '' Условие для удаления старого попапа.  */
       var popup = document.querySelector('.popup');
@@ -59,15 +59,6 @@
         templatePopupClone.querySelector('.popup__feature').remove();
       }
 
-      // <ul class="popup__features">
-      //   <li class="popup__feature popup__feature--wifi"></li>
-      //   <li class="popup__feature popup__feature--dishwasher"></li>
-      //   <li class="popup__feature popup__feature--parking"></li>
-      //   <li class="popup__feature popup__feature--washer"></li>
-      //   <li class="popup__feature popup__feature--elevator"></li>
-      //   <li class="popup__feature popup__feature--conditioner"></li>
-      // </ul>
-
       if (targetCard.offer.description) {
         templatePopupClone.querySelector('.popup__description').textContent = targetCard.offer.description;
       } /* описание объекта недвижимости Протестировано*/
@@ -111,15 +102,32 @@
 
       /* TODO 6. Хочу Удалить данный шаблон если происходит какой либо клик вне поля данного объявления */
 
-      // var onClickClose = function () {
+      var onPopupCloseClick = function () { /* Удаление попапа через клик */
+        document.querySelector('.popup').remove();
+        popupClose.removeEventListener('mousedown', onPopupCloseClick);
+      };
+      var popupClose = templatePopupClone.querySelector('.popup__close');
+      popupClose.addEventListener('mousedown', onPopupCloseClick);
 
-      // };
-
+      var onPopupCloseEsc = function (event) { /* Удаления попапа через ESC */
+        if (event.key === 'Escape') {
+          document.querySelector('.popup').remove();
+          document.removeEventListener('keydown', onPopupCloseEsc);
+        }
+      };
+      document.addEventListener('keydown', onPopupCloseEsc);
     };
 
-    let mapPinNoMainNew = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    var onNoMainPinMouseOrKeyDown = function (evt) { /* // TODO Разделить функцию на две */
+      if (evt.which === 1 || evt.key === 'Enter') {
+        onCardVisible(evt);
+      }
+    };
+
+    var mapPinNoMainNew = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPinNoMainNew.forEach(function (pinCard) { /* Добавляю слушателей для пинов без главного перебирая их на каждом элементе полученного массива. */
-      pinCard.addEventListener(`mousedown`, onCardVisible);
+      pinCard.addEventListener('mousedown', onNoMainPinMouseOrKeyDown);
+      pinCard.addEventListener('keydown', onNoMainPinMouseOrKeyDown);
     });
   };
 

@@ -22,12 +22,7 @@
     pinCloneTemplateImage.src = item.author.avatar;
     pinCloneTemplateImage.alt = item.offer.title;
 
-    // TODO Добавить ID до элемента. Присвоить данные(id). Работа с дата атрибутом.########
-    // var startNumber = 0;
-
-    pinCloneTemplateImage.id = item.author.id; /*  Счетчик для id */
-
-    // ####################################################################################
+    pinCloneTemplateImage.id = item.author.id; /* Счетчик для id */
 
     pinCloneTemplate.style.left = (item.location.x - WIDTH_AVATAR / 2) + 'px';/* Изменение по оси x. Ширина объекта исходя из разметки составляет 50px. Т.к. точка 0 для отрисованного объекта в разметке находится в левом верхнем углу фигуры мы понимаем что нам необходимо сместить фигуру для получения нахождения острия отображаемого изображения на половину ее ширины, тем самым разделив ее ширину пополам. Для этого будет заведена константа WIDTH_AVATAR и разделена пополам непосредственно в выполняемом выражении а после вычтена из создаваемой координаты для определения положения элемента на оси Х.  */
     pinCloneTemplate.style.top = (item.location.y - HEIGHT_AVATAR) + 'px'; /* Высота = 70px Смещение по вертикали на высоту элемента путем вычитания из положения по оси У целого значения высоты элемента.*/
@@ -122,7 +117,7 @@
   };
 
   mapPinMain.addEventListener('mousedown', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие mousedown + клик левой клавишей мыши*/
-  mapPinMain.addEventListener('keydown', onMainPinMouseOrKeyDown);
+
   window.pin = {
     renderPinCards: renderPinCards
   };

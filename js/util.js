@@ -14,4 +14,3 @@
     getRandomInteger: getRandomInteger
   };
 })();
-
