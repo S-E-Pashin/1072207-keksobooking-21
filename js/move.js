@@ -6,14 +6,12 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var dragged = false;
 
-
   var onMapPinMainPress = function (evt) { /* слушатель Действия при нажатии мыши на объекте. */
     evt.preventDefault(); /* Отменил действие при нажатии на кнопку по умолчанию.  */
     var startCoords = {
       x: evt.clientX,
       y: evt.clientY
     };
-
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault(); /* Отменили действие по умолчанию для движения. */
@@ -53,7 +51,6 @@
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
   };
-
 
   mapPinMain.addEventListener('mousedown', onMapPinMainPress);
 
