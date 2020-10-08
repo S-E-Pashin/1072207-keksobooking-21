@@ -108,17 +108,18 @@
   var onMainPinMouseOrKeyDown = function (evt) { /* Функция которая(Запустит действия при активации страницы) будет передана в слушатель */
     if (evt.which === 1 || evt.key === 'Enter') {
       mapPinMainActions();
-      mapPinMain.removeEventListener('mousedown', onMainPinMouseOrKeyDown);/* // Удаление слушателя(Убрать эффект постоянного прибавления) mousedown */
+      mapPinMain.removeEventListener('click', onMainPinMouseOrKeyDown);/* // Удаление слушателя(Убрать эффект постоянного прибавления) click */
     }
     window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck);/* Слушатель выбора количества комнат который подскажет для какого количества гостей они предназначены. */
 
     window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
     // window.validation.roomPrice.addEventListener('change', console.log(roomPrice.value)); /* Как считывать в реальном времени? */
   };
-
-  mapPinMain.addEventListener('mousedown', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие mousedown + клик левой клавишей мыши*/
+  /* Хочу перенести этот слушатель в move js для того чтобы действие активации страницы осуществлялось корректно в соответствии с перетаскиванием. */
+  mapPinMain.addEventListener('click', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие click + клик левой клавишей мыши*/
 
   window.pin = {
+    onMainPinMouseOrKeyDown: onMainPinMouseOrKeyDown,
     renderPinCards: renderPinCards
   };
 })();

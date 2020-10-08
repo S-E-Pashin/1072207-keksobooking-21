@@ -121,7 +121,6 @@
     var onNoMainPinMouseOrKeyDown = function (evt) { /* // TODO Разделить функцию на две */ /* Эта функция запустит функцию по отображению карточки и функцию по добавлению слушателей на закрытие данного попапа. */
       if (evt.which === 1 || evt.key === 'Enter') {
         onCardVisible(evt);
-        // onPopupEscPress();
       }
     };
 
