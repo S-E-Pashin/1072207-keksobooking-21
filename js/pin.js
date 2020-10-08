@@ -22,12 +22,7 @@
     pinCloneTemplateImage.src = item.author.avatar;
     pinCloneTemplateImage.alt = item.offer.title;
 
-    // TODO Добавить ID до элемента. Присвоить данные(id). Работа с дата атрибутом.########
-    // var startNumber = 0;
-
-    pinCloneTemplateImage.id = item.author.id; /*  Счетчик для id */
-
-    // ####################################################################################
+    pinCloneTemplateImage.id = item.author.id; /* Счетчик для id */
 
     pinCloneTemplate.style.left = (item.location.x - WIDTH_AVATAR / 2) + 'px';/* Изменение по оси x. Ширина объекта исходя из разметки составляет 50px. Т.к. точка 0 для отрисованного объекта в разметке находится в левом верхнем углу фигуры мы понимаем что нам необходимо сместить фигуру для получения нахождения острия отображаемого изображения на половину ее ширины, тем самым разделив ее ширину пополам. Для этого будет заведена константа WIDTH_AVATAR и разделена пополам непосредственно в выполняемом выражении а после вычтена из создаваемой координаты для определения положения элемента на оси Х.  */
     pinCloneTemplate.style.top = (item.location.y - HEIGHT_AVATAR) + 'px'; /* Высота = 70px Смещение по вертикали на высоту элемента путем вычитания из положения по оси У целого значения высоты элемента.*/
@@ -113,17 +108,18 @@
   var onMainPinMouseOrKeyDown = function (evt) { /* Функция которая(Запустит действия при активации страницы) будет передана в слушатель */
     if (evt.which === 1 || evt.key === 'Enter') {
       mapPinMainActions();
-      mapPinMain.removeEventListener('mousedown', onMainPinMouseOrKeyDown);/* // Удаление слушателя(Убрать эффект постоянного прибавления) mousedown */
+      mapPinMain.removeEventListener('click', onMainPinMouseOrKeyDown);/* // Удаление слушателя(Убрать эффект постоянного прибавления) click */
     }
     window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck);/* Слушатель выбора количества комнат который подскажет для какого количества гостей они предназначены. */
 
     window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
     // window.validation.roomPrice.addEventListener('change', console.log(roomPrice.value)); /* Как считывать в реальном времени? */
   };
+  /* Хочу перенести этот слушатель в move js для того чтобы действие активации страницы осуществлялось корректно в соответствии с перетаскиванием. */
+  mapPinMain.addEventListener('click', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие click + клик левой клавишей мыши*/
 
-  mapPinMain.addEventListener('mousedown', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие mousedown + клик левой клавишей мыши*/
-  mapPinMain.addEventListener('keydown', onMainPinMouseOrKeyDown);
   window.pin = {
+    onMainPinMouseOrKeyDown: onMainPinMouseOrKeyDown,
     renderPinCards: renderPinCards
   };
 })();

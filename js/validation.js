@@ -42,6 +42,16 @@
     // roomType.removeEventListener('change', onRoomPriceCheck);/* // Удаление слушателя Пока не нужно возможно если страница будет как то деактевироваться в процессе взаимодействия с ней без перезагрузки.*/
   };
 
+  var timeIn = document.querySelector('#timein'); /* Получаю поле адреса заезда, устанавливаю слушатель события выбора, при выборе одного значения такое же значение будет передано в поле выезда. */
+  timeIn.onchange = function () {
+    document.querySelector('#timeout').value = timeIn.value;
+  };
+
+
+  var timeOut = document.querySelector('#timeout'); /* Получаю адрес выезда устанавливаю слушатель события выбора который при выборе одного из установленных значений поля приравняет другое поле к этому же значению что подходит для логики выполнения задания. */
+  timeOut.onchange = function () {
+    document.querySelector('#timein').value = timeOut.value;
+  };
 
   // ############################
   window.validation = {
