@@ -8,11 +8,13 @@
   var map = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main'); /* Главный пин на карте */
   var mapPinMainAddress = document.querySelector('#address'); /* Адрес(Поле) куда передаются данные о нахождении главного пина(Координаты) */
-  var MAP_PIN_MAIN_AFTER_TIP = 22; /* Высота ножки/острия для метки(Пина) */
+  // var MAP_PIN_MAIN_AFTER_TIP = 22; /* Высота ножки/острия для метки(Пина) */
   // Корректировка расположения точки пина в неактивном состоянии.
   var START_NUMBER_ID = 1;
   // // Координаты центра метки:
   mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);
+
+  // window.address.onStartCoords();
 
   // ############# РЕНДЕР --- ВОЗМОЖНО ЭТОТ КОД БУДЕТ ПЕРЕНЕСЕН ##########################
   var renderPinCloneTemplateElements = function (item) { /* Относится к Рендеру *//* Отрисовщик ( А отрисовщик ли это? больше он похож на сборочную машину формирующую элементы.) данных на карте/может стоит отделить? */
@@ -68,7 +70,7 @@
     /* Отрисовка в активном состоянии */
 
     var onSuccess = function (data) {
-      // Возможно добавлю копирование первозданного ассива данных для возможного сравнения. (В лекции упоминалось.) Для этого data сохраню а в функцию передам копию.
+      // Возможно добавлю копирование первозданного массива данных для возможного сравнения. (В лекции упоминалось.) Для этого data сохраню а в функцию передам копию.
       // #####################№№№№№№№№№№№№№№№№№№№№№№№№№№№№
       // TODO Прописать уникальные id
       // Цикл,или массив. Генерировать. Сформировать к каждому элементу свой уникальный Ид
@@ -97,7 +99,8 @@
 
     // Корректировка расположения точки в активном состоянии.
     /* // Координаты центра для иглы метки: map__pin--main */
-    mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft - mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop - (mapPinMain.offsetHeight / 2 + MAP_PIN_MAIN_AFTER_TIP));/* Вычитание из расстояния сверху до метки половины высоты(оставшейся половины высоты метки) и высоты дополнительного визуального элемента ножки/острия выполненного псевдоэлементом.  */
+    // mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft - mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop - (mapPinMain.offsetHeight / 2 + MAP_PIN_MAIN_AFTER_TIP));/* Вычитание из расстояния сверху до метки половины высоты(оставшейся половины высоты метки) и высоты дополнительного визуального элемента ножки/острия выполненного псевдоэлементом.  */
+    window.address.onMoveCoords();
 
     window.validation.onRoomNumbersCheck(); /* Проверка соответствия выбранного количества комнат - гостям. */
     window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
@@ -119,6 +122,7 @@
   mapPinMain.addEventListener('click', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие click + клик левой клавишей мыши*/
 
   window.pin = {
+    mapPinMainActions: mapPinMainActions,
     onMainPinMouseOrKeyDown: onMainPinMouseOrKeyDown,
     renderPinCards: renderPinCards
   };
