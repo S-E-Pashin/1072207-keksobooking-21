@@ -23,6 +23,5 @@
   window.address = {
     onStartCoords: onStartCoords,
     onMoveCoords: onMoveCoords
-    // removeAttributeDisabled: removeAttributeDisabled,
   };
 })();
