@@ -42,8 +42,25 @@
       window.map.setAttributeDisabled(window.form.liveMapFilterElements); /* Сделал неактивными поля фильтра на карте. */
 
       window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
-      /* Удаляю  если есть карточку активного объявления.*/
-      window.card.popupDelete();
+
+      window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
+
+      window.address.returnFirstCoordsMapPinMain(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
+
+      /* Сообщение о успешной отправке формы */
+      /*  */
+
+
+
+
+
+
+
+
+
+
+
+
       console.log('Форма отправлена');
     });
     evt.preventDefault(); /* отменим действие формы по умолчанию */
