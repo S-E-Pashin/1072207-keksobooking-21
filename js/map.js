@@ -30,14 +30,6 @@
     return liveCollection;
   };
 
-
-
-
-
-
-
-
-
   window.map = {
     removeAttributeDisabled: removeAttributeDisabled,
     // addAttributeDisabled: addAttributeDisabled,

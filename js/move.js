@@ -17,13 +17,13 @@
   var maxX = map.offsetWidth - halfPinMain;
 
   var onMapPinMainPress = function (evt) { /* слушатель Действия при нажатии мыши на объекте. */
-    evt.preventDefault(); /* Отменил действие при нажатии на кнопку по умолчанию.  */
-    var startCoords = {
+    if (evt.which === 1 || evt.key === 'Enter') {
+      evt.preventDefault(); /* Отменил действие при нажатии на кнопку по умолчанию.  */
+      var startCoords = {
       x: evt.clientX,
       y: evt.clientY
-    };
-
-    var onMouseMove = function (moveEvt) {
+      };
+      var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault(); /* Отменили действие по умолчанию для движения. */
       mapPinMain.removeEventListener('click', window.pin.onMainPinMouseOrKeyDown); /* Удалил обработчик клика при начале движения. */
 
@@ -73,9 +73,8 @@
       }
 
       window.address.onMoveCoords();
-    };
-
-    var onMouseUp = function (upEvt) { /* Действия при поднятии клавиши. будет удален слушатель перемещения курсора мыши и удалит слушатель поднятия клавиши сам себя. */
+      };
+      var onMouseUp = function (upEvt) { /* Действия при поднятии клавиши. будет удален слушатель перемещения курсора мыши и удалит слушатель поднятия клавиши сам себя. */
       upEvt.preventDefault(); /* Перестал слушать движения мыши */
       if (dragged) { /* Получил подтверждение что движения были. */
 
@@ -91,10 +90,10 @@
       }
       document.removeEventListener('mousemove', onMouseMove); /* Удаляется обработчик движения для прекращения движения элемента */
       document.removeEventListener('mouseup', onMouseUp);/* Удаляет сам себя - удаляет слушатель/обработчик поднятия клавиши на документе. */
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+      };
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    }
   };
 
   mapPinMain.addEventListener('mousedown', onMapPinMainPress);
