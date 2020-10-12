@@ -6,8 +6,12 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
   var dragged = false;
-  var MAX_Y_TOP = 130;
-  var MAX_Y_BOTTOM = 630;
+  /* Скрытый первоначальный вариант он вроде как именно правильный но в поле адреса увы передаются отличные значения ввиду этого скорректировано в соответствии с заданных значений константы с заданными ограничениями. */
+  // var MAX_Y_TOP = 130;
+  // var MAX_Y_BOTTOM = 630;
+  var MAX_Y_TOP = 184;
+  var MAX_Y_BOTTOM = 684;
+
   var halfPinMain = mapPinMain.offsetWidth / 2;
   var minX = map.offsetWidth - map.offsetWidth - halfPinMain;
   var maxX = map.offsetWidth - halfPinMain;

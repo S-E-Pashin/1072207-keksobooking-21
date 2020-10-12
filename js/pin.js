@@ -40,13 +40,19 @@
   var mapPins = document.querySelector('.map__pins');/* Относится к Рендеру *//* Переменная для нахождения блока с классом map__pins. (в последующем будет использоваться для добавления элементов в разметку посредством documentFragment)Это блок для отрисовки. */
   var NUMBER_ITEMS_DISPLAY_MAX = 5;
 
-
-  var renderPinCards = function (items) { /*  Функция добавления элементов в разметку посредством fragment. */
+  var removeOldPins = function () { /* Функция удаляющая пины из разметки */
     var mapPinNoMain = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPinNoMain.forEach(function (oldPin) { /* Удаляю элементы из разметки. */
       oldPin.remove();
     });
+  };
 
+  var renderPinCards = function (items) { /*  Функция добавления элементов в разметку посредством fragment. */
+    // var mapPinNoMain = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    // mapPinNoMain.forEach(function (oldPin) { /* Удаляю элементы из разметки. */
+    //   oldPin.remove();
+    // });
+    removeOldPins();
     var numberItemsDisplay = items.length < NUMBER_ITEMS_DISPLAY_MAX ? items.length : NUMBER_ITEMS_DISPLAY_MAX; /* Количество отображаемых элементов = В зависимость количества отображаемых элементов от разрешенной максимальной длинны и длинны полученного массива. Тернарная операция: Переменная = Условие1 < Условие2 ? true действия/значение если верно : fals действия/ значение если условие неверно. */
 
     for (var i = 0; i < numberItemsDisplay; i++) { /* Добавление в зависимости от количества подходящих вариантов/элементов. Цикл который добавляет элементы в разметку. (В виртуальную разметку-не меняет исходный HTML). */
@@ -124,6 +130,7 @@
   window.pin = {
     mapPinMainActions: mapPinMainActions,
     onMainPinMouseOrKeyDown: onMainPinMouseOrKeyDown,
-    renderPinCards: renderPinCards
+    renderPinCards: renderPinCards,
+    removeOldPins: removeOldPins
   };
 })();

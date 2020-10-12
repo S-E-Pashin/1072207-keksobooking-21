@@ -9,13 +9,23 @@
     document.addEventListener('keydown', popupCloseEsc);
   };
 
+  var popupDelete = function () { /* Удаление старого попапа при условии что он есть. */
+    var popup = document.querySelector('.popup');
+    if (popup !== null) {
+      document.removeEventListener('keydown', popupCloseEsc);
+      document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
+      document.querySelector('.popup').remove();
+    }
+  };
+
   var popupCloseEsc = function (event) { /* Удаления попапа через ESC */ /* Функция удаления попапа по Эскейпу. Выполняет условие что если нажат Эскейп и если попап не равен null т.е. ничему то удаляет сначала себя popupCloseEsc потом обработчика по клику popupCloseClick а затем удаляет попап. */
     if (event.key === 'Escape') {
-      if (document.querySelector('.popup') !== null) {
-        document.removeEventListener('keydown', popupCloseEsc);
-        document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
-        document.querySelector('.popup').remove();
-      }
+      popupDelete();
+    //   if (document.querySelector('.popup') !== null) {
+    //     document.removeEventListener('keydown', popupCloseEsc);
+    //     document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
+    //     document.querySelector('.popup').remove();
+    //   }
     }
   };
 
@@ -25,18 +35,24 @@
     document.querySelector('.popup').remove();
   };
 
+
+
+
   var addOpeningProperty = function (data) { /* Добавление слушателя на каждое объявление Добавлено в pin renderPinCards */
 
     var onCardVisible = function (evt) { /* evt мгновенный снимок того с чем только что произошло событие именно в этот момент! */
       /* '' Условие для удаления старого попапа.  */
-      var popup = document.querySelector('.popup');
-      // var removeOldPopup;
-      // removeOldPopup = (popup !== null) ? popup.remove() : '';
-      if (popup !== null) {
-        // console.log(popup);
-        // document.querySelector('.map-card').remove();
-        document.querySelector('.popup').remove();
-      }
+      popupDelete();
+      // var popup = document.querySelector('.popup');
+      // // var removeOldPopup;
+      // // removeOldPopup = (popup !== null) ? popup.remove() : '';
+      // if (popup !== null) {
+      //   // console.log(popup);
+      //   // document.querySelector('.map-card').remove();
+      //   document.querySelector('.popup').remove();
+      // }
+
+
       var templatePopup = document.querySelector('#card').content.querySelector('.popup'); /* 1. хочу получить шаблон который смогу заполнить данными полученными от метки на которую было выполнено нажатие. */
       var templatePopupClone = templatePopup.cloneNode(true); /* 2. Хочу сделать клон указанного шаблона */
       var targetCard = data.find(function (card) { /* Поиск элемента поле offer.id которого совпадает с id-ом  */ /* Функция вызывается на массиве, переберает его элементы на предмет соответствия указанного нами значения(В частности evt.target.id-мгновенное значение из обекта с которым было выполнено взаимодействие), при совпадении с данным элементом вернет объект в котором он находится в переменную targetCard */
@@ -132,7 +148,8 @@
   };
 
   window.card = {
-    addOpeningProperty: addOpeningProperty
+    addOpeningProperty: addOpeningProperty,
+    popupDelete: popupDelete
   };
 })();
 

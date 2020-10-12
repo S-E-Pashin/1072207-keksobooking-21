@@ -12,6 +12,11 @@
     // console.log(onStartCoords);
   };
 
+  var firstCoords = function () {
+
+  };
+
+
   // Корректировка расположения точки в активном состоянии.
   /* // Координаты центра для иглы метки: map__pin--main */
   var onMoveCoords = function () {
