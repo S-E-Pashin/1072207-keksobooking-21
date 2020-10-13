@@ -7,14 +7,14 @@
 
   var map = document.querySelector('.map');
   var mapPinMain = document.querySelector('.map__pin--main'); /* Главный пин на карте */
-  var mapPinMainAddress = document.querySelector('#address'); /* Адрес(Поле) куда передаются данные о нахождении главного пина(Координаты) */
+  // var mapPinMainAddress = document.querySelector('#address'); /* Адрес(Поле) куда передаются данные о нахождении главного пина(Координаты) */
   // var MAP_PIN_MAIN_AFTER_TIP = 22; /* Высота ножки/острия для метки(Пина) */
   // Корректировка расположения точки пина в неактивном состоянии.
   var START_NUMBER_ID = 1;
   // // Координаты центра метки:
-  mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);
+  // mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);
 
-  // window.address.onStartCoords();
+  window.address.onStartCoords();
 
   // ############# РЕНДЕР --- ВОЗМОЖНО ЭТОТ КОД БУДЕТ ПЕРЕНЕСЕН ##########################
   var renderPinCloneTemplateElements = function (item) { /* Относится к Рендеру *//* Отрисовщик ( А отрисовщик ли это? больше он похож на сборочную машину формирующую элементы.) данных на карте/может стоит отделить? */
@@ -112,24 +112,26 @@
     window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
     window.validation.guestsNumber.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
     window.validation.onRoomPriceCheck();
-  };
 
-  var onMainPinMouseOrKeyDown = function (evt) { /* Функция которая(Запустит действия при активации страницы) будет передана в слушатель */
-    if (evt.which === 1 || evt.key === 'Enter') {
-      mapPinMainActions();
-      mapPinMain.removeEventListener('click', onMainPinMouseOrKeyDown);/* // Удаление слушателя(Убрать эффект постоянного прибавления) click */
-    }
-    window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck);/* Слушатель выбора количества комнат который подскажет для какого количества гостей они предназначены. */
-
+    window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck);
     window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
-    // window.validation.roomPrice.addEventListener('change', console.log(roomPrice.value)); /* Как считывать в реальном времени? */
   };
+  /* Пока буду скрывать для того что бы реализовать упрощенный подход */
+  // var onMainPinMouseOrKeyDown = function (/* evt */) { /* Функция которая(Запустит действия при активации страницы) будет передана в слушатель */
+  //   // if (evt.which === 1 || evt.key === 'Enter') {
+  //   mapPinMainActions();
+  //   // mapPinMain.removeEventListener('mousedown', onMainPinMouseOrKeyDown);/* // Удаление слушателя(Убрать эффект постоянного прибавления) click */
+  //   // }
+  //   // window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck);/* Слушатель выбора количества комнат который подскажет для какого количества гостей они предназначены. */
+  //   // window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+  //   // window.validation.roomPrice.addEventListener('change', console.log(roomPrice.value)); /* Как считывать в реальном времени? */
+  // };
   /* Хочу перенести этот слушатель в move js для того чтобы действие активации страницы осуществлялось корректно в соответствии с перетаскиванием. */
-  mapPinMain.addEventListener('click', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие click + клик левой клавишей мыши*/
+  // mapPinMain.addEventListener('mousedown', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие click + клик левой клавишей мыши*/
 
   window.pin = {
     mapPinMainActions: mapPinMainActions,
-    onMainPinMouseOrKeyDown: onMainPinMouseOrKeyDown,
+    // onMainPinMouseOrKeyDown: onMainPinMouseOrKeyDown,
     renderPinCards: renderPinCards,
     removeOldPins: removeOldPins
   };
