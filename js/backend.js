@@ -4,7 +4,7 @@
 
 (function () {
 
-  var URL = 'https://javascript.pages.academy/keksobooking/data'; /* Адрес по которому будет направляться запрос open.  */
+  var URL = 'https://21.javascript.pages.academy/keksobooking/data'; /* Адрес по которому будет направляться запрос open.  */
   var LOAD_METHOD = 'GET'; /* Метод которым должен быть получен ответ от сервера(Тип предоставления) */
   var STATUS_OK = 200;
   var TIMEOUT_IN_MS = 1000;

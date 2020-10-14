@@ -6,16 +6,18 @@
   var HEIGHT_AVATAR = 70;
 
   var map = document.querySelector('.map');
-  var mapPinMain = document.querySelector('.map__pin--main'); /* Главный пин на карте */
-  var mapPinMainAddress = document.querySelector('#address'); /* Адрес(Поле) куда передаются данные о нахождении главного пина(Координаты) */
-  var MAP_PIN_MAIN_AFTER_TIP = 22; /* Высота ножки/острия для метки(Пина) */
+  // var mapPinMain = document.querySelector('.map__pin--main'); /* Главный пин на карте */
+  // var mapPinMainAddress = document.querySelector('#address'); /* Адрес(Поле) куда передаются данные о нахождении главного пина(Координаты) */
+  // var MAP_PIN_MAIN_AFTER_TIP = 22; /* Высота ножки/острия для метки(Пина) */
   // Корректировка расположения точки пина в неактивном состоянии.
   var START_NUMBER_ID = 1;
   // // Координаты центра метки:
-  mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);
+  // mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);
+
+  window.address.onStartCoords();
 
   // ############# РЕНДЕР --- ВОЗМОЖНО ЭТОТ КОД БУДЕТ ПЕРЕНЕСЕН ##########################
-  var renderPinCloneTemplateElements = function (item) { /* Относится к Рендеру *//* Отрисовщик ( А отрисовщик ли это? больше он похож на сборочную машину формирующую элементы.) данных на карте/может стоит отделить? */
+  var renderPinCloneTemplateElements = function (item) { /* Относится к Рендеру Это функция которая сначала создает клон а потом просто присваивает этому клону необходимые значения. *//* Отрисовщик ( А отрисовщик ли это? больше он похож на сборочную машину формирующую элементы.) данных на карте/может стоит отделить? */
     var pinCloneTemplate = templatePin.cloneNode(true);/* Создаем переменную в которую записываем/копируем/клонируем элемент/переменную/Шаблон(вернее шаблон, просто задан переменной.) template со всем ее содержимым(Т.е. всю ее разметку вместе с детьми/если бы были.(true), если дети узла должны быть клонированы или false для того, чтобы был клонирован только указанный узел.) */
     var pinCloneTemplateImage = pinCloneTemplate.querySelector('img');
 
@@ -38,13 +40,19 @@
   var mapPins = document.querySelector('.map__pins');/* Относится к Рендеру *//* Переменная для нахождения блока с классом map__pins. (в последующем будет использоваться для добавления элементов в разметку посредством documentFragment)Это блок для отрисовки. */
   var NUMBER_ITEMS_DISPLAY_MAX = 5;
 
-
-  var renderPinCards = function (items) { /*  Функция добавления элементов в разметку посредством fragment. */
+  var removeOldPins = function () { /* Функция удаляющая пины из разметки */
     var mapPinNoMain = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     mapPinNoMain.forEach(function (oldPin) { /* Удаляю элементы из разметки. */
       oldPin.remove();
     });
+  };
 
+  var renderPinCards = function (items) { /*  Функция добавления элементов в разметку посредством fragment. */
+    // var mapPinNoMain = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    // mapPinNoMain.forEach(function (oldPin) { /* Удаляю элементы из разметки. */
+    //   oldPin.remove();
+    // });
+    removeOldPins();
     var numberItemsDisplay = items.length < NUMBER_ITEMS_DISPLAY_MAX ? items.length : NUMBER_ITEMS_DISPLAY_MAX; /* Количество отображаемых элементов = В зависимость количества отображаемых элементов от разрешенной максимальной длинны и длинны полученного массива. Тернарная операция: Переменная = Условие1 < Условие2 ? true действия/значение если верно : fals действия/ значение если условие неверно. */
 
     for (var i = 0; i < numberItemsDisplay; i++) { /* Добавление в зависимости от количества подходящих вариантов/элементов. Цикл который добавляет элементы в разметку. (В виртуальную разметку-не меняет исходный HTML). */
@@ -68,7 +76,7 @@
     /* Отрисовка в активном состоянии */
 
     var onSuccess = function (data) {
-      // Возможно добавлю копирование первозданного ассива данных для возможного сравнения. (В лекции упоминалось.) Для этого data сохраню а в функцию передам копию.
+      // Возможно добавлю копирование первозданного массива данных для возможного сравнения. (В лекции упоминалось.) Для этого data сохраню а в функцию передам копию.
       // #####################№№№№№№№№№№№№№№№№№№№№№№№№№№№№
       // TODO Прописать уникальные id
       // Цикл,или массив. Генерировать. Сформировать к каждому элементу свой уникальный Ид
@@ -97,29 +105,34 @@
 
     // Корректировка расположения точки в активном состоянии.
     /* // Координаты центра для иглы метки: map__pin--main */
-    mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft - mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop - (mapPinMain.offsetHeight / 2 + MAP_PIN_MAIN_AFTER_TIP));/* Вычитание из расстояния сверху до метки половины высоты(оставшейся половины высоты метки) и высоты дополнительного визуального элемента ножки/острия выполненного псевдоэлементом.  */
+    // mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft - mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop - (mapPinMain.offsetHeight / 2 + MAP_PIN_MAIN_AFTER_TIP));/* Вычитание из расстояния сверху до метки половины высоты(оставшейся половины высоты метки) и высоты дополнительного визуального элемента ножки/острия выполненного псевдоэлементом.  */
+    window.address.onMoveCoords();
 
     window.validation.onRoomNumbersCheck(); /* Проверка соответствия выбранного количества комнат - гостям. */
     window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
     window.validation.guestsNumber.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
     window.validation.onRoomPriceCheck();
-  };
 
-  var onMainPinMouseOrKeyDown = function (evt) { /* Функция которая(Запустит действия при активации страницы) будет передана в слушатель */
-    if (evt.which === 1 || evt.key === 'Enter') {
-      mapPinMainActions();
-      mapPinMain.removeEventListener('click', onMainPinMouseOrKeyDown);/* // Удаление слушателя(Убрать эффект постоянного прибавления) click */
-    }
-    window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck);/* Слушатель выбора количества комнат который подскажет для какого количества гостей они предназначены. */
-
+    window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck);
     window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
-    // window.validation.roomPrice.addEventListener('change', console.log(roomPrice.value)); /* Как считывать в реальном времени? */
   };
+  /* Пока буду скрывать для того что бы реализовать упрощенный подход */
+  // var onMainPinMouseOrKeyDown = function (/* evt */) { /* Функция которая(Запустит действия при активации страницы) будет передана в слушатель */
+  //   // if (evt.which === 1 || evt.key === 'Enter') {
+  //   mapPinMainActions();
+  //   // mapPinMain.removeEventListener('mousedown', onMainPinMouseOrKeyDown);/* // Удаление слушателя(Убрать эффект постоянного прибавления) click */
+  //   // }
+  //   // window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck);/* Слушатель выбора количества комнат который подскажет для какого количества гостей они предназначены. */
+  //   // window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+  //   // window.validation.roomPrice.addEventListener('change', console.log(roomPrice.value)); /* Как считывать в реальном времени? */
+  // };
   /* Хочу перенести этот слушатель в move js для того чтобы действие активации страницы осуществлялось корректно в соответствии с перетаскиванием. */
-  mapPinMain.addEventListener('click', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие click + клик левой клавишей мыши*/
+  // mapPinMain.addEventListener('mousedown', onMainPinMouseOrKeyDown); /* Добавлен слушатель/обработчик на событие click + клик левой клавишей мыши*/
 
   window.pin = {
-    onMainPinMouseOrKeyDown: onMainPinMouseOrKeyDown,
-    renderPinCards: renderPinCards
+    mapPinMainActions: mapPinMainActions,
+    // onMainPinMouseOrKeyDown: onMainPinMouseOrKeyDown,
+    renderPinCards: renderPinCards,
+    removeOldPins: removeOldPins
   };
 })();
