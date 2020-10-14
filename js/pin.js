@@ -95,13 +95,15 @@
       // console.log(data); /* Данные которые были переданы в функцию посредством полученного в файле backend  объекта/ов и переданного посредством функции в параметр которой*/
     };
 
-    var onError = function () {
-      // console.log('Ошибка');
-      // alert('Ошибка!')
-    };
+    // var onError = function () { /* Вместо этой функции передаю getErrorPopup в ней описаны действия при возникновении ошибки. */
+    //   // console.log('Ошибка');
+    //   // alert('Ошибка!')
+    //   // window.loadMessage.getErrorPopup();
+    // };
 
 
-    window.backend.load(onSuccess, onError);/* Функция load принимает в себя параметры onSuccess, и onError  Это функция действий при загрузке данных с сервера.*/
+    // window.backend.load(onSuccess, onError);/* Функция load принимает в себя параметры onSuccess, и onError  Это функция действий при загрузке данных с сервера.*/
+    window.backend.load(onSuccess, window.loadMessage.getErrorPopup);/* Функция load принимает в себя параметры onSuccess, и onError  Это функция действий при загрузке данных с сервера.*/
 
     // Корректировка расположения точки в активном состоянии.
     /* // Координаты центра для иглы метки: map__pin--main */

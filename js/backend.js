@@ -18,8 +18,10 @@
         onSuccess(xhr.response); /* В случае успешного выполнения загрузки функция получаемая из параметра будет выполнена с параметром который будет содержать в себе данные из xhr.response */
         // console.log("Слушатель на загрузку сработал");
       } else {
-        onError('Статус ответа' + xhr.status + xhr.statusText); /* статус ответа + строка статуса ответа. */
-        // console.log("Ошибки нет");
+        // console.log('Статус ответа');
+        // console.log('Статус ответа' + xhr.status + xhr.statusText);
+        onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText); /* статус ответа + строка статуса ответа. */
+        // window.loadMessage.getErrorPopup('Статус ответа' + xhr.status + xhr.statusText);
       }
 
       // События, ошибки:
@@ -38,6 +40,7 @@
     xhr.open(LOAD_METHOD, URL); /* Как и куда хочу обратиться(Адрес от куда получить данные.) Подготовка к запросу.*/
     xhr.send(); /* Запуск отправки запроса на сервер. Получены данные которые содержатся в response и responseText */
   };
+
 
   window.backend = {/* Экспорт данных в область общей видимости. */
     load: load
