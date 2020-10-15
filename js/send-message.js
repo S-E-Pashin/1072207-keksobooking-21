@@ -33,7 +33,9 @@
     }
   };
 
-  var getErrorPopup = function () {
+  var getErrorPopup = function (error) {
+    // console.log(error);
+    errorTemplateClone.textContent = 'Произошла ошибка загрузки объявления ' + error;
     document.querySelector('main').appendChild(errorTemplateClone);
     document.addEventListener('keydown', onCloseErrorPopup);
     document.addEventListener('click', onCloseErrorPopup);

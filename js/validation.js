@@ -53,6 +53,31 @@
     document.querySelector('#timein').value = timeOut.value;
   };
 
+
+  var inputTitle = document.querySelector('#title');
+  var getTitleCheck = function () {
+    // console.log(inputTitle.value.length);
+    // console.log(inputTitle.min);
+    if (inputTitle.value.length < inputTitle.min || inputTitle.value.length > inputTitle.max) {
+      inputTitle.setCustomValidity('Количество вводимых символов составляет от ' + inputTitle.min + ' до ' + inputTitle.max);
+      inputTitle.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
+      inputTitle.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
+    } else {
+      inputTitle.setCustomValidity(''); /* Убрать значение не соответствия валидации */
+      inputTitle.style.backgroundColor = ''; /* Убрать подсвет розовым неверного ответа */
+      inputTitle.style.backgroundColor = ''; /* Убрать подсвет розовым неверного ответа */
+    }
+  };
+
+
+  var addFieldCheck = function () {
+    window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
+    window.validation.guestsNumber.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
+    window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+    window.validation.inputTitle.addEventListener('input', window.validation.getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
+  };
+  // inputTitle.addEventListener('input', getTitleCheck);
+
   // ############################
   window.validation = {
     onRoomNumbersCheck: onRoomNumbersCheck,
@@ -60,5 +85,8 @@
     roomNumbers: roomNumbers,
     onRoomPriceCheck: onRoomPriceCheck,
     roomType: roomType,
+    inputTitle: inputTitle,
+    getTitleCheck: getTitleCheck,
+    addFieldCheck: addFieldCheck
   };
 })();

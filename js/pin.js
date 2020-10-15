@@ -109,14 +109,16 @@
     /* // Координаты центра для иглы метки: map__pin--main */
     // mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft - mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop - (mapPinMain.offsetHeight / 2 + MAP_PIN_MAIN_AFTER_TIP));/* Вычитание из расстояния сверху до метки половины высоты(оставшейся половины высоты метки) и высоты дополнительного визуального элемента ножки/острия выполненного псевдоэлементом.  */
     window.address.onMoveCoords();
-
     window.validation.onRoomNumbersCheck(); /* Проверка соответствия выбранного количества комнат - гостям. */
-    window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
-    window.validation.guestsNumber.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
     window.validation.onRoomPriceCheck();
 
-    window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck);
-    window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+
+    window.validation.addFieldCheck(); /* Включены/ добавлены слушатели корректного ввода данных на страницу */
+    window.form.getSubmitListener();
+    window.form.getListenerResetValue();
+
+    /* Слушатель кнопки сброса формы  */
+    // window.validation.roomType.addEventListener('click', window.validation.onRoomPriceCheck);
   };
   /* Пока буду скрывать для того что бы реализовать упрощенный подход */
   // var onMainPinMouseOrKeyDown = function (/* evt */) { /* Функция которая(Запустит действия при активации страницы) будет передана в слушатель */

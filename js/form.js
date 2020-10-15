@@ -29,29 +29,57 @@
   //   evt.preventDefault(); /* отменим действие формы по умолчанию */
   // };
 
-  var formReset = function () {
+  var formReset = function (evt) {
+    evt.preventDefault(); /* отменим действие формы по умолчанию */
+    // var saveAddress = document.querySelector('#address').value;
+    // console.log(saveAddress);
+    window.address.onSaveCoords();
     adForm.reset(); /* Обнулил поля формы */
-    adForm.classList.add('ad-form--disabled'); /* Добавил полям формы класс дезактивации */
-    window.map.setAttributeDisabled(window.form.liveElements); /* Сделал неактивными поля формы */
-    window.map.setAttributeDisabled(window.form.liveMapFilterElements); /* Сделал неактивными поля фильтра на карте. */
+    window.address.getSaveCoords();
+    // window.address.onStartCoords(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
+    // window.address.onMoveCoords();
+    // adForm.querySelector('#address').value = ;
+    // console.log(document.querySelector('#address').value);
 
-    // TODO++++
-    /* Удаляю обработчики с полей фильтра */
-    // Не так все просто с ними, обсудить с наставником, может их вообще можно не удалять или же это нужно делать как то иначе. Не все функции передаются и отрабатывают должным образом.
-    /* Удаляю обработчики с полей форм. */
-    /* Не получается это сделать */
-    // TODO----
+    // adForm.querySelector('#title').value = '';
+    // adForm.querySelector('#price');
+    // adForm.querySelector('#type');
+    // adForm.querySelector('#room_number');
+    // adForm.querySelector('#capacity');
+    // adForm.querySelector('#timein');
+    // adForm.querySelector('#timeout');
+    // adForm.querySelector('#checkbox');
+    // adForm.querySelector('#description');
+    // adForm.querySelector('#avatar');
   };
 
+  // ad-form__reset
+  var resetButton = adForm.querySelector('.ad-form__reset');
 
-  var onSubmit = function (evt) {
+  var getListenerResetValue = function () {
+    resetButton.addEventListener('click', formReset);
+  };
+
+  var removeListenerResetValue = function () {
+    resetButton.removeEventListener('click', formReset);
+  };
+
+  var onSubmit = function () {
+    // console.log('');
+    // console.log('Запущена функция онСубмит');
     window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
+      // console.log('Запущена функция которая говорит о том что отправка формы прошла успешно.');
       /* Действия как только данные будут успешно сохранены В учебном проекте это закрытие диалога, возможно это действия при успешной отправке формы на сервер. */
       var map = document.querySelector('.map');
       // // НЕАКТИВНОЕ СОСТОЯНИЕ:
       map.classList.add('map--faded'); /* Добавляется неактивность для пина изменяется его визуальное отображение.*/
-
-      formReset();
+      adForm.classList.add('ad-form--disabled'); /* Добавил полям формы класс дезактивации */
+      window.map.setAttributeDisabled(window.form.liveElements); /* Сделал неактивными поля формы */
+      window.map.setAttributeDisabled(window.form.liveMapFilterElements); /* Сделал неактивными поля фильтра на карте. */
+      removeSubmitListener();
+      removeListenerResetValue();
+      // formReset();
+      adForm.reset(); /* Обнулил поля формы */
 
       window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
       window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
@@ -62,112 +90,51 @@
       window.move.activeMainPin(); /* Активирую главный пин. */
       window.sendMessage.getSuccesPopup(); /* Сообщение о успешной отправке формы */
 
-      /*  */
+      // TODO++++
+      /* Удаляю обработчики с полей фильтра */
+      // Не так все просто с ними, обсудить с наставником, может их вообще можно не удалять или же это нужно делать как то иначе. Не все функции передаются и отрабатывают должным образом.
+      /* Удаляю обработчики с полей форм. */
+      /* Не получается это сделать */
+      // TODO----
+
 
       // console.log('Форма отправлена');
-      // mapPinMain.addEventListener('mousedown', onMapPinMainPress);
-      // window.move.mapPinMain.addEventListener('mousedown', window.move.onMapPinMainPress);
+      // console.log('Выполнены действия при отправке формы');
     });
-    evt.preventDefault(); /* отменим действие формы по умолчанию */
+    // evt.preventDefault(); /* отменим действие формы по умолчанию */
+    // console.log('Выполнена отмена действия формы по умолчанию');
   };
 
 
-  // var onSubmit = function (evt) {
-  //   try {
-  //     window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
-  //       /* Действия как только данные будут успешно сохранены В учебном проекте это закрытие диалога, возможно это действия при успешной отправке формы на сервер. */
-  //       var map = document.querySelector('.map');
-  //       // // НЕАКТИВНОЕ СОСТОЯНИЕ:
-  //       map.classList.add('map--faded'); /* Добавляется неактивность для пина изменяется его визуальное отображение.*/
-  //       adForm.reset(); /* Обнулил поля формы */
-  //       adForm.classList.add('ad-form--disabled'); /* Добавил полям формы класс дезактивации */
-  //       window.map.setAttributeDisabled(window.form.liveElements); /* Сделал неактивными поля формы */
-  //       window.map.setAttributeDisabled(window.form.liveMapFilterElements); /* Сделал неактивными поля фильтра на карте. */
-  //       window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
-  //       window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
+  var onSubmitCheck = function (evt) {
+    try {
+      // console.log('Начало try впереди онСубмит');
+      onSubmit();
+      // console.log('онСубмит выполнена');
+      evt.preventDefault(); /* отменим действие формы по умолчанию */
+      // console.log('Отменено действие по умолчанию для кнопки отправки');
+    } catch (error) {
+      // console.log('Запучена действие при ошибке');
+      evt.preventDefault(); /* отменим действие формы по умолчанию */
+      // console.log('Отменено действие по умолчанию для кнопки отправки');
+      window.sendMessage.getErrorPopup(error);
+      // console.log('Выполнена функция предусмотренная при ошибке в онСубмит');
+    }
+  };
 
-  //       window.address.returnFirstCoordsMapPinMain(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
+  var getSubmitListener = function () {
+    adForm.addEventListener('submit', onSubmitCheck);
+  };
 
-  //       // TODO++++
-  //       /* Удаляю обработчики с полей фильтра */
-  //       // Не так все просто с ними, обсудить с наставником, может их вообще можно не удалять или же это нужно делать как то иначе. Не все функции передаются и отрабатывают должным образом.
-  //       /* Удаляю обработчики с полей форм. */
-  //       /* Не получается это сделать */
-  //       // TODO----
-
-  //       window.move.activeMainPinRestart();
-  //       window.move.activeMainPin();
-  //       window.sendMessage.getSuccesPopup(); /* Сообщение о успешной отправке формы */
-
-  //       /*  */
-
-  //       // console.log('Форма отправлена');
-  //       // mapPinMain.addEventListener('mousedown', onMapPinMainPress);
-  //       // window.move.mapPinMain.addEventListener('mousedown', window.move.onMapPinMainPress);
-  //     });
-  //     evt.preventDefault(); /* отменим действие формы по умолчанию */
-  //   } catch (error) {
-  //     window.sendMessage.getErrorPopup();
-  //   }
-  // };
-
-
-  // var onSubmitCheck = function () {
-  //   try {
-  //     onSubmit();
-  //   } catch (error) {
-  //     window.sendMessage.getErrorPopup();
-  //   }
-  // };
-
-
-  adForm.addEventListener('submit', onSubmit);
-
-
-  // try {
-
-  // } catch (error) {
-  //   window.sendMessage.getErrorPopup();
-  // }
-
-  // adForm.addEventListener('submit', function (evt) {
-  //   window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
-  //     /* Действия как только данные будут успешно сохранены В учебном проекте это закрытие диалога, возможно это действия при успешной отправке формы на сервер. */
-  //     var map = document.querySelector('.map');
-  //     // // НЕАКТИВНОЕ СОСТОЯНИЕ:
-  //     map.classList.add('map--faded'); /* Добавляется неактивность для пина изменяется его визуальное отображение.*/
-  //     adForm.reset(); /* Обнулил поля формы */
-  //     adForm.classList.add('ad-form--disabled'); /* Добавил полям формы класс дезактивации */
-  //     window.map.setAttributeDisabled(window.form.liveElements); /* Сделал неактивными поля формы */
-  //     window.map.setAttributeDisabled(window.form.liveMapFilterElements); /* Сделал неактивными поля фильтра на карте. */
-  //     window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
-  //     window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
-
-  //     window.address.returnFirstCoordsMapPinMain(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
-
-  //     // TODO++++
-  //     /* Удаляю обработчики с полей фильтра */
-  //     // Не так все просто с ними, обсудить с наставником, может их вообще можно не удалять или же это нужно делать как то иначе. Не все функции передаются и отрабатывают должным образом.
-  //     /* Удаляю обработчики с полей форм. */
-  //     /* Не получается это сделать */
-  //     // TODO----
-
-  //     window.move.activeMainPinRestart();
-  //     window.move.activeMainPin();
-  //     window.sendMessage.getSuccesPopup(); /* Сообщение о успешной отправке формы */
-
-  //     /*  */
-
-  //     // console.log('Форма отправлена');
-  //     // mapPinMain.addEventListener('mousedown', onMapPinMainPress);
-  //     // window.move.mapPinMain.addEventListener('mousedown', window.move.onMapPinMainPress);
-  //   });
-  //   evt.preventDefault(); /* отменим действие формы по умолчанию */
-  // });
+  var removeSubmitListener = function () {
+    adForm.removeEventListener('submit', onSubmitCheck);
+  };
 
   window.form = {
     liveElements: liveElements,
     liveMapFilterElements: liveMapFilterElements,
+    getSubmitListener: getSubmitListener,
+    getListenerResetValue: getListenerResetValue
   };
 })();
 
