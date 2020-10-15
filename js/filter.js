@@ -4,7 +4,7 @@
   var selectHousingType = document.getElementById('housing-type');
 
   // var onSelectHousingType = function (data) {
-  //   window.pin.renderPinCards(data);
+  //   // window.pin.renderPinCards(data);
   //   var valueHousingType = selectHousingType.value;
   //   var newData = [];
 
@@ -19,6 +19,8 @@
   //   }
   //   window.pin.renderPinCards(newData);
   // };
+
+  // var getRemoveSelectHousingType;
 
   var pinsFilter = function (data) { /* Фильтр В нем произойден фильтрация от поля выбора комнаты. В data будут находиться данные с сервера/Данные об объектах для отображения - xhr.response */
 
@@ -39,10 +41,14 @@
       }
       window.pin.renderPinCards(newData);
     };
+
     selectHousingType.addEventListener('input', onSelectHousingType);
 
-    // console.log(selectHousingType.value);
+    // getRemoveSelectHousingType = selectHousingType.removeEventListener('input', onSelectHousingType);
+
   };
+  // console.log(getRemoveSelectHousingType);
+
 
   window.filter = {/* Экспорт данных в область общей видимости. */
     pins: pinsFilter

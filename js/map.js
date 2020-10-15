@@ -25,7 +25,7 @@
 
   var setAttributeDisabled = function (liveCollection) { /*  Функция поочередно удаляющая атрибуты неактивности к полям */
     for (var i = 0; i < liveCollection.length; i++) { /* Цикл для удаления  атрибута к полям */
-      liveCollection[i].setAttribute('disabled', 'disabled'); /* Поочередное удаление атрибута к каждому филдсету полей. */
+      liveCollection[i].setAttribute('disabled', 'true'); /* Поочередное удаление атрибута к каждому филдсету полей. */
     }
     return liveCollection;
   };

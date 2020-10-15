@@ -71,22 +71,30 @@
 
 
   var addFieldCheck = function () {
-    window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
-    window.validation.guestsNumber.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
-    window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
-    window.validation.inputTitle.addEventListener('input', window.validation.getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
+    roomNumbers.addEventListener('change', onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
+    guestsNumber.addEventListener('change', onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
+    roomType.addEventListener('change', onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+    inputTitle.addEventListener('input', getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
+  };
+
+  var removeFieldCheck = function () {
+    roomNumbers.removeEventListener('change', onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
+    guestsNumber.removeEventListener('change', onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
+    roomType.removeEventListener('change', onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+    inputTitle.removeEventListener('input', getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
   };
   // inputTitle.addEventListener('input', getTitleCheck);
 
   // ############################
   window.validation = {
     onRoomNumbersCheck: onRoomNumbersCheck,
-    guestsNumber: guestsNumber,
-    roomNumbers: roomNumbers,
+    // guestsNumber: guestsNumber,
+    // roomNumbers: roomNumbers,
     onRoomPriceCheck: onRoomPriceCheck,
-    roomType: roomType,
-    inputTitle: inputTitle,
-    getTitleCheck: getTitleCheck,
-    addFieldCheck: addFieldCheck
+    // roomType: roomType,
+    // inputTitle: inputTitle,
+    // getTitleCheck: getTitleCheck,
+    addFieldCheck: addFieldCheck,
+    removeFieldCheck: removeFieldCheck
   };
 })();

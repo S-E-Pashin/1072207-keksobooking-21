@@ -37,22 +37,12 @@
       x: mapPinMain.style.left,
       y: mapPinMain.style.top
     };
-
-    // console.log(saveCoords);
   };
 
   var getSaveCoords = function () {
-    console.log(mapPinMainAddress);
-
     mapPinMain.style.left = saveCoords.x;
     mapPinMain.style.top = saveCoords.y;
-    mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft - mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop - (mapPinMain.offsetHeight / 2 + MAP_PIN_MAIN_AFTER_TIP));
-    // onMoveCoords();
-    console.log(mapPinMainAddress.value);
-
-    // mapPinMainAddress.value = saveCoords;
-    // mapPinMainAddress.value = '';
-    // console.log(saveCoords);
+    onMoveCoords();
   };
 
   window.address = {

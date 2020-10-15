@@ -6,54 +6,20 @@
   var liveMapFilterElements = document.querySelector('.map__filters').children; /* Внутри находится коллекция дочерних элементов */
   adForm.classList.add('ad-form--disabled');
 
-  var addAttributeDisabled = function (liveCollection) {
-    for (var i = 0; i < liveCollection.length; i++) { /* Цикл для добавления атрибута к полям */
-      liveCollection[i].setAttribute('disabled', 'true'); /* Поочередное добавление атрибута к каждому филдсету полей. */
-    }
-    return liveCollection;
+  var getDisabledField = function () {
+    window.map.setAttributeDisabled(liveElements); /* Сделал неактивными поля формы */
+    window.map.setAttributeDisabled(liveMapFilterElements); /* Сделал неактивными поля фильтра на карте. */
   };
-  addAttributeDisabled(liveElements);
-  addAttributeDisabled(liveMapFilterElements);
-
-  // var onSuccessSubmitForm = function (responce) {
-
-  // };
-
-  // var submitForm = function (evt) {
-  //   window.upload.submitData(new FormData(adForm), function (responce) { /* function (responce) Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
-  //     /* Действия как только данные будут успешно сохранены В учебном проекте это закрытие диалога, возможно это действия при успешной отправке формы на сервер.*/
-  //     // var map = document.querySelector('.map');
-  //     // // НЕАКТИВНОЕ СОСТОЯНИЕ:
-  //     // map.classList.add('map--faded'); /* Добавляется неактивность для карты и содержимого */
-  //   });
-  //   evt.preventDefault(); /* отменим действие формы по умолчанию */
-  // };
+  getDisabledField();
 
   var formReset = function (evt) {
     evt.preventDefault(); /* отменим действие формы по умолчанию */
-    // var saveAddress = document.querySelector('#address').value;
-    // console.log(saveAddress);
-    window.address.onSaveCoords();
+    window.address.onSaveCoords(); /* Сохранил настоящие координаты метки */
     adForm.reset(); /* Обнулил поля формы */
-    window.address.getSaveCoords();
-    // window.address.onStartCoords(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
-    // window.address.onMoveCoords();
-    // adForm.querySelector('#address').value = ;
-    // console.log(document.querySelector('#address').value);
-
-    // adForm.querySelector('#title').value = '';
-    // adForm.querySelector('#price');
-    // adForm.querySelector('#type');
-    // adForm.querySelector('#room_number');
-    // adForm.querySelector('#capacity');
-    // adForm.querySelector('#timein');
-    // adForm.querySelector('#timeout');
-    // adForm.querySelector('#checkbox');
-    // adForm.querySelector('#description');
-    // adForm.querySelector('#avatar');
+    window.address.getSaveCoords(); /* Передал сохраненные координаты метки в поле адреса  */
   };
 
-  // ad-form__reset
+
   var resetButton = adForm.querySelector('.ad-form__reset');
 
   var getListenerResetValue = function () {
@@ -74,12 +40,12 @@
       // // НЕАКТИВНОЕ СОСТОЯНИЕ:
       map.classList.add('map--faded'); /* Добавляется неактивность для пина изменяется его визуальное отображение.*/
       adForm.classList.add('ad-form--disabled'); /* Добавил полям формы класс дезактивации */
-      window.map.setAttributeDisabled(window.form.liveElements); /* Сделал неактивными поля формы */
-      window.map.setAttributeDisabled(window.form.liveMapFilterElements); /* Сделал неактивными поля фильтра на карте. */
+      getDisabledField();
       removeSubmitListener();
       removeListenerResetValue();
-      // formReset();
+
       adForm.reset(); /* Обнулил поля формы */
+      // window.validation.removeFieldCheck();/* Удаляю слушатели полей формы*/
 
       window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
       window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
@@ -96,7 +62,7 @@
       /* Удаляю обработчики с полей форм. */
       /* Не получается это сделать */
       // TODO----
-
+      // document.querySelector('.map__filters').reset();
 
       // console.log('Форма отправлена');
       // console.log('Выполнены действия при отправке формы');
