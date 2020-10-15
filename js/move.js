@@ -101,12 +101,21 @@
       };
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
+      // console.log(dragged);
     }
   };
-
-  mapPinMain.addEventListener('mousedown', onMapPinMainPress);
+  // console.log(dragged);
+  var activeMainPinRestart = function () {
+    dragged = true;
+  };
+  var activeMainPin = function () {
+    mapPinMain.addEventListener('mousedown', onMapPinMainPress);
+  };
+  activeMainPin();
 
   window.move = {
-    // removeAttributeDisabled: removeAttributeDisabled,
+    activeMainPin: activeMainPin,
+    activeMainPinRestart: activeMainPinRestart
+    // onMapPinMainPress: onMapPinMainPress
   };
 })();

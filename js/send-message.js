@@ -22,22 +22,22 @@
   /* Если при отправке данных произошла ошибка запроса, покажите соответствующее сообщение. Разметку сообщения, которая находится в блоке #error в шаблоне template, нужно разместить в main. Сообщение должно исчезать после нажатия на кнопку .error__button, по нажатию на клавишу Esc и по клику на произвольную область экрана.
  */
 
-  // var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-  // var errorTemplateClone = errorTemplate.cloneNode(true);
+  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+  var errorTemplateClone = errorTemplate.cloneNode(true);
 
-  // var onCloseErrorPopup = function (evt) {
-  //   if (evt.which === 1 || evt.key === 'Escape') {
-  //     document.removeEventListener('keydown', onCloseErrorPopup);
-  //     document.removeEventListener('click', onCloseErrorPopup);
-  //     document.querySelector('.error').remove();
-  //   }
-  // };
+  var onCloseErrorPopup = function (evt) {
+    if (evt.which === 1 || evt.key === 'Escape') {
+      document.removeEventListener('keydown', onCloseErrorPopup);
+      document.removeEventListener('click', onCloseErrorPopup);
+      document.querySelector('.error').remove();
+    }
+  };
 
-  // var getErrorPopup = function () {
-  //   document.querySelector('main').appendChild(errorTemplateClone);
-  //   document.addEventListener('keydown', onCloseErrorPopup);
-  //   document.addEventListener('click', onCloseErrorPopup);
-  // };
+  var getErrorPopup = function () {
+    document.querySelector('main').appendChild(errorTemplateClone);
+    document.addEventListener('keydown', onCloseErrorPopup);
+    document.addEventListener('click', onCloseErrorPopup);
+  };
 
   // getErrorPopup();/* Запускатор функции для комфортного взаимодействия с функцией и ее теста. */
 
@@ -45,6 +45,6 @@
   // console.log(successTemplate);
   window.sendMessage = {
     getSuccesPopup: getSuccesPopup,
-    // getRandomInteger: getRandomInteger
+    getErrorPopup: getErrorPopup
   };
 })();
