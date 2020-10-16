@@ -39,6 +39,7 @@
           }
         });
       }
+      window.card.popupDelete(); /* Функция которая удалит открытый попап/карточку объявления при условии что она открыта. */
       window.pin.renderPinCards(newData);
     };
 
