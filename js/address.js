@@ -31,25 +31,9 @@
     mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft - mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop - (mapPinMain.offsetHeight / 2 + MAP_PIN_MAIN_AFTER_TIP));/* Вычитание из расстояния сверху до метки половины высоты(оставшейся половины высоты метки) и высоты дополнительного визуального элемента ножки/острия выполненного псевдоэлементом.  */
   };
 
-  var saveCoords;
-  var onSaveCoords = function () {
-    saveCoords = {/* Сохраненное значение координат главной метки */
-      x: mapPinMain.style.left,
-      y: mapPinMain.style.top
-    };
-  };
-
-  var getSaveCoords = function () {
-    mapPinMain.style.left = saveCoords.x;
-    mapPinMain.style.top = saveCoords.y;
-    onMoveCoords();
-  };
-
   window.address = {
     onStartCoords: onStartCoords,
     onMoveCoords: onMoveCoords,
-    returnFirstCoordsMapPinMain: returnFirstCoordsMapPinMain,
-    onSaveCoords: onSaveCoords,
-    getSaveCoords: getSaveCoords
+    returnFirstCoordsMapPinMain: returnFirstCoordsMapPinMain
   };
 })();

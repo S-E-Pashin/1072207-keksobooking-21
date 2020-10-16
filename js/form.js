@@ -12,63 +12,47 @@
   };
   getDisabledField();
 
-  var formReset = function (evt) {
-    evt.preventDefault(); /* отменим действие формы по умолчанию */
-    window.address.onSaveCoords(); /* Сохранил настоящие координаты метки */
+  var formReset = function () {
+    var map = document.querySelector('.map');
+    map.classList.add('map--faded'); /* Добавляется неактивность для пина изменяется его визуальное отображение.*/
+    adForm.classList.add('ad-form--disabled'); /* Добавил полям формы класс дезактивации */
+    getDisabledField(); /* Убрал активность полей */
+    removeSubmitListener(); /* Удалил слушатель кнопки отправки */
+    removeListenerResetValue(); /* Удалил слушатель кнопки рестарта */
     adForm.reset(); /* Обнулил поля формы */
-    window.address.getSaveCoords(); /* Передал сохраненные координаты метки в поле адреса  */
+    window.validation.removeFieldCheck();/* Удаляю слушатели полей формы*/
+    window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
+    window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
+    window.address.returnFirstCoordsMapPinMain(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
+    window.move.activeMainPinRestart(); /* Изменяю флаг для возможности переиспользования функции активации главного пина */
+    window.move.activeMainPin(); /* Активирую главный пин. */
   };
 
+  var getFormResetButton = function (evt) {
+    evt.preventDefault(); /* отменим действие формы по умолчанию */
+    formReset();
+  };
 
   var resetButton = adForm.querySelector('.ad-form__reset');
 
   var getListenerResetValue = function () {
-    resetButton.addEventListener('click', formReset);
+    resetButton.addEventListener('click', getFormResetButton);
   };
 
   var removeListenerResetValue = function () {
-    resetButton.removeEventListener('click', formReset);
+    resetButton.removeEventListener('click', getFormResetButton);
   };
 
   var onSubmit = function () {
-    // console.log('');
-    // console.log('Запущена функция онСубмит');
     window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
-      // console.log('Запущена функция которая говорит о том что отправка формы прошла успешно.');
-      /* Действия как только данные будут успешно сохранены В учебном проекте это закрытие диалога, возможно это действия при успешной отправке формы на сервер. */
-      var map = document.querySelector('.map');
-      // // НЕАКТИВНОЕ СОСТОЯНИЕ:
-      map.classList.add('map--faded'); /* Добавляется неактивность для пина изменяется его визуальное отображение.*/
-      adForm.classList.add('ad-form--disabled'); /* Добавил полям формы класс дезактивации */
-      getDisabledField();
-      removeSubmitListener();
-      removeListenerResetValue();
-
-      adForm.reset(); /* Обнулил поля формы */
-      // window.validation.removeFieldCheck();/* Удаляю слушатели полей формы*/
-
-      window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
-      window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
-
-      window.address.returnFirstCoordsMapPinMain(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
-
-      window.move.activeMainPinRestart(); /* Изменяю флаг для возможности переиспользования функции активации главного пина */
-      window.move.activeMainPin(); /* Активирую главный пин. */
+      formReset();
       window.sendMessage.getSuccesPopup(); /* Сообщение о успешной отправке формы */
 
       // TODO++++
       /* Удаляю обработчики с полей фильтра */
       // Не так все просто с ними, обсудить с наставником, может их вообще можно не удалять или же это нужно делать как то иначе. Не все функции передаются и отрабатывают должным образом.
-      /* Удаляю обработчики с полей форм. */
-      /* Не получается это сделать */
       // TODO----
-      // document.querySelector('.map__filters').reset();
-
-      // console.log('Форма отправлена');
-      // console.log('Выполнены действия при отправке формы');
     });
-    // evt.preventDefault(); /* отменим действие формы по умолчанию */
-    // console.log('Выполнена отмена действия формы по умолчанию');
   };
 
 
