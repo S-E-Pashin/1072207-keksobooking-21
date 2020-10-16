@@ -11,8 +11,6 @@
   // var MAP_PIN_MAIN_AFTER_TIP = 22; /* Высота ножки/острия для метки(Пина) */
   // Корректировка расположения точки пина в неактивном состоянии.
   var START_NUMBER_ID = 1;
-  // // Координаты центра метки:
-  // mapPinMainAddress.value = Math.round(mapPinMain.offsetLeft + mapPinMain.offsetWidth / 2) + ', ' + Math.round(mapPinMain.offsetTop + mapPinMain.offsetHeight / 2);
 
   window.address.onStartCoords();
 
@@ -111,12 +109,14 @@
     window.address.onMoveCoords();
 
     window.validation.onRoomNumbersCheck(); /* Проверка соответствия выбранного количества комнат - гостям. */
-    window.validation.roomNumbers.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
-    window.validation.guestsNumber.addEventListener('change', window.validation.onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
-    window.validation.onRoomPriceCheck();
+    window.validation.onRoomPriceCheck(); /* Проверка соответствия цены */
 
-    window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck);
-    window.validation.roomType.addEventListener('change', window.validation.onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+
+    window.validation.addFieldCheck(); /* Включены/ добавлены слушатели корректного ввода данных на страницу */
+    window.form.getSubmitListener(); /* Слушатель кнопки отправки формы */
+    window.form.getListenerResetValue(); /* Слушатель кнопки сброса формы  */
+
+
   };
   /* Пока буду скрывать для того что бы реализовать упрощенный подход */
   // var onMainPinMouseOrKeyDown = function (/* evt */) { /* Функция которая(Запустит действия при активации страницы) будет передана в слушатель */

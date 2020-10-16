@@ -53,12 +53,48 @@
     document.querySelector('#timein').value = timeOut.value;
   };
 
+
+  var inputTitle = document.querySelector('#title');
+  var getTitleCheck = function () {
+    // console.log(inputTitle.value.length);
+    // console.log(inputTitle.min);
+    if (inputTitle.value.length < inputTitle.min || inputTitle.value.length > inputTitle.max) {
+      inputTitle.setCustomValidity('Количество вводимых символов составляет от ' + inputTitle.min + ' до ' + inputTitle.max);
+      inputTitle.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
+      inputTitle.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
+    } else {
+      inputTitle.setCustomValidity(''); /* Убрать значение не соответствия валидации */
+      inputTitle.style.backgroundColor = ''; /* Убрать подсвет розовым неверного ответа */
+      inputTitle.style.backgroundColor = ''; /* Убрать подсвет розовым неверного ответа */
+    }
+  };
+
+
+  var addFieldCheck = function () {
+    roomNumbers.addEventListener('change', onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
+    guestsNumber.addEventListener('change', onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
+    roomType.addEventListener('change', onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+    inputTitle.addEventListener('input', getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
+  };
+
+  var removeFieldCheck = function () {
+    roomNumbers.removeEventListener('change', onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
+    guestsNumber.removeEventListener('change', onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
+    roomType.removeEventListener('change', onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
+    inputTitle.removeEventListener('input', getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
+  };
+  // inputTitle.addEventListener('input', getTitleCheck);
+
   // ############################
   window.validation = {
     onRoomNumbersCheck: onRoomNumbersCheck,
-    guestsNumber: guestsNumber,
-    roomNumbers: roomNumbers,
+    // guestsNumber: guestsNumber,
+    // roomNumbers: roomNumbers,
     onRoomPriceCheck: onRoomPriceCheck,
-    roomType: roomType,
+    // roomType: roomType,
+    // inputTitle: inputTitle,
+    // getTitleCheck: getTitleCheck,
+    addFieldCheck: addFieldCheck,
+    removeFieldCheck: removeFieldCheck
   };
 })();
