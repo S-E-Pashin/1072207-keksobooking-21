@@ -50,7 +50,7 @@
     // mapPinNoMain.forEach(function (oldPin) { /* Удаляю элементы из разметки. */
     //   oldPin.remove();
     // });
-    removeOldPins();
+    removeOldPins(); /* Удаляю старые пины */
     var numberItemsDisplay = items.length < NUMBER_ITEMS_DISPLAY_MAX ? items.length : NUMBER_ITEMS_DISPLAY_MAX; /* Количество отображаемых элементов = В зависимость количества отображаемых элементов от разрешенной максимальной длинны и длинны полученного массива. Тернарная операция: Переменная = Условие1 < Условие2 ? true действия/значение если верно : fals действия/ значение если условие неверно. */
 
     for (var i = 0; i < numberItemsDisplay; i++) { /* Добавление в зависимости от количества подходящих вариантов/элементов. Цикл который добавляет элементы в разметку. (В виртуальную разметку-не меняет исходный HTML). */
@@ -89,8 +89,12 @@
       // console.log('Pin^Данные из onSuccess - data');
 
 
-      window.filter.pins(data); /* renderPinCards(saveAllCards);было. Теперь  */
+      // window.filter.pins(data); /* renderPinCards(saveAllCards);было. Теперь  */
+
       // console.log(data); /* Данные которые были переданы в функцию посредством полученного в файле backend  объекта/ов и переданного посредством функции в параметр которой*/
+      // console.log(window.filter.verification(data)); /* Данные которые были переданы в функцию посредством полученного в файле backend  объекта/ов и переданного посредством функции в параметр которой*/
+      window.pin.renderPinCards(window.filter.verification(data));
+      // window.filter.verification(data); /* renderPinCards(saveAllCards);было. Теперь  */
     };
 
     // var onError = function () { /* Вместо этой функции передаю getErrorPopup в ней описаны действия при возникновении ошибки. */

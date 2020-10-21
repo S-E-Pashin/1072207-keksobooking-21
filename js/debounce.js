@@ -1,9 +1,9 @@
-// Файл debounce.js
+/* eslint-disable no-var */
 'use strict';
 (function () {
   var DEBOUNCE_INTERVAL = 300; // ms
 
-  window.debounce = function (cb) {
+  var debounce = function (cb) {
     var lastTimeout = null;
 
     return function () {
@@ -16,4 +16,29 @@
       }, DEBOUNCE_INTERVAL);
     };
   };
+
+  window.debounce = {
+    debounce: debounce
+  };
 })();
+
+
+// 'use strict';
+// (function () {
+//   var DEBOUNCE_INTERVAL = 500;
+
+//   function debounce(cb) {
+//     var lastTimeout = null;
+//     return function () {
+//       var args = arguments;
+//       if (lastTimeout) {
+//         window.clearTimeout(lastTimeout);
+//       }
+//       lastTimeout = window.setTimeout(function () {
+//         cb.apply(null, args);
+//       }, DEBOUNCE_INTERVAL);
+//     };
+//   }
+
+//   window.debounce = debounce;
+// })();
