@@ -1,9 +1,9 @@
 /* eslint-disable no-var */
 'use strict';
 (function () {
-  var DEBOUNCE_INTERVAL = 300; // ms
+  var DEBOUNCE_INTERVAL = 300;
 
-  var debounce = function (cb) {
+  window.debounce = function (cb) {
     var lastTimeout = null;
 
     return function () {
@@ -17,9 +17,9 @@
     };
   };
 
-  window.debounce = {
-    debounce: debounce
-  };
+  // window.debounce =  {
+  //   debounce: debounce
+  // };
 })();
 
 

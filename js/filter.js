@@ -1,100 +1,7 @@
 /* eslint-disable no-var */
-// 'use strict';
-// (function () {
-// var selectHousingType = document.getElementById('housing-type');
-// var selectHousingPrice = document.querySelector('#housing-price');
-// var mapFilters = document.querySelector('.map__filters');
-
-// var cards = [];
-
-
-// var pinsFilter = function (data) { /* Фильтр В нем произойден фильтрация от поля выбора комнаты. В data будут находиться данные с сервера/Данные об объектах для отображения - xhr.response */
-//   window.pin.renderPinCards(data);
-//   window.card.popupDelete(); /* Функция которая удалит открытый попап/карточку объявления при условии что она открыта. */
-//   var onSelectFilter = function () {
-//     cards = [];
-//     var valueHousingType = selectHousingType.value;
-//     var newDataType = [];
-//     if (valueHousingType === 'any') {
-//       newDataType = data;
-//     } else {
-//       newDataType = [];
-//       data.forEach(function (i) {
-//         if (valueHousingType === i.offer.type) {
-//           newDataType.push(i);
-//         }
-//       });
-//     }
-
-//     var valueHousingPrice = selectHousingPrice.value;
-//     var newDataPrice = [];
-//     if (valueHousingPrice === 'any') {
-//       newDataPrice = [];
-//       newDataPrice = newDataType;
-//     } else if (valueHousingPrice === 'middle') {
-//       newDataPrice = [];
-//       newDataType.forEach(function (i) {
-//         if (i.offer.price >= 10000 && i.offer.price <= 50000) {
-//           newDataPrice.push(i);
-//         }
-//       });
-//     } else if (valueHousingPrice === 'low') {
-//       newDataPrice = [];
-//       newDataType.forEach(function (i) {
-//         if (i.offer.price < 10000) {
-//           newDataPrice.push(i);
-//         }
-//       });
-//     } else if (valueHousingPrice === 'high') {
-//       newDataPrice = [];
-//       newDataType.forEach(function (i) {
-//         if (i.offer.price > 50000) {
-//           newDataPrice.push(i);
-//         }
-//       });
-//     }
-
-//     var valueHousingRooms = document.querySelector('#housing-rooms').value;
-//     var newDataRooms = [];
-//     if (valueHousingRooms === 'any') {
-//       newDataRooms = newDataPrice;
-//     } else {
-//       newDataPrice.forEach(function (i) {
-//         if (valueHousingRooms === String(i.offer.rooms)) {
-//           newDataRooms.push(i);
-//         }
-//       });
-//     }
-
-//     var valueHousingGuests = document.querySelector('#housing-guests').value;
-//     var newDataGuests = [];
-//     if (valueHousingGuests === 'any') {
-//       newDataGuests = newDataRooms;
-//     } else {
-//       newDataRooms.forEach(function (i) {
-//         if (valueHousingGuests === String(i.offer.guests)) {
-//           newDataGuests.push(i);
-//         }
-//       });
-//     }
-
-//     cards = newDataGuests;
-//     window.pin.renderPinCards(cards);
-//   };
-//   mapFilters.addEventListener('input', onSelectFilter);
-// };
-// /* TODO как удалить слушатель mapFilters.addEventListener('input', onSelectFilter); ? У меня теряются данные если выносить функцию а как перенести ее в глобальную область видимости я не понимаю. */
-// // mapFilters.removeEventListener('input', onSelectFilter);
-
-//   window.filter = {/* Экспорт данных в область общей видимости. */
-//     pins: pinsFilter
-//   };
-// })();
-
-
 'use strict';
 (function () {
-  var ADS_NUM = 5; /*  */
+  var ADS_NUM = 5;
   var mapFilters = document.querySelector('.map__filters');
   var housingType = document.querySelector('#housing-type');
   var housingPrice = document.querySelector('#housing-price');
@@ -108,29 +15,16 @@
   };
 
   var checkPrice = function (element) {
-
-    // console.log('Впереди выполнение switch case в котором при определенном значении housingPrice.value');
-    // console.log(checkPrice);
     switch (housingPrice.value) {
       case 'any':
-        console.log(' Выполняется any. checkPrice равен=return true=');
-        // console.log(checkPrice);
         return true; /* Если выбрано any возвращается true  */
       case 'low':
-        console.log(' Выполняется low. checkPrice равен=return element.offer.price < prices.min=');
-        // console.log(checkPrice);
-        return (element.offer.price < prices.min);
+        return (element.offer.price < prices.min); /* true false */
       case 'middle':
-        console.log(' Выполняется middle. checkPrice равен=return element.offer.price > prices.min=');
-        // console.log(checkPrice);
         return (element.offer.price > prices.min) && (element.offer.price < prices.max);
       case 'high':
-        console.log(' Выполняется high. checkPrice равен=return element.offer.price > prices.max=');
-        // console.log(checkPrice);
         return (element.offer.price > prices.max);
       default:
-        console.log(' Выполняется default. checkPrice равен=return element === housingPrice.value=');
-        // console.log(checkPrice);
         return element === housingPrice.value;
     }
   };
@@ -138,52 +32,45 @@
   var dataSave = []; /* Создаю пустой массив в который передам data для его последующего использования при фильтрации. */
   var verification = function (data) { /* Функция которая осуществит проверку соответствия пинов заявленым в фильтре требованиям. */
     dataSave = data;
-    // console.log('Данные исходного массива:');
-    // console.log(data);
-    // console.log(dataSave);
     return data
       .filter(function (element) {
+        /* isTypeMatched если значение housingType.value равно 'any' тогда выполняется true - утверждение верно и выполнятеся следующая проверка/строка условие если же нет то выполняется вторая часть а именно element.offer.type === housingType.value которы  */
         var isTypeMatched = housingType.value === 'any' ? true : element.offer.type === housingType.value;
-        var isRoomsMatched = housingRooms.value === 'any' ? true : element.offer.rooms === +housingRooms.value;
+        var isRoomsMatched = housingRooms.value === 'any' ? true : element.offer.rooms === +housingRooms.value; /* + это как number унарный оператор. element.offer.rooms === +housingRooms.value */
         var isGuestMatched = housingGuests.value === 'any' ? true : element.offer.guests === +housingGuests.value;
         var isPriceMatched = checkPrice(element);
-        var requiredFeatures = Array.from(housingFeatures.querySelectorAll('input:checked')).map(function (item) {
+        var requiredFeatures = Array.from(housingFeatures.querySelectorAll('input:checked')).map(function (item) { /* Сначала Будет создана коллекция/псевдомассив из выбранных значений housingFeatures далее с помощью array.from он будет преобразован в реальный массив состоящий из выбранных значений и уже с помощью map будет создан новый массив который будет состоять из значений выбранных элементов */
           return item.value;
         });
-        var isFeaturesMatched = requiredFeatures.every(function (feature) {
+        var isFeaturesMatched = requiredFeatures.every(function (feature) { /* .every вызвана на функции и проверяет соответствие каждого элемента  массива requiredFeatures на соответствие из условиям из функции и возвращает true или false.  Метод .includes работает здесь следующим образом он берет полученный массив и сравнивает значение из feature(Это каждый элемент массива requiredFeatures) и смотрит есть ли такой элемент в массиве element.offer.features который представляет из себя массив со строчными значениями. В том случае если есть совпадающее значение он возвращает true если такого значения нет он возвращает false */
           return element.offer.features.includes(feature);
         });
+
         return isTypeMatched && isRoomsMatched && isGuestMatched && isPriceMatched && isFeaturesMatched;
-      }).slice(0, ADS_NUM);
+      }).slice(0, ADS_NUM); /* .slice(0, ADS_NUM) создает новый массив в котором будут находиться элементы с 0 по 4 (Это с 1 по 5 включительно) он как бы вырежет из массива слева те элементы массива которые мне нужны.  */
   };
-  // console.log(dataSave);
-  // console.log(verification());
-  /* Функция упрощена до решения проблемы с дебаунсом. */
-  // var onFilterChange = window.debounce(function () {
+
+  var onFilterChange = window.debounce(function () {
+    window.card.popupDelete(); /* Функция которая удалит открытый попап/карточку объявления при условии что она открыта. */
+    window.pin.renderPinCards(verification(dataSave));
+  });
+  // TODO рассмотреть в чем причины ошибки.
+  // var onFilterChange = function () {
   //   // if (document.querySelector('.map__card')) {
   //   //   document.querySelector('.map__card').remove();
   //   // }
   //   window.card.popupDelete(); /* Функция которая удалит открытый попап/карточку объявления при условии что она открыта. */
   //   // window.card.removePins();
-  //   window.card.renderPin(verification(window.ads));
-  // });
-  // console.log(window.data);
-
-  var onFilterChange = function () {
-    // if (document.querySelector('.map__card')) {
-    //   document.querySelector('.map__card').remove();
-    // }
-    window.card.popupDelete(); /* Функция которая удалит открытый попап/карточку объявления при условии что она открыта. */
-    // window.card.removePins();
-    window.pin.renderPinCards(verification(dataSave));
-  };
-
-  mapFilters.addEventListener('change', onFilterChange); /* Пока сверну так как ошибка в дебаунсе В обработчике буду выполнять другую функцию - основную*/
+  //   window.pin.renderPinCards(verification(dataSave));
+  // };
+  // TODO рассмотреть в чем причины ошибки.
+  // mapFilters.addEventListener('change', window.debounce(window.filter.onFilterChange())); /* Пока сверну так как ошибка в дебаунсе В обработчике буду выполнять другую функцию - основную*/
+  mapFilters.addEventListener('change', onFilterChange);
 
   window.filter = {
     verification: verification,
     mapFilters: mapFilters,
+    onFilterChange: onFilterChange
   };
 })();
 
-/* Нужно поместить data в глобальную область видимости. */

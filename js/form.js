@@ -19,6 +19,7 @@
     getDisabledField(); /* Убрал активность полей */
     removeSubmitListener(); /* Удалил слушатель кнопки отправки */
     removeListenerResetValue(); /* Удалил слушатель кнопки рестарта */
+    document.querySelector('.map__filters').reset(); /* Обнулил поля формы фильтра-пинов/объявлений. */
     adForm.reset(); /* Обнулил поля формы */
     window.validation.removeFieldCheck();/* Удаляю слушатели полей формы*/
     window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
