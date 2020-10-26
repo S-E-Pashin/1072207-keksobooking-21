@@ -73,7 +73,7 @@
       if (targetCard.offer.title) {
         templatePopupClone.querySelector('.popup__title').textContent = targetCard.offer.title;
       }/* Протестировано*/
-      console.log(targetCard.offer.title);
+      // console.log(targetCard.offer.title);
       if (targetCard.offer.address) {
         templatePopupClone.querySelector('.popup__text--address').textContent = targetCard.offer.address;
       } /* Адрес Протестировано*/

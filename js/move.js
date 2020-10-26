@@ -24,6 +24,7 @@
   };
 
   var onMapPinMainPress = function (evt) { /* слушатель Действия при нажатии мыши на объекте. */
+
     if (evt.key === 'Enter') {
       draggedSwitch(); /* Переключатель возможности активации главной метки. */
     }
