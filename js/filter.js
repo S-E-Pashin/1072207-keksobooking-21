@@ -34,9 +34,8 @@
     dataSave = data;
     return data
       .filter(function (element) {
-        /* isTypeMatched если значение housingType.value равно 'any' тогда выполняется true - утверждение верно и выполнятеся следующая проверка/строка условие если же нет то выполняется вторая часть а именно element.offer.type === housingType.value которы  */
         var isOfferMatched = element.offer !== null || '' ? true : false;
-        var isTypeMatched = housingType.value === 'any' ? true : element.offer.type === housingType.value;
+        var isTypeMatched = housingType.value === 'any' ? true : element.offer.type === housingType.value; /* isTypeMatched если значение housingType.value равно 'any' тогда выполняется true - утверждение верно и выполнятеся следующая проверка/строка условие если же нет то выполняется вторая часть а именно element.offer.type === housingType.value которы  */
         var isRoomsMatched = housingRooms.value === 'any' ? true : element.offer.rooms === +housingRooms.value; /* + это как number унарный оператор. element.offer.rooms === +housingRooms.value */
         var isGuestMatched = housingGuests.value === 'any' ? true : element.offer.guests === +housingGuests.value;
         var isPriceMatched = checkPrice(element);
@@ -55,7 +54,7 @@
     window.card.popupDelete(); /* Функция которая удалит открытый попап/карточку объявления при условии что она открыта. */
     window.pin.renderPinCards(verification(dataSave));
   });
-  // TODO рассмотреть в чем причины ошибки.
+  // TODO рассмотреть в чем причины ошибки для наставника.
   // var onFilterChange = function () {
   //   // if (document.querySelector('.map__card')) {
   //   //   document.querySelector('.map__card').remove();
@@ -64,7 +63,7 @@
   //   // window.card.removePins();
   //   window.pin.renderPinCards(verification(dataSave));
   // };
-  // TODO рассмотреть в чем причины ошибки.
+  // TODO рассмотреть в чем причины ошибки для наставника.
   // mapFilters.addEventListener('change', window.debounce(window.filter.onFilterChange())); /* Пока сверну так как ошибка в дебаунсе В обработчике буду выполнять другую функцию - основную*/
   mapFilters.addEventListener('change', onFilterChange);
 
