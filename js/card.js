@@ -64,8 +64,8 @@
       var templatePopupClone = templatePopup.cloneNode(true); /* 2. Хочу сделать клон указанного шаблона */
       var targetCard = data.find(function (card) { /* Поиск элемента поле offer.id которого совпадает с id-ом  */ /* Функция вызывается на массиве, переберает его элементы на предмет соответствия указанного нами значения(В частности evt.target.id-мгновенное значение из обекта с которым было выполнено взаимодействие), при совпадении с данным элементом вернет объект в котором он находится в переменную targetCard */
         if (evt.target.type === 'button') {
-          var searchImgId = evt.target.querySelector('img');
-          return card.author.id.toString() === searchImgId.id;
+          var searchImg = evt.target.querySelector('img');
+          return card.author.id.toString() === searchImg.id;
         } else {
           return card.author.id.toString() === evt.target.id;
         }
@@ -95,9 +95,8 @@
         elevator: 'popup__feature--elevator',
         conditioner: 'popup__feature--conditioner'
       };
-      // console.log(targetCard.offer);
+
       if (targetCard.offer.features.length !== 0) {
-        // console.log(targetCard.offer.features);
         targetCard.offer.features.forEach(function (el) {
           var cloneFeature = templatePopup.querySelector('.popup__feature').cloneNode(true);
           cloneFeature.classList.add(featuresClass[el]);
@@ -137,9 +136,6 @@
       var mapPins = document.querySelector('.map__pins');
       mapPins.after(templatePopupClone); /* 5. Хочу  Отобразить полученный шаблон с внесенными в него данными на странице в виде попапа*/
 
-      // /* TODO 6. Хочу Удалить данный шаблон если происходит какой либо клик вне поля данного объявления */
-      // var onPopupEscPress = function () {
-
       onPopupEscPress();
     };
 
@@ -169,17 +165,3 @@
     popupDelete: popupDelete
   };
 })();
-
-
-// ##################### Работает но необходимо встроить в то место где будет каждый раз, при любом действии присваиваться элементам слушатель.А это и после фильтрации и просто после отрисовки на странице в первый раз. Пока есть мысли что можно внедрить в каждое событие но думаю можно обобщить как то.
-// Нужно найти момент отображения пинов на странице, они же отображаются каждый раз заново. Отрисовываются.
-
-// var mapPinNoMain = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-// var onCardVisible = function () {
-//   console.log('Активирована страница объявления');
-//   console.log('СОБЫТИЕ');
-// };
-// mapPinNoMain.forEach(function (pinCard) { /* Добавляю слушателей для пинов без главного перебирая их на каждом элементе полученного массива. */
-//   pinCard.addEventListener('mousedown', onCardVisible);
-// });
-// #####################
