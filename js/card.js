@@ -22,11 +22,6 @@
     if (event.key === 'Escape') {
       popupDelete();
       activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
-    //   if (document.querySelector('.popup') !== null) {
-    //     document.removeEventListener('keydown', popupCloseEsc);
-    //     document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
-    //     document.querySelector('.popup').remove();
-    //   }
     }
   };
 
@@ -41,24 +36,9 @@
   var addOpeningProperty = function (data) { /* Добавление слушателя на каждое объявление Добавлено в pin renderPinCards */
 
     var onCardVisible = function (evt) { /* evt мгновенный снимок того с чем только что произошло событие именно в этот момент! */
-      /* '' Условие для удаления старого попапа.  */
       popupDelete();
-      // var popup = document.querySelector('.popup');
-      // // var removeOldPopup;
-      // // removeOldPopup = (popup !== null) ? popup.remove() : '';
-      // if (popup !== null) {
-      // console.log(evt.target);
-      // console.log(evt.qurrentTarget);
-      // console.log(document.querySelectorAll('.map__pin'));
-      // document.querySelectorAll('.map__pin');
-      // document.querySelector('.map__pin--active').classList.remove('map__pin--active');
       activePinClassDelete();/* Функция для снятия класса с неактивной метки объявления */
       evt.currentTarget.classList.add('map__pin--active'); /* Добавляю активное состояние метке посредством присвоения необходимого класса элементу полученному посредством получения элемента на котором был установлен слушатель. */
-
-      //   // document.querySelector('.map-card').remove();
-      //   document.querySelector('.popup').remove();
-      // }
-
 
       var templatePopup = document.querySelector('#card').content.querySelector('.popup'); /* 1. хочу получить шаблон который смогу заполнить данными полученными от метки на которую было выполнено нажатие. */
       var templatePopupClone = templatePopup.cloneNode(true); /* 2. Хочу сделать клон указанного шаблона */
@@ -73,7 +53,6 @@
       if (targetCard.offer.title) {
         templatePopupClone.querySelector('.popup__title').textContent = targetCard.offer.title;
       }/* Протестировано*/
-      // console.log(targetCard.offer.title);
       if (targetCard.offer.address) {
         templatePopupClone.querySelector('.popup__text--address').textContent = targetCard.offer.address;
       } /* Адрес Протестировано*/
