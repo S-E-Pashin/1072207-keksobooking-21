@@ -3,7 +3,7 @@
 (function () {
   var URL = 'https://21.javascript.pages.academy/keksobooking';
 
-  /* TODO посмотреть, сравнить что можно выделить в отдельные функции и использовать как здесь так и пре загрузке данный с сервера.  */
+  /* TODO посмотреть, сравнить что можно выделить в отдельные функции и использовать как здесь так и пре загрузке данный с сервера. Желание что то объединять не возникло.  */
 
   var submitData = function (data, onSuccess) {
 
@@ -15,9 +15,7 @@
     });
 
     xhr.open('POST', URL);
-    // console.log(data);
     xhr.send(data);
-
   };
 
   window.upload = {
