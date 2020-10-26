@@ -16,24 +16,35 @@
   var minX = map.offsetWidth - map.offsetWidth - halfPinMain;
   var maxX = map.offsetWidth - halfPinMain;
 
+  var draggedSwitch = function () {
+    if (dragged) {
+      window.pin.mapPinMainActions();
+      // console.log('Запущен рендер объявлений.');
+    }
+    dragged = false; /* Изменение флага удаляет повторный запуск отрисовки объявлений.*/
+  };
+
   var onMapPinMainPress = function (evt) { /* слушатель Действия при нажатии мыши на объекте. */
     if (evt.key === 'Enter') {
       console.log('Сработал Энтер');
-      if (dragged) {
-        window.pin.mapPinMainActions();
-        // console.log('Запущен рендер объявлений.');
-      }
-      dragged = false; /* Изменение флага удаляет повторный запуск отрисовки объявлений.*/
+      console.log(document.querySelector('.map__pins'));
+      // if (dragged) {
+      //   window.pin.mapPinMainActions();
+      //   // console.log('Запущен рендер объявлений.');
+      // }
+      // dragged = false; /* Изменение флага удаляет повторный запуск отрисовки объявлений.*/
+
+      draggedSwitch(); /* Переключатель возможности активации главной метки. */
     }
 
     if (evt.which === 1/*  || evt.key === 'Enter' */) {
       evt.preventDefault(); /* Отменил действие при нажатии на кнопку по умолчанию.  */
-      if (dragged) {
-        window.pin.mapPinMainActions();
-        // console.log('Запущен рендер объявлений.');
-      }
-      dragged = false; /* Изменение флага удаляет повторный запуск отрисовки объявлений.*/
-
+      // if (dragged) {
+      //   window.pin.mapPinMainActions();
+      //   // console.log('Запущен рендер объявлений.');
+      // }
+      // dragged = false; /* Изменение флага удаляет повторный запуск отрисовки объявлений.*/
+      draggedSwitch();
       var startCoords = {
         x: evt.clientX,
         y: evt.clientY
@@ -111,6 +122,7 @@
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
       // console.log(dragged);
+      console.log(document.querySelector('.map__pins'));
     }
   };
   // console.log(dragged);
