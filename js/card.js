@@ -21,6 +21,7 @@
   var popupCloseEsc = function (event) { /* Удаления попапа через ESC */ /* Функция удаления попапа по Эскейпу. Выполняет условие что если нажат Эскейп и если попап не равен null т.е. ничему то удаляет сначала себя popupCloseEsc потом обработчика по клику popupCloseClick а затем удаляет попап. */
     if (event.key === 'Escape') {
       popupDelete();
+      activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
     //   if (document.querySelector('.popup') !== null) {
     //     document.removeEventListener('keydown', popupCloseEsc);
     //     document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
@@ -33,6 +34,7 @@
     document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
     document.removeEventListener('keydown', popupCloseEsc);
     document.querySelector('.popup').remove();
+    activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
   };
 
 
@@ -45,7 +47,14 @@
       // // var removeOldPopup;
       // // removeOldPopup = (popup !== null) ? popup.remove() : '';
       // if (popup !== null) {
-      //   // console.log(popup);
+      // console.log(evt.target);
+      // console.log(evt.qurrentTarget);
+      // console.log(document.querySelectorAll('.map__pin'));
+      // document.querySelectorAll('.map__pin');
+      // document.querySelector('.map__pin--active').classList.remove('map__pin--active');
+      activePinClassDelete();/* Функция для снятия класса с неактивной метки объявления */
+      evt.currentTarget.classList.add('map__pin--active'); /* Добавляю активное состояние метке посредством присвоения необходимого класса элементу полученному посредством получения элемента на котором был установлен слушатель. */
+
       //   // document.querySelector('.map-card').remove();
       //   document.querySelector('.popup').remove();
       // }
@@ -64,6 +73,7 @@
       if (targetCard.offer.title) {
         templatePopupClone.querySelector('.popup__title').textContent = targetCard.offer.title;
       }/* Протестировано*/
+      console.log(targetCard.offer.title);
       if (targetCard.offer.address) {
         templatePopupClone.querySelector('.popup__text--address').textContent = targetCard.offer.address;
       } /* Адрес Протестировано*/
@@ -85,7 +95,7 @@
         elevator: 'popup__feature--elevator',
         conditioner: 'popup__feature--conditioner'
       };
-
+      // console.log(targetCard.offer);
       if (targetCard.offer.features.length !== 0) {
         // console.log(targetCard.offer.features);
         targetCard.offer.features.forEach(function (el) {
@@ -96,6 +106,7 @@
         templatePopupClone.querySelectorAll('.popup__feature')[0].remove();
       } else {
         templatePopupClone.querySelector('.popup__feature').remove();
+        templatePopupClone.querySelector('.popup__features').remove();
       }
 
       if (targetCard.offer.description) {
@@ -143,6 +154,14 @@
       pinCard.addEventListener('mousedown', onNoMainPinMouseOrKeyDown);
       pinCard.addEventListener('keydown', onNoMainPinMouseOrKeyDown);
     });
+
+  };
+
+  var activePinClassDelete = function () { /* Удаление старого попапа при условии что он есть. */
+    var activePin = document.querySelector('.map__pin--active');
+    if (activePin !== null) {
+      activePin.classList.remove('map__pin--active');
+    }
   };
 
   window.card = {

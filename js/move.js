@@ -17,7 +17,16 @@
   var maxX = map.offsetWidth - halfPinMain;
 
   var onMapPinMainPress = function (evt) { /* слушатель Действия при нажатии мыши на объекте. */
-    if (evt.which === 1 || evt.key === 'Enter') {
+    if (evt.key === 'Enter') {
+      console.log('Сработал Энтер');
+      if (dragged) {
+        window.pin.mapPinMainActions();
+        // console.log('Запущен рендер объявлений.');
+      }
+      dragged = false; /* Изменение флага удаляет повторный запуск отрисовки объявлений.*/
+    }
+
+    if (evt.which === 1/*  || evt.key === 'Enter' */) {
       evt.preventDefault(); /* Отменил действие при нажатии на кнопку по умолчанию.  */
       if (dragged) {
         window.pin.mapPinMainActions();
@@ -110,6 +119,7 @@
   };
   var activeMainPin = function () {
     mapPinMain.addEventListener('mousedown', onMapPinMainPress);
+    mapPinMain.addEventListener('keydown', onMapPinMainPress);
   };
   activeMainPin();
 

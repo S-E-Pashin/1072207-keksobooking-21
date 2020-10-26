@@ -1,7 +1,7 @@
 /* eslint-disable no-var */
 'use strict';
 (function () {
-  var URL = 'https://javascript.pages.academy/keksobooking';
+  var URL = 'https://21.javascript.pages.academy/keksobooking';
 
   /* TODO посмотреть, сравнить что можно выделить в отдельные функции и использовать как здесь так и пре загрузке данный с сервера.  */
 

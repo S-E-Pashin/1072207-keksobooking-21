@@ -35,6 +35,7 @@
     return data
       .filter(function (element) {
         /* isTypeMatched если значение housingType.value равно 'any' тогда выполняется true - утверждение верно и выполнятеся следующая проверка/строка условие если же нет то выполняется вторая часть а именно element.offer.type === housingType.value которы  */
+        var isOfferMatched = element.offer !== null || '' ? true : false;
         var isTypeMatched = housingType.value === 'any' ? true : element.offer.type === housingType.value;
         var isRoomsMatched = housingRooms.value === 'any' ? true : element.offer.rooms === +housingRooms.value; /* + это как number унарный оператор. element.offer.rooms === +housingRooms.value */
         var isGuestMatched = housingGuests.value === 'any' ? true : element.offer.guests === +housingGuests.value;
@@ -46,7 +47,7 @@
           return element.offer.features.includes(feature);
         });
 
-        return isTypeMatched && isRoomsMatched && isGuestMatched && isPriceMatched && isFeaturesMatched;
+        return isOfferMatched && isTypeMatched && isRoomsMatched && isGuestMatched && isPriceMatched && isFeaturesMatched;
       }).slice(0, ADS_NUM); /* .slice(0, ADS_NUM) создает новый массив в котором будут находиться элементы с 0 по 4 (Это с 1 по 5 включительно) он как бы вырежет из массива слева те элементы массива которые мне нужны.  */
   };
 

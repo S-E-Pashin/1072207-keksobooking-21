@@ -13,7 +13,7 @@
   };
 
   var getSuccesPopup = function () {
-    document.querySelector('.map').appendChild(successTemplateClone);
+    document.querySelector('main').appendChild(successTemplateClone);
     document.addEventListener('keydown', onCloseSuccesPopup);
     document.addEventListener('click', onCloseSuccesPopup);
   };
