@@ -30,7 +30,7 @@
   };
 
   var getFormResetButton = function (evt) {
-    evt.preventDefault(); /* отменим действие формы по умолчанию */
+    evt.preventDefault(); /* отменил действие формы по умолчанию */
     formReset();
   };
 
@@ -48,28 +48,17 @@
     window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
       formReset();
       window.sendMessage.getSuccesPopup(); /* Сообщение о успешной отправке формы */
-
-      // TODO++++
-      /* Удаляю обработчики с полей фильтра */
-      // Не так все просто с ними, обсудить с наставником, может их вообще можно не удалять или же это нужно делать как то иначе. Не все функции передаются и отрабатывают должным образом.
-      // TODO----
     });
   };
 
 
   var onSubmitCheck = function (evt) {
     try {
-      // console.log('Начало try впереди онСубмит');
       onSubmit();
-      // console.log('онСубмит выполнена');
-      evt.preventDefault(); /* отменим действие формы по умолчанию */
-      // console.log('Отменено действие по умолчанию для кнопки отправки');
+      evt.preventDefault(); /* отменил действие формы по умолчанию */
     } catch (error) {
-      // console.log('Запучена действие при ошибке');
-      evt.preventDefault(); /* отменим действие формы по умолчанию */
-      // console.log('Отменено действие по умолчанию для кнопки отправки');
+      evt.preventDefault(); /* отменил действие формы по умолчанию */
       window.sendMessage.getErrorPopup(error);
-      // console.log('Выполнена функция предусмотренная при ошибке в онСубмит');
     }
   };
 
