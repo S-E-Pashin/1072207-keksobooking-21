@@ -1,9 +1,7 @@
 /* eslint-disable no-var */
 /* eslint-disable no-console */
 'use strict';
-
 (function () {
-
   var URL = 'https://21.javascript.pages.academy/keksobooking/data'; /* Адрес по которому будет направляться запрос open.  */
   var LOAD_METHOD = 'GET'; /* Метод которым должен быть получен ответ от сервера(Тип предоставления) */
   var STATUS_OK = 200;
@@ -16,23 +14,16 @@
     xhr.addEventListener('load', function () { /* Прослушиватель события загрузки xhr */
       if (xhr.status === STATUS_OK) { /* Условие для соблюдения которого изменения произошедшие в xhr должны соответствовать выполненным без ошибок что соответствует xhr.status 200 */
         onSuccess(xhr.response); /* В случае успешного выполнения загрузки функция получаемая из параметра будет выполнена с параметром который будет содержать в себе данные из xhr.response */
-        // console.log("Слушатель на загрузку сработал");
       } else {
-        // console.log('Статус ответа');
-        // console.log('Статус ответа' + xhr.status + xhr.statusText);
         onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText); /* статус ответа + строка статуса ответа. */
-        // window.loadMessage.getErrorPopup('Статус ответа' + xhr.status + xhr.statusText);
       }
 
-      // События, ошибки:
       xhr.addEventListener('error', function () {
         onError('Произошла ошибка соединения');
-        // console.log("Еррор");
       });
 
       xhr.addEventListener('timeout', function () {
         onError('Критичесское время выполнения запроса сервера ' + xhr.timeout + 'мс' + ' пожалуйста, повторите операцию.');
-        // console.log("Таймер");
       });
     });
 
