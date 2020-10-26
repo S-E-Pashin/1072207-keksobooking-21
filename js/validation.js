@@ -1,14 +1,11 @@
 /* eslint-disable no-var */
 'use strict';
 (function () {
-  // Количество возможных гостей в зависимости от количество арендуемых комнат.
   var roomNumbers = document.querySelector('#room_number');
   var guestsNumber = document.querySelector('#capacity');
-  // var roomNumbers = document.getElementById('room_number');/* Поле выбора количества комнат. */
-
   var roomPrice = document.querySelector('#price');
   var roomType = document.querySelector('#type');
-  // var roomTypeValue = roomType.value;
+
   var minPriceRoom = {
     'bungalo': '0',
     'flat': '1000',
@@ -36,10 +33,7 @@
 
 
   var onRoomPriceCheck = function () {
-    // roomPrice.min = minPriceRoom[document.querySelector('#type').value];
-    // roomPrice.placeholder = minPriceRoom[document.querySelector('#type').value];
     roomPrice.placeholder = roomPrice.min = minPriceRoom[document.querySelector('#type').value]; /* Значения будут равны значению которое соответствует ключу в объекте который находится в minPriceRoom  */
-    // roomType.removeEventListener('change', onRoomPriceCheck);/* // Удаление слушателя Пока не нужно возможно если страница будет как то деактевироваться в процессе взаимодействия с ней без перезагрузки.*/
   };
 
   var timeIn = document.querySelector('#timein'); /* Получаю поле адреса заезда, устанавливаю слушатель события выбора, при выборе одного значения такое же значение будет передано в поле выезда. */
@@ -56,8 +50,6 @@
 
   var inputTitle = document.querySelector('#title');
   var getTitleCheck = function () {
-    // console.log(inputTitle.value.length);
-    // console.log(inputTitle.min);
     if (inputTitle.value.length < inputTitle.min || inputTitle.value.length > inputTitle.max) {
       inputTitle.setCustomValidity('Количество вводимых символов составляет от ' + inputTitle.min + ' до ' + inputTitle.max);
       inputTitle.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
@@ -83,17 +75,10 @@
     roomType.removeEventListener('change', onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
     inputTitle.removeEventListener('input', getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
   };
-  // inputTitle.addEventListener('input', getTitleCheck);
 
-  // ############################
   window.validation = {
     onRoomNumbersCheck: onRoomNumbersCheck,
-    // guestsNumber: guestsNumber,
-    // roomNumbers: roomNumbers,
     onRoomPriceCheck: onRoomPriceCheck,
-    // roomType: roomType,
-    // inputTitle: inputTitle,
-    // getTitleCheck: getTitleCheck,
     addFieldCheck: addFieldCheck,
     removeFieldCheck: removeFieldCheck
   };
