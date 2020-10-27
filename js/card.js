@@ -83,7 +83,6 @@
         });
         templatePopupClone.querySelectorAll('.popup__feature')[0].remove();
       } else {
-        templatePopupClone.querySelector('.popup__feature').remove();
         templatePopupClone.querySelector('.popup__features').remove();
       }
 
