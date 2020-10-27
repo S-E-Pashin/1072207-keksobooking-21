@@ -34,7 +34,7 @@
     dataSave = data;
     return data
       .filter(function (element) {
-        var isOfferMatched = element.offer !== null || '' ? true : false;
+        var isOfferMatched = !!(element.offer);
         var isTypeMatched = housingType.value === 'any' ? true : element.offer.type === housingType.value; /* isTypeMatched если значение housingType.value равно 'any' тогда выполняется true - утверждение верно и выполнятеся следующая проверка/строка условие если же нет то выполняется вторая часть а именно element.offer.type === housingType.value которы  */
         var isRoomsMatched = housingRooms.value === 'any' ? true : element.offer.rooms === +housingRooms.value; /* + это как number унарный оператор. element.offer.rooms === +housingRooms.value */
         var isGuestMatched = housingGuests.value === 'any' ? true : element.offer.guests === +housingGuests.value;
