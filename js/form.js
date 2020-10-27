@@ -44,13 +44,21 @@
     resetButton.removeEventListener('click', getFormResetButton);
   };
 
-  var onSubmit = function () {
-    window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
-      formReset();
-      window.sendMessage.getSuccessPopup(); /* Сообщение о успешной отправке формы */
-    });
+  // var onSubmit = function () {
+  //   window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
+  //     formReset();
+  //     window.sendMessage.getSuccessPopup(); /* Сообщение о успешной отправке формы */
+  //   }, window.sendMessage.getErrorPopup);
+  // };
+
+  var onSuccess = function () {
+    formReset();
+    window.sendMessage.getSuccessPopup(); /* Сообщение о успешной отправке формы */
   };
 
+  var onSubmit = function () {
+    window.upload.submitData(new FormData(adForm), onSuccess, window.sendMessage.getErrorPopup);
+  };
 
   var onSubmitCheck = function (evt) {
     try {

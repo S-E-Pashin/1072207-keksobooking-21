@@ -2,17 +2,35 @@
 'use strict';
 (function () {
   var URL = 'https://21.javascript.pages.academy/keksobooking';
+  var STATUS_OK = 200;
+  var TIMEOUT_IN_MS = 10000;
 
-  /* TODO посмотреть, сравнить что можно выделить в отдельные функции и использовать как здесь так и пре загрузке данный с сервера. Желание что то объединять не возникло.  */
-
-  var submitData = function (data, onSuccess) {
+  var submitData = function (data, onSuccess, onError) {
 
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
+    // xhr.addEventListener('load', function () {
+    //   onSuccess(xhr.response);
+    // });
+
     xhr.addEventListener('load', function () {
-      onSuccess(xhr.response);
+      if (xhr.status === STATUS_OK) {
+        onSuccess(xhr.response);
+      } else {
+        onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText);
+      }
     });
+
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка отправки');
+    });
+
+    xhr.addEventListener('timeout', function () {
+      onError('Критичесское время выполнения отправки на сервер ' + xhr.timeout + 'мс' + ' пожалуйста, повторите операцию.');
+    });
+
+    xhr.timeout = TIMEOUT_IN_MS;
 
     xhr.open('POST', URL);
     xhr.send(data);

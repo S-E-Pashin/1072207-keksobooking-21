@@ -5,7 +5,7 @@
   var URL = 'https://21.javascript.pages.academy/keksobooking/data'; /* Адрес по которому будет направляться запрос open.  */
   var LOAD_METHOD = 'GET'; /* Метод которым должен быть получен ответ от сервера(Тип предоставления) */
   var STATUS_OK = 200;
-  var TIMEOUT_IN_MS = 1000;
+  var TIMEOUT_IN_MS = 10000;
 
   var load = function (onSuccess, onError) { /*  Это функция загрузки данных с сервера.Функция которая будет вызвана в другом файле а ее параметры это в будущем функции которые примут в себя заданные здесь параметры и сработают с ними в том файле в котором будет вызвана данная функция через глобольный экспорт/импорт */
     var xhr = new XMLHttpRequest(); /* Свойство XMLHttpRequest.readyState возвращает текущее состояние объекта XMLHttpRequest.*/
@@ -18,13 +18,14 @@
         onError('Статус ответа ' + xhr.status + ' ' + xhr.statusText); /* статус ответа + строка статуса ответа. */
       }
 
-      xhr.addEventListener('error', function () {
-        onError('Произошла ошибка соединения');
-      });
+    });
 
-      xhr.addEventListener('timeout', function () {
-        onError('Критичесское время выполнения запроса сервера ' + xhr.timeout + 'мс' + ' пожалуйста, повторите операцию.');
-      });
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка соединения');
+    });
+
+    xhr.addEventListener('timeout', function () {
+      onError('Критичесское время выполнения запроса сервера ' + xhr.timeout + 'мс' + ' пожалуйста, повторите операцию.');
     });
 
     xhr.timeout = TIMEOUT_IN_MS;

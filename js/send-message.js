@@ -6,7 +6,7 @@
   var onCloseSuccesPopup = function (evt) {
     if (evt.which === 1 || evt.key === 'Escape') {
       document.removeEventListener('keydown', onCloseSuccesPopup);
-      document.removeEventListener('click', onCloseSuccesPopup);
+      document.removeEventListener('mousedown', onCloseSuccesPopup);
       document.querySelector('.success').remove();
     }
   };
@@ -14,7 +14,7 @@
   var getSuccessPopup = function () {
     document.querySelector('main').appendChild(successTemplateClone);
     document.addEventListener('keydown', onCloseSuccesPopup);
-    document.addEventListener('click', onCloseSuccesPopup);
+    document.addEventListener('mousedown', onCloseSuccesPopup);
   };
 
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -23,16 +23,18 @@
   var onCloseErrorPopup = function (evt) {
     if (evt.which === 1 || evt.key === 'Escape') {
       document.removeEventListener('keydown', onCloseErrorPopup);
-      document.removeEventListener('click', onCloseErrorPopup);
+      document.removeEventListener('mousedown', onCloseErrorPopup);
       document.querySelector('.error').remove();
     }
   };
 
   var getErrorPopup = function (error) {
-    errorTemplateClone.textContent = 'Произошла ошибка загрузки объявления ' + error;
+    errorTemplateClone.textContent = 'Ошибка загрузки объявления ' + error;
+    errorTemplateClone.style.color = 'red';
+    errorTemplateClone.style.fontSize = '34px';
     document.querySelector('main').appendChild(errorTemplateClone);
     document.addEventListener('keydown', onCloseErrorPopup);
-    document.addEventListener('click', onCloseErrorPopup);
+    document.addEventListener('mousedown', onCloseErrorPopup);
   };
 
   window.sendMessage = {
