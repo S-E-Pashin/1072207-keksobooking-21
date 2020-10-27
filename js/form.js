@@ -47,7 +47,7 @@
   var onSubmit = function () {
     window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
       formReset();
-      window.sendMessage.getSuccesPopup(); /* Сообщение о успешной отправке формы */
+      window.sendMessage.getSuccessPopup(); /* Сообщение о успешной отправке формы */
     });
   };
 

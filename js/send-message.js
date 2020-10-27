@@ -11,7 +11,7 @@
     }
   };
 
-  var getSuccesPopup = function () {
+  var getSuccessPopup = function () {
     document.querySelector('main').appendChild(successTemplateClone);
     document.addEventListener('keydown', onCloseSuccesPopup);
     document.addEventListener('click', onCloseSuccesPopup);
@@ -36,7 +36,7 @@
   };
 
   window.sendMessage = {
-    getSuccesPopup: getSuccesPopup,
+    getSuccessPopup: getSuccessPopup,
     getErrorPopup: getErrorPopup
   };
 })();
