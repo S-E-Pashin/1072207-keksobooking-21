@@ -17,7 +17,6 @@
     return mapPinMainAddress.value;
   };
 
-
   var returnFirstCoordsMapPinMain = function () { /* Функция возвращения главное метки на первоначальное положение и передача координат данного положения в поле для вывода информации о адресе. */
     mapPinMain.style.left = firstCoords.x;
     mapPinMain.style.top = firstCoords.y;

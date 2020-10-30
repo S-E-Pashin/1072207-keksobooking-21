@@ -32,7 +32,6 @@
     activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
   };
 
-
   var addOpeningProperty = function (data) { /* Добавление слушателя на каждое объявление Добавлено в pin renderCards */
 
     var getCardVisible = function (evt) {
@@ -89,6 +88,7 @@
       if (targetCard.offer.description) {
         templatePopupClone.querySelector('.popup__description').textContent = targetCard.offer.description;
       }
+
       if (targetCard.author.avatar) {
         templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar;
       }
