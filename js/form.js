@@ -22,14 +22,14 @@
     document.querySelector('.map__filters').reset(); /* Обнулил поля формы фильтра-пинов/объявлений. */
     adForm.reset(); /* Обнулил поля формы */
     window.validation.removeFieldCheck();/* Удаляю слушатели полей формы*/
-    window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
+    window.pin.removeOlds(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
     window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
     window.address.returnFirstCoordsMapPinMain(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
-    window.move.activeMainPinRestart(); /* Изменяю флаг для возможности переиспользования функции активации главного пина */
-    window.move.activeMainPin(); /* Активирую главный пин. */
+    window.move.activateMainPinRestart(); /* Изменяю флаг для возможности переиспользования функции активации главного пина */
+    window.move.activateMainPin(); /* Активирую главный пин. */
   };
 
-  var getFormResetButton = function (evt) {
+  var onFormReset = function (evt) {
     evt.preventDefault(); /* отменил действие формы по умолчанию */
     formReset();
   };
@@ -37,32 +37,25 @@
   var resetButton = adForm.querySelector('.ad-form__reset');
 
   var getListenerResetValue = function () {
-    resetButton.addEventListener('click', getFormResetButton);
+    resetButton.addEventListener('click', onFormReset);
   };
 
   var removeListenerResetValue = function () {
-    resetButton.removeEventListener('click', getFormResetButton);
+    resetButton.removeEventListener('click', onFormReset);
   };
-
-  // var onSubmit = function () {
-  //   window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
-  //     formReset();
-  //     window.sendMessage.getSuccessPopup(); /* Сообщение о успешной отправке формы */
-  //   }, window.sendMessage.getErrorPopup);
-  // };
 
   var onSuccess = function () {
     formReset();
     window.sendMessage.getSuccessPopup(); /* Сообщение о успешной отправке формы */
   };
 
-  var onSubmit = function () {
+  var getSubmit = function () {
     window.upload.submitData(new FormData(adForm), onSuccess, window.sendMessage.getErrorPopup);
   };
 
   var onSubmitCheck = function (evt) {
     try {
-      onSubmit();
+      getSubmit();
       evt.preventDefault(); /* отменил действие формы по умолчанию */
     } catch (error) {
       evt.preventDefault(); /* отменил действие формы по умолчанию */

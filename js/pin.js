@@ -1,14 +1,14 @@
 /* eslint-disable no-var */
 'use strict';
 (function () {
-  var adForm = document.querySelector('.ad-form'); /* Находится форма для отправки из разметки */
   var WIDTH_AVATAR = 50;
   var HEIGHT_AVATAR = 70;
-
-  var map = document.querySelector('.map');
   var START_NUMBER_ID = 1;
+  var NUMBER_ITEMS_DISPLAY_MAX = 5;
+  var adForm = document.querySelector('.ad-form'); /* Находится форма для отправки из разметки */
+  var map = document.querySelector('.map');
 
-  window.address.onStartCoords();
+  window.address.getStartCoords();
 
   var renderPinCloneTemplateElements = function (item) { /* Относится к Рендеру Это функция которая сначала создает клон а потом просто присваивает этому клону необходимые значения. *//* Отрисовщик ( А отрисовщик ли это? больше он похож на сборочную машину формирующую элементы.) данных на карте/может стоит отделить? */
     var pinCloneTemplate = templatePin.cloneNode(true); /* Создаем переменную в которую записываем/копируем/клонируем элемент/переменную/Шаблон(вернее шаблон, просто задан переменной.) template со всем ее содержимым(Т.е. всю ее разметку вместе с детьми/если бы были.(true), если дети узла должны быть клонированы или false для того, чтобы был клонирован только указанный узел.) */
@@ -23,21 +23,21 @@
     return pinCloneTemplate;
   };
 
-  var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');/* ДОБАВЛЕНИЕ ЧЕРЕЗ template// Создана переменная template(одноименна с названием элемента template) которая ищет элемент/шаблон template по id, после обращается к свойству данного элемента content(которое является единственным свойством данного элемента и предназначено для взаимодействия с его содержимым.) */
+  var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');/* ДОБАВЛЕНИЕ ЧЕРЕЗ template Создана переменная template(одноименна с названием элемента template) которая ищет элемент/шаблон template по id, после обращается к свойству данного элемента content(которое является единственным свойством данного элемента и предназначено для взаимодействия с его содержимым.) */
   var fragment = document.createDocumentFragment();/* Относится к Рендеру */
   var mapPins = document.querySelector('.map__pins');/* Относится к Рендеру *//* Переменная для нахождения блока с классом map__pins. (в последующем будет использоваться для добавления элементов в разметку посредством documentFragment)Это блок для отрисовки. */
-  var NUMBER_ITEMS_DISPLAY_MAX = 5;
 
-  var removeOldPins = function () { /* Функция удаляющая пины из разметки */
-    var mapPinNoMain = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-    mapPinNoMain.forEach(function (oldPin) { /* Удаляю элементы из разметки. */
+
+  var removeOlds = function () { /* Функция удаляющая пины из разметки */
+    var mapPinsNoMain = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    mapPinsNoMain.forEach(function (oldPin) { /* Удаляю элементы из разметки. */
       oldPin.remove();
     });
   };
 
-  var renderPinCards = function (items) { /*  Функция добавления элементов в разметку посредством fragment. */
+  var renderCards = function (items) { /*  Функция добавления элементов в разметку посредством fragment. */
 
-    removeOldPins(); /* Удаляю старые пины */
+    removeOlds(); /* Удаляю старые пины */
 
     var numberItemsDisplay = items.length < NUMBER_ITEMS_DISPLAY_MAX ? items.length : NUMBER_ITEMS_DISPLAY_MAX; /* Количество отображаемых элементов = В зависимость количества отображаемых элементов от разрешенной максимальной длинны и длинны полученного массива. Тернарная операция: Переменная = Условие1 < Условие2 ? true действия/значение если верно : fals действия/ значение если условие неверно. */
     for (var i = 0; i < numberItemsDisplay; i++) { /* Добавление в зависимости от количества подходящих вариантов/элементов. Цикл который добавляет элементы в разметку. (В виртуальную разметку-не меняет исходный HTML). */
@@ -47,21 +47,21 @@
     window.card.addOpeningProperty(items); /* Добавит слушатели на нажатие для отображаемых карточек объевлений */
   };
 
-  var mapPinMainActions = function () { /* Главная функция активация карты(Нажатием на pin)*/
+  var activateMainActions = function () { /* Главная функция активация карты(Нажатием на pin)*/
     adForm.classList.remove('ad-form--disabled');
     window.map.removeAttributeDisabled(window.form.liveElements);
     window.map.removeAttributeDisabled(window.form.liveMapFilterElements);
-    map.classList.remove('map--faded');/* Удален класс map--faded из элемента с классом map */ /* Удаляется согласно 4 заданию */
+    map.classList.remove('map--faded');/* Удален класс map--faded из элемента с классом map */
 
     var onSuccess = function (data) {
       data.forEach(function (value, index) {
         value.author.id = index + START_NUMBER_ID;
       });
 
-      window.pin.renderPinCards(window.filter.verification(data));
+      window.pin.renderCards(window.filter.getVerification(data));
     };
     window.backend.load(onSuccess, window.loadMessage.getErrorPopup);/* Функция load принимает в себя параметры onSuccess, и onError  Это функция действий при загрузке данных с сервера.*/
-    window.address.onMoveCoords();
+    window.address.getMoveCoords();
     window.validation.onRoomNumbersCheck(); /* Проверка соответствия выбранного количества комнат - гостям. */
     window.validation.onRoomPriceCheck(); /* Проверка соответствия цены */
     window.validation.addFieldCheck(); /* Включены/ добавлены слушатели корректного ввода данных на страницу */
@@ -70,8 +70,8 @@
   };
 
   window.pin = {
-    mapPinMainActions: mapPinMainActions,
-    renderPinCards: renderPinCards,
-    removeOldPins: removeOldPins
+    activateMainActions: activateMainActions,
+    renderCards: renderCards,
+    removeOlds: removeOlds
   };
 })();

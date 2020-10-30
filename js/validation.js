@@ -6,7 +6,7 @@
   var roomPrice = document.querySelector('#price');
   var roomType = document.querySelector('#type');
 
-  var minPriceRoom = {
+  var MinPriceRoom = {
     'bungalo': '0',
     'flat': '1000',
     'house': '5000',
@@ -15,7 +15,7 @@
 
   var onRoomNumbersCheck = function () { /* Функция проверки валидности заполнения полей комнат и количества гостей. */
     if (guestsNumber.options[guestsNumber.selectedIndex].value !== roomNumbers.options[roomNumbers.selectedIndex].value) { /* Если значение(количественное)value выбранному значению(в данный момент) номера не равно количественному значению комнат тогда выполнится условие */
-      if (guestsNumber.options[guestsNumber.selectedIndex].value > roomNumbers.options[roomNumbers.selectedIndex].value || guestsNumber.options[guestsNumber.selectedIndex].value === '0' && roomNumbers.options[roomNumbers.selectedIndex].value > guestsNumber.options[guestsNumber.selectedIndex].value) { /* Если число гостей выбранное в данный момент превышает количество выбранных в данный момент комнат ИЛИ значение количества выбранных комнат строго равно 0 И количество выбранных комнат больше чем количество выбранных для заселения гостей(В данном случае если количество выбранных гостей больше 0 что подразумевает что комната выбрана не для заселения физ лиц а для аренды Юр лицом.) */
+      if (guestsNumber.options[guestsNumber.selectedIndex].value > roomNumbers.options[roomNumbers.selectedIndex].value || guestsNumber.options[guestsNumber.selectedIndex].value === '0' && roomNumbers.options[roomNumbers.selectedIndex].value > guestsNumber.options[guestsNumber.selectedIndex].value) { /* Если число гостей выбранное в данный момент превышает количество выбранных в данный момент комнат ИЛИ значение количества выбранных комнат строго равно 0 И количество выбранных комнат больше чем количество выбранных для заселения гостей(В данном случае если количество выбранных гостей равно 0 что подразумевает что комната выбрана не для заселения физ лиц а для аренды Юр лицом.) */
         roomNumbers.setCustomValidity('Некорректное значение');
         guestsNumber.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
         roomNumbers.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
@@ -33,7 +33,7 @@
 
 
   var onRoomPriceCheck = function () {
-    roomPrice.placeholder = roomPrice.min = minPriceRoom[document.querySelector('#type').value]; /* Значения будут равны значению которое соответствует ключу в объекте который находится в minPriceRoom  */
+    roomPrice.placeholder = roomPrice.min = MinPriceRoom[document.querySelector('#type').value]; /* Значения будут равны значению которое соответствует ключу в объекте который находится в MinPriceRoom  */
   };
 
   var timeIn = document.querySelector('#timein'); /* Получаю поле адреса заезда, устанавливаю слушатель события выбора, при выборе одного значения такое же значение будет передано в поле выезда. */

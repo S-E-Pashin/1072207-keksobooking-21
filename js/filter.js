@@ -9,7 +9,7 @@
   var housingGuests = document.querySelector('#housing-guests');
   var housingFeatures = document.querySelector('#housing-features');
 
-  var prices = {
+  var Prices = {
     min: 10000,
     max: 50000
   };
@@ -19,18 +19,18 @@
       case 'any':
         return true; /* Если выбрано any возвращается true  */
       case 'low':
-        return (element.offer.price < prices.min); /* true false */
+        return (element.offer.price < Prices.min); /* true false */
       case 'middle':
-        return (element.offer.price > prices.min) && (element.offer.price < prices.max);
+        return (element.offer.price > Prices.min) && (element.offer.price < Prices.max);
       case 'high':
-        return (element.offer.price > prices.max);
+        return (element.offer.price > Prices.max);
       default:
         return element === housingPrice.value;
     }
   };
 
   var dataSave = []; /* Создаю пустой массив в который передам data для его последующего использования при фильтрации. */
-  var verification = function (data) { /* Функция которая осуществит проверку соответствия пинов заявленым в фильтре требованиям. */
+  var getVerification = function (data) { /* Функция которая осуществит проверку соответствия пинов заявленым в фильтре требованиям. */
     dataSave = data;
     return data
       .filter(function (element) {
@@ -52,25 +52,13 @@
 
   var onFilterChange = window.debounce(function () {
     window.card.popupDelete(); /* Функция которая удалит открытый попап/карточку объявления при условии что она открыта. */
-    window.pin.renderPinCards(verification(dataSave));
+    window.pin.renderCards(getVerification(dataSave));
   });
-  // TODO рассмотреть в чем причины ошибки для наставника.
-  // var onFilterChange = function () {
-  //   // if (document.querySelector('.map__card')) {
-  //   //   document.querySelector('.map__card').remove();
-  //   // }
-  //   window.card.popupDelete(); /* Функция которая удалит открытый попап/карточку объявления при условии что она открыта. */
-  //   // window.card.removePins();
-  //   window.pin.renderPinCards(verification(dataSave));
-  // };
-  // TODO рассмотреть в чем причины ошибки для наставника.
-  // mapFilters.addEventListener('change', window.debounce(window.filter.onFilterChange())); /* Пока сверну так как ошибка в дебаунсе В обработчике буду выполнять другую функцию - основную*/
+
   mapFilters.addEventListener('change', onFilterChange);
 
   window.filter = {
-    verification: verification,
-    mapFilters: mapFilters,
-    onFilterChange: onFilterChange
+    getVerification: getVerification
   };
 })();
 

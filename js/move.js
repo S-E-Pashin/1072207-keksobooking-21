@@ -3,22 +3,18 @@
 'use strict';
 
 (function () {
+  var MAX_Y_TOP = 184;
+  var MAX_Y_BOTTOM = 684;
   var mapPinMain = document.querySelector('.map__pin--main');
   var map = document.querySelector('.map');
   var dragged = true;
-  /* Скрытый первоначальный вариант он вроде как именно правильный но в поле адреса увы передаются отличные значения ввиду этого скорректировано в соответствии с заданных значений константы с заданными ограничениями. */
-  // var MAX_Y_TOP = 130;
-  // var MAX_Y_BOTTOM = 630;
-  var MAX_Y_TOP = 184;
-  var MAX_Y_BOTTOM = 684;
-
   var halfPinMain = mapPinMain.offsetWidth / 2;
   var minX = map.offsetWidth - map.offsetWidth - halfPinMain;
   var maxX = map.offsetWidth - halfPinMain;
 
-  var draggedSwitch = function () {
+  var getDraggedSwitch = function () {
     if (dragged) {
-      window.pin.mapPinMainActions(); /* Запуск главной функции активации страницы */
+      window.pin.activateMainActions(); /* Запуск главной функции активации страницы */
     }
     dragged = false; /* Изменение флага удаляет повторный запуск отрисовки объявлений.*/
   };
@@ -26,12 +22,12 @@
   var onMapPinMainPress = function (evt) { /* слушатель Действия при нажатии мыши на объекте. */
 
     if (evt.key === 'Enter') {
-      draggedSwitch(); /* Переключатель возможности активации главной метки. */
+      getDraggedSwitch(); /* Переключатель возможности активации главной метки. */
     }
 
     if (evt.which === 1) {
       evt.preventDefault(); /* Отменил действие при нажатии на кнопку по умолчанию.  */
-      draggedSwitch(); /* Переключатель возможности активации главной метки. */
+      getDraggedSwitch(); /* Переключатель возможности активации главной метки. */
       var startCoords = {
         x: evt.clientX,
         y: evt.clientY
@@ -49,35 +45,35 @@
           y: moveEvt.clientY
         };
 
-        var movingAxisY = function () {
+        var getMovingAxisY = function () {
           mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
         };
 
-        var movingAxisX = function () {
+        var getMovingAxisX = function () {
           mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
         };
 
 
         if (mapPinMain.offsetTop > MAX_Y_TOP) {
-          movingAxisY();
+          getMovingAxisY();
         } else {
           mapPinMain.style.top = MAX_Y_TOP + 'px';
         }
 
         if (mapPinMain.offsetTop < MAX_Y_BOTTOM) {
-          movingAxisY();
+          getMovingAxisY();
         } else {
           mapPinMain.style.top = MAX_Y_BOTTOM + 'px';
         }
 
         if (mapPinMain.offsetLeft > minX) {
-          movingAxisX();
+          getMovingAxisX();
         } else {
           mapPinMain.style.left = minX + 'px';
         }
 
         if (mapPinMain.offsetLeft < maxX) {
-          movingAxisX();
+          getMovingAxisX();
         } else {
           mapPinMain.style.left = maxX + 'px';
         }
@@ -94,19 +90,19 @@
     }
   };
 
-  var activeMainPinRestart = function () {
+  var activateMainPinRestart = function () {
     dragged = true;
   };
 
-  var activeMainPin = function () {
+  var activateMainPin = function () {
     mapPinMain.addEventListener('mousedown', onMapPinMainPress);
     mapPinMain.addEventListener('keydown', onMapPinMainPress);
   };
 
-  activeMainPin();
+  activateMainPin();
 
   window.move = {
-    activeMainPin: activeMainPin,
-    activeMainPinRestart: activeMainPinRestart
+    activateMainPin: activateMainPin,
+    activateMainPinRestart: activateMainPinRestart
   };
 })();

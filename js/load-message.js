@@ -3,6 +3,7 @@
 (function () {
   var errorTemplate = document.querySelector('#error').content.querySelector('.error');
   var errorLoadTemplateClone = errorTemplate.cloneNode(true);
+
   var onCloseErrorLoadPopup = function (evt) {
     if (evt.which === 1 || evt.key === 'Escape') {
       document.removeEventListener('keydown', onCloseErrorLoadPopup);

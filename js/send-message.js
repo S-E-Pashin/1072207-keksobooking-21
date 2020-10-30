@@ -3,6 +3,7 @@
 (function () {
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
   var successTemplateClone = successTemplate.cloneNode(true);
+
   var onCloseSuccesPopup = function (evt) {
     if (evt.which === 1 || evt.key === 'Escape') {
       document.removeEventListener('keydown', onCloseSuccesPopup);
