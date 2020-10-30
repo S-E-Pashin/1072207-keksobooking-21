@@ -19,56 +19,49 @@
     getDisabledField(); /* Убрал активность полей */
     removeSubmitListener(); /* Удалил слушатель кнопки отправки */
     removeListenerResetValue(); /* Удалил слушатель кнопки рестарта */
+    document.querySelector('.map__filters').reset(); /* Обнулил поля формы фильтра-пинов/объявлений. */
     adForm.reset(); /* Обнулил поля формы */
     window.validation.removeFieldCheck();/* Удаляю слушатели полей формы*/
-    window.pin.removeOldPins(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
+    window.pin.removeOlds(); /* Удаляю метки похожих объявлений проверяю, если есть удаляю обработчики. */
     window.card.popupDelete(); /* Удаляю  если есть карточку активного объявления.*/
     window.address.returnFirstCoordsMapPinMain(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
-    window.move.activeMainPinRestart(); /* Изменяю флаг для возможности переиспользования функции активации главного пина */
-    window.move.activeMainPin(); /* Активирую главный пин. */
+    window.move.activateMainPinRestart(); /* Изменяю флаг для возможности переиспользования функции активации главного пина */
+    window.move.activateMainPin(); /* Активирую главный пин. */
+    window.validation.removeTitleCheck();
+    window.validation.onRoomNumbersCheck();
   };
 
-  var getFormResetButton = function (evt) {
-    evt.preventDefault(); /* отменим действие формы по умолчанию */
+  var onFormReset = function (evt) {
+    evt.preventDefault(); /* отменил действие формы по умолчанию */
     formReset();
   };
 
   var resetButton = adForm.querySelector('.ad-form__reset');
 
   var getListenerResetValue = function () {
-    resetButton.addEventListener('click', getFormResetButton);
+    resetButton.addEventListener('click', onFormReset);
   };
 
   var removeListenerResetValue = function () {
-    resetButton.removeEventListener('click', getFormResetButton);
+    resetButton.removeEventListener('click', onFormReset);
   };
 
-  var onSubmit = function () {
-    window.upload.submitData(new FormData(adForm), function () { /* function () Это колбек т.н. onSuccess */ /* FormData Позволяет собрать данные с формы для последующей отправки. */
-      formReset();
-      window.sendMessage.getSuccesPopup(); /* Сообщение о успешной отправке формы */
-
-      // TODO++++
-      /* Удаляю обработчики с полей фильтра */
-      // Не так все просто с ними, обсудить с наставником, может их вообще можно не удалять или же это нужно делать как то иначе. Не все функции передаются и отрабатывают должным образом.
-      // TODO----
-    });
+  var onSuccess = function () {
+    formReset();
+    window.sendMessage.getSuccessPopup(); /* Сообщение о успешной отправке формы */
   };
 
+  var getSubmit = function () {
+    window.upload.submitData(new FormData(adForm), onSuccess, window.sendMessage.getErrorPopup);
+  };
 
   var onSubmitCheck = function (evt) {
     try {
-      // console.log('Начало try впереди онСубмит');
-      onSubmit();
-      // console.log('онСубмит выполнена');
-      evt.preventDefault(); /* отменим действие формы по умолчанию */
-      // console.log('Отменено действие по умолчанию для кнопки отправки');
+      getSubmit();
+      evt.preventDefault(); /* отменил действие формы по умолчанию */
     } catch (error) {
-      // console.log('Запучена действие при ошибке');
-      evt.preventDefault(); /* отменим действие формы по умолчанию */
-      // console.log('Отменено действие по умолчанию для кнопки отправки');
+      evt.preventDefault(); /* отменил действие формы по умолчанию */
       window.sendMessage.getErrorPopup(error);
-      // console.log('Выполнена функция предусмотренная при ошибке в онСубмит');
     }
   };
 
