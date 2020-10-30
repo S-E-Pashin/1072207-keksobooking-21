@@ -78,7 +78,7 @@
           mapPinMain.style.left = maxX + 'px';
         }
 
-        window.address.onMoveCoords();
+        window.address.getMoveCoords();
       };
       var onMouseUp = function (upEvt) { /* Действия при поднятии клавиши. будет удален слушатель перемещения курсора мыши и удалит слушатель поднятия клавиши сам себя. */
         upEvt.preventDefault(); /* Перестал слушать движения мыши */

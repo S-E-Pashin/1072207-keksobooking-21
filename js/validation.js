@@ -47,6 +47,11 @@
     document.querySelector('#timein').value = timeOut.value;
   };
 
+  var removeTitleCheck = function () {
+    inputTitle.setCustomValidity(''); /* Убрать значение не соответствия валидации */
+    inputTitle.style.backgroundColor = ''; /* Убрать подсвет розовым неверного ответа */
+    inputTitle.style.backgroundColor = ''; /* Убрать подсвет розовым неверного ответа */
+  };
 
   var inputTitle = document.querySelector('#title');
   var getTitleCheck = function () {
@@ -55,9 +60,7 @@
       inputTitle.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
       inputTitle.style.backgroundColor = 'pink'; /* Подсвет розовым неверного ответа */
     } else {
-      inputTitle.setCustomValidity(''); /* Убрать значение не соответствия валидации */
-      inputTitle.style.backgroundColor = ''; /* Убрать подсвет розовым неверного ответа */
-      inputTitle.style.backgroundColor = ''; /* Убрать подсвет розовым неверного ответа */
+      removeTitleCheck();
     }
   };
 
@@ -80,6 +83,7 @@
     onRoomNumbersCheck: onRoomNumbersCheck,
     onRoomPriceCheck: onRoomPriceCheck,
     addFieldCheck: addFieldCheck,
-    removeFieldCheck: removeFieldCheck
+    removeFieldCheck: removeFieldCheck,
+    removeTitleCheck: removeTitleCheck
   };
 })();

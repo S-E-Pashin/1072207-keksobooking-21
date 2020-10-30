@@ -27,6 +27,8 @@
     window.address.returnFirstCoordsMapPinMain(); /* Возвращяю метку в исходное положение, передаю координаты в поле адреса. */
     window.move.activateMainPinRestart(); /* Изменяю флаг для возможности переиспользования функции активации главного пина */
     window.move.activateMainPin(); /* Активирую главный пин. */
+    window.validation.removeTitleCheck();
+    window.validation.onRoomNumbersCheck();
   };
 
   var onFormReset = function (evt) {
