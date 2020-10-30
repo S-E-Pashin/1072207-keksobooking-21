@@ -10,8 +10,8 @@
 
   window.address.getStartCoords();
 
-  var renderPinCloneTemplateElements = function (item) { /* Относится к Рендеру Это функция которая сначала создает клон а потом просто присваивает этому клону необходимые значения. *//* Отрисовщик ( А отрисовщик ли это? больше он похож на сборочную машину формирующую элементы.) данных на карте/может стоит отделить? */
-    var pinCloneTemplate = templatePin.cloneNode(true); /* Создаем переменную в которую записываем/копируем/клонируем элемент/переменную/Шаблон(вернее шаблон, просто задан переменной.) template со всем ее содержимым(Т.е. всю ее разметку вместе с детьми/если бы были.(true), если дети узла должны быть клонированы или false для того, чтобы был клонирован только указанный узел.) */
+  var renderPinCloneTemplateElements = function (item) { /* Относится к Рендеру Это функция которая сначала создает клон а потом просто присваивает этому клону необходимые значения. */
+    var pinCloneTemplate = templatePin.cloneNode(true); /* Создаем переменную в которую записываем/копируем/клонируем элемент/переменную/Шаблон template со всем ее содержимым(Т.е. всю ее разметку вместе с детьми/если бы были.(true), если дети узла должны быть клонированы или false для того, чтобы был клонирован только указанный узел.) */
     var pinCloneTemplateImage = pinCloneTemplate.querySelector('img');
 
     pinCloneTemplateImage.src = item.author.avatar;
@@ -24,8 +24,8 @@
   };
 
   var templatePin = document.querySelector('#pin').content.querySelector('.map__pin');/* ДОБАВЛЕНИЕ ЧЕРЕЗ template Создана переменная template(одноименна с названием элемента template) которая ищет элемент/шаблон template по id, после обращается к свойству данного элемента content(которое является единственным свойством данного элемента и предназначено для взаимодействия с его содержимым.) */
-  var fragment = document.createDocumentFragment();/* Относится к Рендеру */
-  var mapPins = document.querySelector('.map__pins');/* Относится к Рендеру *//* Переменная для нахождения блока с классом map__pins. (в последующем будет использоваться для добавления элементов в разметку посредством documentFragment)Это блок для отрисовки. */
+  var fragment = document.createDocumentFragment();
+  var mapPins = document.querySelector('.map__pins'); /* Переменная для нахождения блока с классом map__pins. (в последующем будет использоваться для добавления элементов в разметку посредством documentFragment)Это блок для отрисовки. */
 
 
   var removeOlds = function () { /* Функция удаляющая пины из разметки */

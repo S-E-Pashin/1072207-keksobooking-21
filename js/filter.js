@@ -36,13 +36,13 @@
       .filter(function (element) {
         var isOfferMatched = !!(element.offer);
         var isTypeMatched = housingType.value === 'any' ? true : element.offer.type === housingType.value; /* isTypeMatched если значение housingType.value равно 'any' тогда выполняется true - утверждение верно и выполнятеся следующая проверка/строка условие если же нет то выполняется вторая часть а именно element.offer.type === housingType.value которы  */
-        var isRoomsMatched = housingRooms.value === 'any' ? true : element.offer.rooms === +housingRooms.value; /* + это как number унарный оператор. element.offer.rooms === +housingRooms.value */
+        var isRoomsMatched = housingRooms.value === 'any' ? true : element.offer.rooms === +housingRooms.value; /* + это как number унарный оператор. */
         var isGuestMatched = housingGuests.value === 'any' ? true : element.offer.guests === +housingGuests.value;
         var isPriceMatched = checkPrice(element);
         var requiredFeatures = Array.from(housingFeatures.querySelectorAll('input:checked')).map(function (item) { /* Сначала Будет создана коллекция/псевдомассив из выбранных значений housingFeatures далее с помощью array.from он будет преобразован в реальный массив состоящий из выбранных значений и уже с помощью map будет создан новый массив который будет состоять из значений выбранных элементов */
           return item.value;
         });
-        var isFeaturesMatched = requiredFeatures.every(function (feature) { /* .every вызвана на функции и проверяет соответствие каждого элемента  массива requiredFeatures на соответствие из условиям из функции и возвращает true или false.  Метод .includes работает здесь следующим образом он берет полученный массив и сравнивает значение из feature(Это каждый элемент массива requiredFeatures) и смотрит есть ли такой элемент в массиве element.offer.features который представляет из себя массив со строчными значениями. В том случае если есть совпадающее значение он возвращает true если такого значения нет он возвращает false */
+        var isFeaturesMatched = requiredFeatures.every(function (feature) { /* .every вызвана на функции и проверяет соответствие каждого элемента  массива requiredFeatures на соответствие их условиям из функции и возвращает true или false.  Метод .includes работает здесь следующим образом он берет полученный массив и сравнивает значение из feature(Это каждый элемент массива requiredFeatures) и смотрит есть ли такой элемент в массиве element.offer.features который представляет из себя массив со строчными значениями. В том случае если есть совпадающее значение он возвращает true если такого значения нет он возвращает false */
           return element.offer.features.includes(feature);
         });
 

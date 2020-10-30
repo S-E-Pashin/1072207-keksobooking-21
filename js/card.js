@@ -18,7 +18,7 @@
     }
   };
 
-  var onPopupCloseEsc = function (evt) { /* Удаления попапа через ESC */ /* Функция удаления попапа по Эскейпу. Выполняет условие что если нажат Эскейп и если попап не равен null т.е. ничему то удаляет сначала себя onPopupCloseEsc потом обработчика по клику popupCloseClick а затем удаляет попап. */
+  var onPopupCloseEsc = function (evt) { /* Функция удаления попапа по Эскейпу. Выполняет условие что если нажат Эскейп и если попап не равен null т.е. ничему то удаляет сначала себя onPopupCloseEsc потом обработчика по клику popupCloseClick а затем удаляет попап. */
     if (evt.key === 'Escape') {
       popupDelete();
       activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
@@ -41,7 +41,7 @@
       evt.currentTarget.classList.add('map__pin--active'); /* Добавляю активное состояние метке посредством присвоения необходимого класса элементу полученному посредством получения элемента на котором был установлен слушатель. */
 
       var templatePopup = document.querySelector('#card').content.querySelector('.popup'); /* Получить шаблон который смогу заполнить данными полученными от метки на которую было выполнено нажатие. */
-      var templatePopupClone = templatePopup.cloneNode(true); /* 2. Хочу сделать клон указанного шаблона */
+      var templatePopupClone = templatePopup.cloneNode(true); /* Хочу сделать клон указанного шаблона */
       var targetCard = data.find(function (card) { /* Поиск элемента поле offer.id которого совпадает с id-ом  */ /* Функция вызывается на массиве, переберает его элементы на предмет соответствия указанного нами значения(В частности evt.target.id-мгновенное значение из обекта с которым было выполнено взаимодействие), при совпадении с данным элементом вернет объект в котором он находится в переменную targetCard */
         if (evt.target.type === 'button') {
           var searchImg = evt.target.querySelector('img');
@@ -52,19 +52,19 @@
       });
       if (targetCard.offer.title) {
         templatePopupClone.querySelector('.popup__title').textContent = targetCard.offer.title;
-      }/* Протестировано*/
+      }
       if (targetCard.offer.address) {
         templatePopupClone.querySelector('.popup__text--address').textContent = targetCard.offer.address;
-      } /* Адрес Протестировано*/
+      }
       if (targetCard.offer.price) {
         templatePopupClone.querySelector('.popup__text--price').textContent = targetCard.offer.price + ' ₽/ночь';
-      } /* Цена Протестировано*/
+      }
       if (targetCard.offer.rooms && targetCard.offer.guests) {
         templatePopupClone.querySelector('.popup__text--capacity').textContent = targetCard.offer.rooms + ' комнаты для ' + targetCard.offer.guests + ' гостей.';
-      } /* количество гостей и комнат Протестировано*//* TODOF в будущем, можно улучшить условием если больше какого то числа то окончание камнат/ы изменяется */
+      }
       if (targetCard.offer.checkin && targetCard.offer.checkout) {
         templatePopupClone.querySelector('.popup__text--time').textContent = 'Заезд после ' + targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout;
-      } /* Время заезда и выезда Протестировано*/
+      }
 
       var FeaturesClass = {
         wifi: 'popup__feature--wifi',
@@ -88,10 +88,10 @@
 
       if (targetCard.offer.description) {
         templatePopupClone.querySelector('.popup__description').textContent = targetCard.offer.description;
-      } /* описание объекта недвижимости Протестировано*/
+      }
       if (targetCard.author.avatar) {
         templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar;
-      } /* src у аватарки Протестировано*/
+      }
 
       var apparmentType = {
         flat: 'Квартира',
@@ -101,7 +101,7 @@
       };
       if (targetCard.offer.type) {
         templatePopupClone.querySelector('.popup__type').textContent = apparmentType[targetCard.offer.type];
-      } /* Тип апартаментов Протестировано*/
+      }
 
       if (targetCard.offer.photos.length !== 0) {
         targetCard.offer.photos.forEach(function (el) {
@@ -112,7 +112,7 @@
       }
 
       var mapPins = document.querySelector('.map__pins');
-      mapPins.after(templatePopupClone); /* 5. Хочу  Отобразить полученный шаблон с внесенными в него данными на странице в виде попапа*/
+      mapPins.after(templatePopupClone); /* Отображаю полученный шаблон с внесенными в него данными на странице в виде попапа*/
 
       addPopupCloseListeners();
     };

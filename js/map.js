@@ -12,9 +12,9 @@
     return liveCollection;
   };
 
-  var setAttributeDisabled = function (liveCollection) { /*  Функция поочередно удаляющая атрибуты неактивности к полям */
-    for (var i = 0; i < liveCollection.length; i++) { /* Цикл для удаления  атрибута к полям */
-      liveCollection[i].setAttribute('disabled', 'true'); /* Поочередное удаление атрибута к каждому филдсету полей. */
+  var setAttributeDisabled = function (liveCollection) {
+    for (var i = 0; i < liveCollection.length; i++) {
+      liveCollection[i].setAttribute('disabled', 'true');
     }
     return liveCollection;
   };
