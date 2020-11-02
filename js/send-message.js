@@ -5,7 +5,7 @@
   var successTemplateClone = successTemplate.cloneNode(true);
 
   var onCloseSuccesPopup = function (evt) {
-    if (evt.which === 1 || evt.key === 'Escape') {
+    if (evt.which === 1 || window.utils.ifEscEvent(evt)) {
       document.removeEventListener('keydown', onCloseSuccesPopup);
       document.removeEventListener('mousedown', onCloseSuccesPopup);
       document.querySelector('.success').remove();
@@ -22,7 +22,7 @@
   var errorTemplateClone = errorTemplate.cloneNode(true);
 
   var onCloseErrorPopup = function (evt) {
-    if (evt.which === 1 || evt.key === 'Escape') {
+    if (evt.which === 1 || window.utils.ifEscEvent(evt)) {
       document.removeEventListener('keydown', onCloseErrorPopup);
       document.removeEventListener('mousedown', onCloseErrorPopup);
       document.querySelector('.error').remove();

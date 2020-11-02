@@ -36,7 +36,7 @@
   };
 
   var onPopupCloseEsc = function (evt) { /* Функция удаления попапа по Эскейпу. Выполняет условие что если нажат Эскейп и если попап не равен null т.е. ничему то удаляет сначала себя onPopupCloseEsc потом обработчика по клику onPopupCloseClick а затем удаляет попап. */
-    if (evt.key === 'Escape') {
+    if (window.utils.ifEscEvent(evt)) {
       popupDelete();
       activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
     }
