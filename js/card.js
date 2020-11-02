@@ -3,9 +3,26 @@
 'use strict';
 
 (function () {
+  var FeaturesClass = {
+    wifi: 'popup__feature--wifi',
+    dishwasher: 'popup__feature--dishwasher',
+    parking: 'popup__feature--parking',
+    washer: 'popup__feature--washer',
+    elevator: 'popup__feature--elevator',
+    conditioner: 'popup__feature--conditioner'
+  };
+
+  var ApparmentType = {
+    flat: 'Квартира',
+    bungalo: 'Бунгало',
+    house: 'Дом',
+    palace: 'Дворец'
+  };
+
   /* Функция удаления попапа по клику. Уничтожает сам себя (обработчик по клику popupCloseClick) и  обработчик по Эск onPopupCloseEsc */
   var addPopupCloseListeners = function () {
     document.querySelector('.popup__close').addEventListener('mousedown', popupCloseClick);
+    document.querySelector('.popup__close').addEventListener('keydown', popupCloseClick);
     document.addEventListener('keydown', onPopupCloseEsc);
   };
 
@@ -25,11 +42,14 @@
     }
   };
 
-  var popupCloseClick = function () { /* Удаление попапа через клик */
-    document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
-    document.removeEventListener('keydown', onPopupCloseEsc);
-    document.querySelector('.popup').remove();
-    activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
+  var popupCloseClick = function (evt) { /* Удаление попапа через клик */
+    if (evt.which === 1 || evt.key === 'Enter') {
+      document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
+      document.querySelector('.popup__close').removeEventListener('keydown', popupCloseClick);
+      document.removeEventListener('keydown', onPopupCloseEsc);
+      document.querySelector('.popup').remove();
+      activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
+    }
   };
 
   var addOpeningProperty = function (data) { /* Добавление слушателя на каждое объявление Добавлено в pin renderCards */
@@ -65,15 +85,6 @@
         templatePopupClone.querySelector('.popup__text--time').textContent = 'Заезд после ' + targetCard.offer.checkin + ', выезд до ' + targetCard.offer.checkout;
       }
 
-      var FeaturesClass = {
-        wifi: 'popup__feature--wifi',
-        dishwasher: 'popup__feature--dishwasher',
-        parking: 'popup__feature--parking',
-        washer: 'popup__feature--washer',
-        elevator: 'popup__feature--elevator',
-        conditioner: 'popup__feature--conditioner'
-      };
-
       if (targetCard.offer.features.length !== 0) {
         targetCard.offer.features.forEach(function (el) {
           var cloneFeature = templatePopup.querySelector('.popup__feature').cloneNode(true);
@@ -93,14 +104,8 @@
         templatePopupClone.querySelector('.popup__avatar').src = targetCard.author.avatar;
       }
 
-      var apparmentType = {
-        flat: 'Квартира',
-        bungalo: 'Бунгало',
-        house: 'Дом',
-        palace: 'Дворец'
-      };
       if (targetCard.offer.type) {
-        templatePopupClone.querySelector('.popup__type').textContent = apparmentType[targetCard.offer.type];
+        templatePopupClone.querySelector('.popup__type').textContent = ApparmentType[targetCard.offer.type];
       }
 
       if (targetCard.offer.photos.length !== 0) {

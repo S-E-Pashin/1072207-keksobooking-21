@@ -30,9 +30,7 @@
   };
 
   var getErrorPopup = function (error) {
-    errorTemplateClone.textContent = 'Ошибка загрузки объявления ' + error;
-    errorTemplateClone.style.color = 'red';
-    errorTemplateClone.style.fontSize = '34px';
+    errorTemplateClone.querySelector('.error__message').textContent = 'Ошибка загрузки объявления ' + error;
     document.querySelector('main').appendChild(errorTemplateClone);
     document.addEventListener('keydown', onCloseErrorPopup);
     document.addEventListener('mousedown', onCloseErrorPopup);
