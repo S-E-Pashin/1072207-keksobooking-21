@@ -64,19 +64,23 @@
     }
   };
 
+  var onGetTitleCheck = function () {
+    getTitleCheck();
+  };
+
 
   var addFieldCheck = function () {
     roomNumbers.addEventListener('change', onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
     guestsNumber.addEventListener('change', onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
     roomType.addEventListener('change', onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
-    inputTitle.addEventListener('input', getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
+    inputTitle.addEventListener('input', onGetTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
   };
 
   var removeFieldCheck = function () {
     roomNumbers.removeEventListener('change', onRoomNumbersCheck); /*  количество Комнат Изменения/Добавлен слушатель/обработчик событие change */
     guestsNumber.removeEventListener('change', onRoomNumbersCheck); /*  количество Гостей Изменения/Добавлен слушатель/обработчик событие change */
     roomType.removeEventListener('change', onRoomPriceCheck); /* Слушатель взаимодействия с полем выбора "типа жилья" */
-    inputTitle.removeEventListener('input', getTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
+    inputTitle.removeEventListener('input', onGetTitleCheck); /* Слушатель корректного ввода длинны заголовка объявления. */
   };
 
   window.validation = {
