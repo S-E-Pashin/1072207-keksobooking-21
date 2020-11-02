@@ -6,11 +6,10 @@
   var MAX_Y_TOP = 130;
   var MAX_Y_BOTTOM = 630;
   var mapPinMain = document.querySelector('.map__pin--main');
-  var map = document.querySelector('.map');
   var dragged = true;
   var halfPinMain = mapPinMain.offsetWidth / 2;
-  var minX = map.offsetWidth - map.offsetWidth - halfPinMain;
-  var maxX = map.offsetWidth - halfPinMain;
+  var minX = window.map.section.offsetWidth - window.map.section.offsetWidth - halfPinMain;
+  var maxX = window.map.section.offsetWidth - halfPinMain;
 
   var getDraggedSwitch = function () {
     if (dragged) {

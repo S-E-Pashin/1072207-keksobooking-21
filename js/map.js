@@ -2,8 +2,8 @@
 'use strict';
 
 (function () {
-  var map = document.querySelector('.map');
-  map.classList.add('map--faded'); /* Добавляется неактивность для карты и содержимого */
+  var mapSection = document.querySelector('.map');
+  mapSection.classList.add('map--faded'); /* Добавляется неактивность для карты и содержимого */
 
   var removeAttributeDisabled = function (data) { /*  Функция поочередно удаляющая атрибуты неактивности к полям */
     for (var i = 0; i < data.length; i++) { /* Цикл для удаления  атрибута к полям */
@@ -20,6 +20,7 @@
   };
 
   window.map = {
+    section: mapSection,
     removeAttributeDisabled: removeAttributeDisabled,
     setAttributeDisabled: setAttributeDisabled
   };

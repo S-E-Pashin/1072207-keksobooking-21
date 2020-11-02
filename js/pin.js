@@ -6,7 +6,6 @@
   var START_NUMBER_ID = 1;
   var NUMBER_ITEMS_DISPLAY_MAX = 5;
   var adForm = document.querySelector('.ad-form'); /* Находится форма для отправки из разметки */
-  var map = document.querySelector('.map');
 
   window.address.getStartCoords();
 
@@ -51,7 +50,7 @@
     adForm.classList.remove('ad-form--disabled');
     window.map.removeAttributeDisabled(window.form.liveElements);
     window.map.removeAttributeDisabled(window.form.liveMapFilterElements);
-    map.classList.remove('map--faded');/* Удален класс map--faded из элемента с классом map */
+    window.map.section.classList.remove('map--faded');/* Удален класс map--faded из элемента с классом map */
 
     var onSuccess = function (data) {
       data.forEach(function (value, index) {

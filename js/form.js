@@ -13,8 +13,7 @@
   getDisabledField();
 
   var formReset = function () {
-    var map = document.querySelector('.map');
-    map.classList.add('map--faded'); /* Добавляется неактивность для пина изменяется его визуальное отображение.*/
+    window.map.section.classList.add('map--faded'); /* Добавляется неактивность для пина изменяется его визуальное отображение.*/
     adForm.classList.add('ad-form--disabled'); /* Добавил полям формы класс дезактивации */
     getDisabledField(); /* Убрал активность полей */
     removeSubmitListener(); /* Удалил слушатель кнопки отправки */

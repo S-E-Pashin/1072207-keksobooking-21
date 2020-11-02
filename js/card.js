@@ -19,10 +19,10 @@
     palace: 'Дворец'
   };
 
-  /* Функция удаления попапа по клику. Уничтожает сам себя (обработчик по клику popupCloseClick) и  обработчик по Эск onPopupCloseEsc */
+  /* Функция удаления попапа по клику. Уничтожает сам себя (обработчик по клику onPopupCloseClick) и  обработчик по Эск onPopupCloseEsc */
   var addPopupCloseListeners = function () {
-    document.querySelector('.popup__close').addEventListener('mousedown', popupCloseClick);
-    document.querySelector('.popup__close').addEventListener('keydown', popupCloseClick);
+    document.querySelector('.popup__close').addEventListener('mousedown', onPopupCloseClick);
+    document.querySelector('.popup__close').addEventListener('keydown', onPopupCloseClick);
     document.addEventListener('keydown', onPopupCloseEsc);
   };
 
@@ -30,26 +30,30 @@
     var popup = document.querySelector('.popup');
     if (popup !== null) {
       document.removeEventListener('keydown', onPopupCloseEsc);
-      document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
+      document.querySelector('.popup__close').removeEventListener('mousedown', onPopupCloseClick);
       document.querySelector('.popup').remove();
     }
   };
 
-  var onPopupCloseEsc = function (evt) { /* Функция удаления попапа по Эскейпу. Выполняет условие что если нажат Эскейп и если попап не равен null т.е. ничему то удаляет сначала себя onPopupCloseEsc потом обработчика по клику popupCloseClick а затем удаляет попап. */
+  var onPopupCloseEsc = function (evt) { /* Функция удаления попапа по Эскейпу. Выполняет условие что если нажат Эскейп и если попап не равен null т.е. ничему то удаляет сначала себя onPopupCloseEsc потом обработчика по клику onPopupCloseClick а затем удаляет попап. */
     if (evt.key === 'Escape') {
       popupDelete();
       activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
     }
   };
 
-  var popupCloseClick = function (evt) { /* Удаление попапа через клик */
+  var getPopupCloseClick = function (evt) { /* Удаление попапа через клик */
     if (evt.which === 1 || evt.key === 'Enter') {
-      document.querySelector('.popup__close').removeEventListener('mousedown', popupCloseClick);
-      document.querySelector('.popup__close').removeEventListener('keydown', popupCloseClick);
+      document.querySelector('.popup__close').removeEventListener('mousedown', onPopupCloseClick);
+      document.querySelector('.popup__close').removeEventListener('keydown', onPopupCloseClick);
       document.removeEventListener('keydown', onPopupCloseEsc);
       document.querySelector('.popup').remove();
       activePinClassDelete(); /* Функция для снятия класса с неактивной метки объявления */
     }
+  };
+
+  var onPopupCloseClick = function (evt) {
+    getPopupCloseClick(evt);
   };
 
   var addOpeningProperty = function (data) { /* Добавление слушателя на каждое объявление Добавлено в pin renderCards */
