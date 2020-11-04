@@ -6,17 +6,15 @@
   mapSection.classList.add('map--faded'); /* Добавляется неактивность для карты и содержимого */
 
   var removeAttributeDisabled = function (data) { /*  Функция поочередно удаляющая атрибуты неактивности к полям */
-    for (var i = 0; i < data.length; i++) { /* Цикл для удаления  атрибута к полям */
-      data[i].removeAttribute('disabled', 'true'); /* Поочередное удаление атрибута к каждому филдсету полей. */
-    }
-    return data;
+    Array.from(data).forEach(function (value) {
+      value.removeAttribute('disabled', 'true'); /* Поочередное удаление атрибута к каждому филдсету полей. */
+    });
   };
 
   var setAttributeDisabled = function (data) {
-    for (var i = 0; i < data.length; i++) {
-      data[i].setAttribute('disabled', 'true');
-    }
-    return data;
+    Array.from(data).forEach(function (value) {
+      value.setAttribute('disabled', 'true'); /* Поочередное удаление атрибута к каждому филдсету полей. */
+    });
   };
 
   window.map = {
