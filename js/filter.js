@@ -33,11 +33,10 @@
 
 
   var requiredFeatures = function () {
-    Array.from(housingFeatures.querySelectorAll('input:checked')).map(function (item) { /* Сначала Будет создана коллекция/псевдомассив из выбранных значений housingFeatures далее с помощью array.from он будет преобразован в реальный массив состоящий из выбранных значений и уже с помощью map будет создан новый массив который будет состоять из значений выбранных элементов */
+    return Array.from(housingFeatures.querySelectorAll('input:checked')).map(function (item) { /* Сначала Будет создана коллекция/псевдомассив из выбранных значений housingFeatures далее с помощью array.from он будет преобразован в реальный массив состоящий из выбранных значений и уже с помощью map будет создан новый массив который будет состоять из значений выбранных элементов */
       return item.value;
     });
   };
-
 
   var getVerification = function (data) { /* Функция которая осуществит проверку соответствия пинов заявленым в фильтре требованиям. */
     dataSave = data;
@@ -49,19 +48,11 @@
         var isRoomsMatched = housingRooms.value === 'any' ? true : element.offer.rooms === +housingRooms.value; /* + это как number унарный оператор. */
         var isGuestMatched = housingGuests.value === 'any' ? true : element.offer.guests === +housingGuests.value;
         var isPriceMatched = checkPrice(element);
-
-        // var requiredFeatures = Array.from(housingFeatures.querySelectorAll('input:checked')).map(function (item) { /* Сначала Будет создана коллекция/псевдомассив из выбранных значений housingFeatures далее с помощью array.from он будет преобразован в реальный массив состоящий из выбранных значений и уже с помощью map будет создан новый массив который будет состоять из значений выбранных элементов */
-        //   return item.value;
-        // });
-
         var isFeaturesMatched = requiredFeatures().every(function (feature) {
           return element.offer.features.includes(feature);
         });
-
         return isOfferMatched && isTypeMatched && isRoomsMatched && isGuestMatched && isPriceMatched && isFeaturesMatched;
       }).slice(0, ADS_NUM); /* .slice(0, ADS_NUM) создает новый массив в котором будут находиться элементы с 0 по 4 (Это с 1 по 5 включительно) он как бы вырежет из массива слева те элементы массива которые мне нужны.  */
-
-
   };
 
   var onFilterChange = window.debounce(function () {
