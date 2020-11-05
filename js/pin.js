@@ -4,7 +4,6 @@
   var WIDTH_AVATAR = 50;
   var HEIGHT_AVATAR = 70;
   var START_NUMBER_ID = 1;
-  var NUMBER_ITEMS_DISPLAY_MAX = 5;
   var adForm = document.querySelector('.ad-form'); /* Находится форма для отправки из разметки */
 
   window.address.getStartCoords();
