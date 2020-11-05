@@ -3,14 +3,13 @@
 'use strict';
 
 (function () {
-  var MAX_Y_TOP = 184;
-  var MAX_Y_BOTTOM = 684;
+  var MAX_Y_TOP = 130;
+  var MAX_Y_BOTTOM = 630;
   var mapPinMain = document.querySelector('.map__pin--main');
-  var map = document.querySelector('.map');
   var dragged = true;
   var halfPinMain = mapPinMain.offsetWidth / 2;
-  var minX = map.offsetWidth - map.offsetWidth - halfPinMain;
-  var maxX = map.offsetWidth - halfPinMain;
+  var minX = window.map.section.offsetWidth - window.map.section.offsetWidth - halfPinMain;
+  var maxX = window.map.section.offsetWidth - halfPinMain;
 
   var getDraggedSwitch = function () {
     if (dragged) {
@@ -45,38 +44,28 @@
           y: moveEvt.clientY
         };
 
-        var getMovingAxisY = function () {
-          mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-        };
 
-        var getMovingAxisX = function () {
-          mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
-        };
+        var newTopCoordinate = mapPinMain.offsetTop - shift.y;
+        var newLeftCoordinate = mapPinMain.offsetLeft - shift.x;
 
-
-        if (mapPinMain.offsetTop > MAX_Y_TOP) {
-          getMovingAxisY();
+        if (newTopCoordinate < MAX_Y_TOP) {
+          newTopCoordinate = MAX_Y_TOP;
+        } else if (newTopCoordinate > MAX_Y_BOTTOM) {
+          newTopCoordinate = MAX_Y_BOTTOM;
         } else {
-          mapPinMain.style.top = MAX_Y_TOP + 'px';
+          newTopCoordinate = mapPinMain.offsetTop - shift.y;
         }
 
-        if (mapPinMain.offsetTop < MAX_Y_BOTTOM) {
-          getMovingAxisY();
+        if (newLeftCoordinate < minX) {
+          newLeftCoordinate = minX;
+        } else if (newLeftCoordinate > (maxX)) {
+          newLeftCoordinate = maxX;
         } else {
-          mapPinMain.style.top = MAX_Y_BOTTOM + 'px';
+          newLeftCoordinate = mapPinMain.offsetLeft - shift.x;
         }
 
-        if (mapPinMain.offsetLeft > minX) {
-          getMovingAxisX();
-        } else {
-          mapPinMain.style.left = minX + 'px';
-        }
-
-        if (mapPinMain.offsetLeft < maxX) {
-          getMovingAxisX();
-        } else {
-          mapPinMain.style.left = maxX + 'px';
-        }
+        mapPinMain.style.top = newTopCoordinate + 'px';
+        mapPinMain.style.left = newLeftCoordinate + 'px';
 
         window.address.getMoveCoords();
       };

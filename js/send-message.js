@@ -5,7 +5,7 @@
   var successTemplateClone = successTemplate.cloneNode(true);
 
   var onCloseSuccesPopup = function (evt) {
-    if (evt.which === 1 || evt.key === 'Escape') {
+    if (evt.which === 1 || window.utils.ifEscEvent(evt)) {
       document.removeEventListener('keydown', onCloseSuccesPopup);
       document.removeEventListener('mousedown', onCloseSuccesPopup);
       document.querySelector('.success').remove();
@@ -22,7 +22,7 @@
   var errorTemplateClone = errorTemplate.cloneNode(true);
 
   var onCloseErrorPopup = function (evt) {
-    if (evt.which === 1 || evt.key === 'Escape') {
+    if (evt.which === 1 || window.utils.ifEscEvent(evt)) {
       document.removeEventListener('keydown', onCloseErrorPopup);
       document.removeEventListener('mousedown', onCloseErrorPopup);
       document.querySelector('.error').remove();
@@ -30,9 +30,7 @@
   };
 
   var getErrorPopup = function (error) {
-    errorTemplateClone.textContent = 'Ошибка загрузки объявления ' + error;
-    errorTemplateClone.style.color = 'red';
-    errorTemplateClone.style.fontSize = '34px';
+    errorTemplateClone.querySelector('.error__message').textContent = 'Ошибка загрузки объявления ' + error;
     document.querySelector('main').appendChild(errorTemplateClone);
     document.addEventListener('keydown', onCloseErrorPopup);
     document.addEventListener('mousedown', onCloseErrorPopup);

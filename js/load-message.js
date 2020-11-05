@@ -5,7 +5,7 @@
   var errorLoadTemplateClone = errorTemplate.cloneNode(true);
 
   var onCloseErrorLoadPopup = function (evt) {
-    if (evt.which === 1 || evt.key === 'Escape') {
+    if (evt.which === 1 || window.utils.ifEscEvent(evt)) {
       document.removeEventListener('keydown', onCloseErrorLoadPopup);
       document.removeEventListener('mousedown', onCloseErrorLoadPopup);
       document.querySelector('.error').remove();
