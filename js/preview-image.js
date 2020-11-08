@@ -166,11 +166,19 @@
   var IMAGE_PHOTO_HEIGHT = '70';
   var IMAGE_PHOTO_WIDTH = '70';
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
-  // var fileAvatar = document.querySelector('.ad-form__field input[type=file]');
+
   var fileAvatar = document.querySelector('.ad-form-header__input');
   var preview = document.querySelector('.ad-form-header__preview img');
   var fileGallery = document.querySelector('.ad-form__input');
   var previewUpload = document.querySelector('.ad-form__photo');
+  var fileAvatarStartSrc = preview.src;
+  // console.log(fileAvatarStartSrc);
+
+  var removeImg = function () {
+    if (previewUpload.querySelector('img')) {
+      previewUpload.querySelector('img').remove();
+    }
+  };
 
   var getFileChoiceNew = function (inputChooser) { /* Функция которая подставит выбранный пользователем файл изображения из поля выбора в место отображения картинки с заданными условиями. */
     var file = inputChooser.files[0]; /* Приравниваю значение file к значению файла который выбран в поле(Данное свойство всегда выглядит как массив.) */
@@ -200,11 +208,6 @@
           previewUpload.appendChild(imagePhoto);
         };
 
-        var removeImg = function () {
-          if (previewUpload.querySelector('img')) {
-            previewUpload.querySelector('img').remove();
-          }
-        };
 
         var onReaderUpload = function () { /* Обработчик загрузки ридера.  */
           removeImg();
@@ -227,9 +230,17 @@
   };
 
 
-  fileAvatar.addEventListener('change', onFileChoiceAvatar);
-  fileGallery.addEventListener('change', onFileChoiceGallery);
+  var getFileChoice = function () {
+    fileAvatar.addEventListener('change', onFileChoiceAvatar);
+    fileGallery.addEventListener('change', onFileChoiceGallery);
+  };
 
+  var removeFileChoice = function () {
+    fileAvatar.removeEventListener('change', onFileChoiceAvatar);
+    preview.src = fileAvatarStartSrc;
+    fileGallery.removeEventListener('change', onFileChoiceGallery);
+    removeImg();
+  };
 
   // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Вариант 4 СОВМЕЩЕНИЕ КОНЕЦ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   //
@@ -248,7 +259,8 @@
   //
   //
   //
-  window.avatar = {
-    // ifEscEvent: ifEscEvent
+  window.previewImage = {
+    getFileChoice: getFileChoice,
+    removeFileChoice: removeFileChoice
   };
 })();

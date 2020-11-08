@@ -18,6 +18,7 @@
     getDisabledField(); /* Убрал активность полей */
     removeSubmitListener(); /* Удалил слушатель кнопки отправки */
     removeListenerResetValue(); /* Удалил слушатель кнопки рестарта */
+    window.previewImage.removeFileChoice(); /* Удалил слушатели и деактивировал предварительные изображения для поля аватара и фотографии жилья. */
     document.querySelector('.map__filters').reset(); /* Обнулил поля формы фильтра-пинов/объявлений. */
     adForm.reset(); /* Обнулил поля формы */
     window.validation.removeFieldCheck();/* Удаляю слушатели полей формы*/

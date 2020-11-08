@@ -60,6 +60,7 @@
     window.validation.onRoomNumbersCheck(); /* Проверка соответствия выбранного количества комнат - гостям. */
     window.validation.onRoomPriceCheck(); /* Проверка соответствия цены */
     window.validation.addFieldCheck(); /* Включены/ добавлены слушатели корректного ввода данных на страницу */
+    window.previewImage.getFileChoice();
     window.form.getSubmitListener(); /* Слушатель кнопки отправки формы */
     window.form.getListenerResetValue(); /* Слушатель кнопки сброса формы  */
   };
