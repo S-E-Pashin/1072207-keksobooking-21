@@ -1,7 +1,7 @@
 /* eslint-disable no-var */
 'use strict';
 
-var URL = 'https://21.javascript.pages.academy/keksobooking';
+var URL_POST = 'https://21.javascript.pages.academy/keksobooking';
 var STATUS_OK = 200;
 var TIMEOUT_IN_MS = 10000;
 
@@ -28,7 +28,7 @@ var submitData = function (data, onSuccess, onError) {
 
   xhr.timeout = TIMEOUT_IN_MS;
 
-  xhr.open('POST', URL);
+  xhr.open('POST', URL_POST);
   xhr.send(data);
 };
 
