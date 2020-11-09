@@ -83,4 +83,3 @@ window.previewImage = {
   getFileChoice: getFileChoice,
   removeFileChoice: removeFileChoice
 };
-
