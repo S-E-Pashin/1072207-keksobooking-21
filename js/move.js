@@ -3,8 +3,8 @@
 'use strict';
 
 (function () {
-  var MAX_Y_TOP = 130;
-  var MAX_Y_BOTTOM = 630;
+  var MAX_Y_TOP = 49;
+  var MAX_Y_BOTTOM = 549;
   var mapPinMain = document.querySelector('.map__pin--main');
   var dragged = true;
   var halfPinMain = mapPinMain.offsetWidth / 2;
